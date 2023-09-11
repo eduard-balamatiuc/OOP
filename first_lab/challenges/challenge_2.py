@@ -2,8 +2,8 @@ class MathuUtils:
     def __init__(self, number):
         self.number = number
 
-    def extract_multiples_of_3(self):
-        return [i for i in range(1, self.number) if i % 3 == 0]
+    def extract_multiples_of_3(numbrt):
+        return [i for i in range(1, number) if i % 3 == 0]
     
     def extract_multiples_of_5(self):
         return [i for i in range(1, self.number) if i % 5 == 0]
@@ -18,4 +18,5 @@ class MathuUtils:
 if __name__ == "__main__":
     number = int(input("Enter a number: "))
     mathu_utils = MathuUtils(number)
+    MathuUtils.compute_sum_of_multiples_of_3_and_5(mathu_utils)
     mathu_utils.inform_the_sum()
