@@ -20,11 +20,13 @@ class GameObject:
 # Example usage:
 if __name__ == "__main__":
     obj1 = GameObject("Object 1")
-    obj1.inform_user()  # Output: Object 1 is standing with a speed of 0 and color white
+    obj1.inform_user() 
 
     obj2 = GameObject("Object 2", "moving", 10, "red")
-    obj2.inform_user()  # Output: Object 2 is moving with a speed of 10 and color red
+    obj2.inform_user() 
 
     obj2.update_state("standing")
+    obj2.inform_user() 
+
     obj2.update_speed(0)
-    obj2.inform_user()  # Output: Object 2 is standing with a speed of 0 and color red
+    obj2.inform_user() 
