@@ -1,8 +1,12 @@
 class Diamond:
+    """Class that represents a diamond with a given size."""
+
     def __init__(self, size):
+        """Initialize a diamond with a given size."""
         self.size = size
 
     def print_diamond(self):
+        """Print a diamond with a given size."""
         if self.size % 2 == 0:
             self.size += 1
 

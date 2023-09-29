@@ -1,8 +1,12 @@
 class MathUtils:
+    """A class that contains a method that checks if a given number is a narcisistic number."""
+
     def __init__(self, number):
+        """Initialize a MathUtils object with a number."""
         self.number = number
 
     def check_narcisistic_number(self):
+        """Check if a given number is a narcisistic number."""
         number = self.number
         sum_of_digits = 0
         while number > 0:
