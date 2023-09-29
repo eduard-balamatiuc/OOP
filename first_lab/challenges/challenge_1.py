@@ -6,6 +6,7 @@ class User:
     def convert_name(self):
         print(f"{self.firstName[0]}.{self.lastName[0]}")
 
+
 if __name__ == "__main__":
     firstName = input("Enter your first name: ")
     lastName = input("Enter your last name: ")
