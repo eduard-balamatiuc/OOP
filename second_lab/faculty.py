@@ -4,3 +4,6 @@ class Faculty:
         self.abbreviation = abbreviation
         self.students = students
         self.study_field = study_field
+        
+    def enroll_student(self, student):
+        self.students.append(student)
