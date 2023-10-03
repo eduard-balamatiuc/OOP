@@ -11,3 +11,6 @@ class Faculty:
     def graduate_student(self, student):
         if student in self.students:
             self.students.remove(student)
+
+    def has_student(self, student):
+        return student in self.students
