@@ -7,3 +7,7 @@ class Faculty:
         
     def enroll_student(self, student):
         self.students.append(student)
+
+    def graduate_student(self, student):
+        if student in self.students:
+            self.students.remove(student)
