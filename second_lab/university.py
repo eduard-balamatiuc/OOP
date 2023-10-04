@@ -22,3 +22,6 @@ class University:
     def display_all_faculties(self):
         for faculty in self.faculties:
             print(f"Faculty: {faculty.name} ({faculty.abbreviation}), Field: {faculty.study_field}")
+
+    def load_university(self, location):
+        pass
