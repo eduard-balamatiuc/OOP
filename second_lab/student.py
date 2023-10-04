@@ -9,7 +9,7 @@ class Student:
         birth_date (str): The date of birth of the student.
     """
 
-    def __init__(self, first_name, last_name, email, enrollment_date, birth_date):
+    def __init__(self, first_name, last_name, email, enrollment_date, graduation_status, birth_date):
         """Initialize a Student object.
 
         Args:
@@ -23,6 +23,7 @@ class Student:
         self.last_name = last_name
         self.email = email
         self.enrollment_date = enrollment_date
+        self.graduation_status = graduation_status
         self.birth_date = birth_date
 
     def change_attribute(self, attribute_name, new_value):
