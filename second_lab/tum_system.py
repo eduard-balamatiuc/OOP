@@ -3,6 +3,7 @@ from file_management import File_management_system
 
 class Tum_system:
     def __init__(self):
+        self.tum_structure = None
         self.file_management_system = File_management_system
 
     def initialize_tum_system(self):
