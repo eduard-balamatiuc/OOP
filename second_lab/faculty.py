@@ -8,7 +8,7 @@ class Faculty:
         study_field (str): The field of study or specialization of the faculty.
     """
 
-    def __init__(self, name, abbreviation, students, study_field):
+    def __init__(self, name, abbreviation, students, study_field, graduate_students):
         """Initializes a new Faculty instance.
 
         Args:
@@ -21,6 +21,7 @@ class Faculty:
         self.abbreviation = abbreviation
         self.students = students
         self.study_field = study_field
+        self.graduate_students = graduate_students
 
     def enroll_student(self, student):
         """Enrolls a student in the faculty.
@@ -37,6 +38,7 @@ class Faculty:
             student: The student to be graduated.
         """
         if student in self.students:
+            self.graduate_students.append(student)
             self.students.remove(student)
 
     def has_student(self, student):
