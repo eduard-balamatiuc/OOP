@@ -38,6 +38,7 @@ class Faculty:
             student: The student to be graduated.
         """
         if student in self.students:
+            student.graduation_status = True
             self.graduate_students.append(student)
             self.students.remove(student)
 
