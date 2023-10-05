@@ -26,9 +26,9 @@ class Student:
             first_name (str): The first name of the student.
             last_name (str): The last name of the student.
             email (str): The email address of the student.
-            enrollment_date (str): The date when the student was enrolled.
+            enrollment_date (date): The date when the student was enrolled.
             graduation_status (bool): The graduation status of the student.
-            birth_date (str): The date of birth of the student.
+            birth_date (date): The date of birth of the student.
         """
         self.first_name = first_name
         self.last_name = last_name
