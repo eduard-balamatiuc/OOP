@@ -7,6 +7,7 @@ def main():
 
     system.initialize_tum_system()
 
+    system.start_tum_system_interaction()
     
 
 if __name__ == "__main__":

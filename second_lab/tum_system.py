@@ -46,4 +46,7 @@ class Tum_system:
             print("Invalid option, please try again and use one of the provided options in the description")
 
             self.initialize_tum_system()
+
+    def start_tum_system_interaction(self):
+        pass
         
