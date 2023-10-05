@@ -29,6 +29,11 @@ class Faculty:
         self.graduate_students = []
 
     def __str__(self) -> str:
+        """Returns a string representation of the faculty.
+        
+        Returns:
+            str: A string representation of the faculty.
+        """
         return (
             f"{self.name} ({self.abbreviation}) with {len(self.students)} students "
             f"and {len(self.graduate_students)} graduates, "
@@ -43,6 +48,8 @@ class Faculty:
         """
         if student not in self.students:
             self.students.append(student)
+        else:
+            raise ValueError(f"{student} is already enrolled in the faculty")
 
     def graduate_student(self, student):
         """Graduates a student from the faculty.
@@ -54,6 +61,8 @@ class Faculty:
             student.graduation_status = True
             self.graduate_students.append(student)
             self.students.remove(student)
+        else:
+            raise ValueError(f"{student} is not enrolled in the faculty")
 
     def has_student(self, student):
         """Checks if the faculty has a particular student.
