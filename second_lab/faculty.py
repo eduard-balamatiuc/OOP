@@ -30,7 +30,14 @@ class Faculty:
         self.students = students
         self.study_field = study_field
         self.graduate_students = graduate_students
-
+        
+    def __str__(self) -> str:
+        return (
+            f"{self.name} ({self.abbreviation}) with {len(self.students)} students "
+            f"and {len(self.graduate_students)} graduates, "
+            f"specializing in {self.study_field}"
+    )
+        
     def enroll_student(
         self,
         student,
