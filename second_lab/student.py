@@ -37,6 +37,14 @@ class Student:
         self.graduation_status = graduation_status
         self.birth_date = birth_date
 
+    def __str__(self) -> str:
+        return (
+        f"{self.first_name} {self.last_name} ({self.email}) "
+        f"born on {self.birth_date} and was "
+        f"enrolled on {self.enrollment_date} and he/she did "
+        f"{'graduate' if self.graduation_status else 'not graduate'}"
+    )
+        
     def change_attribute(
         self,
         attribute_name,
