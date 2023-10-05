@@ -1,3 +1,5 @@
+from datetime import date
+
 class Student:
     """A class representing a student.
 
@@ -9,7 +11,15 @@ class Student:
         birth_date (str): The date of birth of the student.
     """
 
-    def __init__(self, first_name, last_name, email, enrollment_date, graduation_status, birth_date):
+    def __init__(
+        self,
+        first_name: str = "undefined",
+        last_name: str = "undefined",
+        email: str = "undefined",
+        enrollment_date: date = date.today(),
+        graduation_status: bool = False,
+        birth_date: date = None,
+    ):
         """Initialize a Student object.
 
         Args:
@@ -17,6 +27,7 @@ class Student:
             last_name (str): The last name of the student.
             email (str): The email address of the student.
             enrollment_date (str): The date when the student was enrolled.
+            graduation_status (bool): The graduation status of the student.
             birth_date (str): The date of birth of the student.
         """
         self.first_name = first_name
@@ -26,7 +37,11 @@ class Student:
         self.graduation_status = graduation_status
         self.birth_date = birth_date
 
-    def change_attribute(self, attribute_name, new_value):
+    def change_attribute(
+        self,
+        attribute_name,
+        new_value,
+    ):
         """Change a student's attribute to a new value.
 
         Args:
