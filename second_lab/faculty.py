@@ -8,7 +8,14 @@ class Faculty:
         study_field (str): The field of study or specialization of the faculty.
     """
 
-    def __init__(self, name, abbreviation, students, study_field, graduate_students):
+    def __init__(
+        self,
+        name: str = "undefined",
+        abbreviation: str = "undefined",
+        students: list = [],
+        study_field: str = "undefined",
+        graduate_students: list = [],
+    ):
         """Initializes a new Faculty instance.
 
         Args:
@@ -16,6 +23,7 @@ class Faculty:
             abbreviation (str): The abbreviation or short name of the faculty.
             students (list): A list of students initially enrolled in the faculty.
             study_field (str): The field of study or specialization of the faculty.
+            graduate_students (list): A list of students who have graduated from the faculty.
         """
         self.name = name
         self.abbreviation = abbreviation
@@ -23,7 +31,10 @@ class Faculty:
         self.study_field = study_field
         self.graduate_students = graduate_students
 
-    def enroll_student(self, student):
+    def enroll_student(
+        self,
+        student,
+    ):
         """Enrolls a student in the faculty.
 
         Args:
@@ -31,7 +42,10 @@ class Faculty:
         """
         self.students.append(student)
 
-    def graduate_student(self, student):
+    def graduate_student(
+        self,
+        student,
+    ):
         """Graduates a student from the faculty.
 
         Args:
@@ -42,7 +56,10 @@ class Faculty:
             self.graduate_students.append(student)
             self.students.remove(student)
 
-    def has_student(self, student):
+    def has_student(
+        self,
+        student,
+    ):
         """Checks if the faculty has a particular student.
 
         Args:
