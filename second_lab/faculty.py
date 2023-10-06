@@ -18,6 +18,7 @@ class Faculty:
         name: str = "undefined",
         abbreviation: str = "undefined",
         study_field: StudyField = None,
+        faculty_dict_data: dict = None,
     ):
         """Initializes a new Faculty instance.
 
@@ -31,6 +32,8 @@ class Faculty:
         self.study_field = study_field
         self.students = []
         self.graduate_students = []
+        if faculty_dict_data:
+            self.load_faculty(faculty_dict_data)
 
     def __str__(
         self,
@@ -105,3 +108,20 @@ class Faculty:
             "students": [student.to_dict() for student in self.students],
             "graduate_students": [student.to_dict() for student in self.graduate_students],
         }
+        
+    def load_faculty(
+        self,
+        faculty_dict_data: dict,
+    ) -> None:
+        """Loads faculty data from the given dictionary.
+
+        Args:
+            faculty_dict_data (dict): The dictionary to load faculty data from.
+        """
+        self.name = faculty_dict_data["name"]
+        self.abbreviation = faculty_dict_data["abbreviation"]
+        self.study_field = faculty_dict_data["study_field"]
+        self.students = [Student(student_dict_data) for student_dict_data in faculty_dict_data["students"]]
+        self.graduate_students = [
+            Student(student_dict_data) for student_dict_data in faculty_dict_data["graduate_students"]
+        ]
