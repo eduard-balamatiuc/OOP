@@ -8,10 +8,7 @@ class StudyField:
             "VETERINARY_MEDICINE",
         ]
         self.field = field
-
-    def get_field(self):
-        return self.field
-
+        
     def set_field(self, field):
         self.field = field
 
