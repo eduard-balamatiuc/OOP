@@ -11,6 +11,11 @@ class File_management_system:
     def get_available_files(
         self,
     ) -> list:
+        """Gets all the available files in the memory folder.
+
+        Returns:
+            list: A list of all the available files in the memory folder.
+        """
         # check if athere is a memory folder and get all the namings all the json files without the extension
         files = []
         if os.path.isdir("memory"):
