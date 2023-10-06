@@ -10,7 +10,10 @@ class StudyField:
         self.field = field
         
     def set_field(self, field):
-        self.field = field
+        if field in self.available_fields:
+            self.field = field
+        else:
+            raise ValueError(f"{field} is not a valid field of study")
 
     def __str__(self):
         return self.field
