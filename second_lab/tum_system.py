@@ -1,9 +1,13 @@
 from university import University
 from file_management import File_management_system
+from tum_structure import Tum_structure
+import tools as ts
 
 class Tum_system:
     def __init__(self):
-        self.tum_structure = None
+        self.tum_structures = []
+        self.current_structure = None
+        self.available_memory_files = []
         self.file_management_system = File_management_system
 
     def initialize_tum_system(self):
@@ -28,20 +32,21 @@ class Tum_system:
                 Please pick one that you would like to continue with  
                 """
             )
-            self.file_management_system.get_available_versions(show = True)
+            output_text, self.available_memory_files = ts.get_available_structure_versions(
+                self.file_management_system.get_available_files()
+            )
             print(
+                output_text,
                 """
-                Please type in the number of the system in the list that you would like to continue with
+                Please type in the number of the system from the list that you would like to continue with
                 """
             )
             selected_version = input()
 
-            self.tum = University()
-            
-            self.tum.load_university(input = selected_version)
+            self.current_structure = Tum_structure(selected_file = self.available_memory_files[int(selected_version)])
             
         elif initialization_option == "1":
-            self.tum = University()
+            self.current_structure = Tum_structure()
         else:
             print("Invalid option, please try again and use one of the provided options in the description")
 

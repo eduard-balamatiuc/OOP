@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 
 class Student:
     """A class representing a student.
@@ -19,6 +19,7 @@ class Student:
         enrollment_date: date = date.today(),
         graduation_status: bool = False,
         birth_date: date = None,
+        student_dict_data: dict = None,
     ):
         """Initialize a Student object.
 
@@ -36,6 +37,8 @@ class Student:
         self.enrollment_date = enrollment_date
         self.graduation_status = graduation_status
         self.birth_date = birth_date
+        if student_dict_data:
+            self.load_student(student_dict_data)
 
     def __str__(
         self,
@@ -83,3 +86,18 @@ class Student:
             "birth_date": self.birth_date.strftime("%d.%m.%Y"),
         }
         
+    def load_student(
+        self,
+        student_dict_data: dict,
+    ) -> None:
+        """Loads student data from the given dictionary.
+
+        Args:
+            student_dict_data (dict): The dictionary to load student data from.
+        """
+        self.first_name = student_dict_data["first_name"]
+        self.last_name = student_dict_data["last_name"]
+        self.email = student_dict_data["email"]
+        self.enrollment_date = datetime.strptime(student_dict_data["enrollment_date"], "%d.%m.%Y").date()
+        self.graduation_status = student_dict_data["graduation_status"]
+        self.birth_date = datetime.strptime(student_dict_data["birth_date"], "%d.%m.%Y").date()

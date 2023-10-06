@@ -11,11 +11,14 @@ class University:
 
     def __init__(
         self,
+        uni_dict_data: dict = None,
     ):
         """
         Initializes a new instance of the University class.
         """
         self.faculties = []
+        if uni_dict_data:
+            self.load_university(uni_dict_data)
     
     def __str__(
         self,
@@ -105,3 +108,4 @@ class University:
         return {
             "faculties": [faculty.to_dict() for faculty in self.faculties],
         }
+        
