@@ -2,9 +2,9 @@ import json
 
 
 class Tum_structure:
-    def __init__(self, structure_location) -> None:
+    def __init__(self) -> None:
         self.main_structure = {}
-        self.structure_location = structure_location
+        self.structure_version = None
 
     def get_structure(self):
         return self.main_structure
