@@ -93,3 +93,15 @@ class University:
             location (str): The location to load university data from.
         """
         pass
+    
+    def to_dict(
+        self,
+    ) -> dict:
+        """Returns the university as a dictionary.
+
+        Returns:
+            dict: The university as a dictionary.
+        """
+        return {
+            "faculties": [faculty.to_dict() for faculty in self.faculties],
+        }
