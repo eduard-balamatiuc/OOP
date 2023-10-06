@@ -62,3 +62,17 @@ class File_management_system:
             os.mkdir("memory")
         with open(f"memory/{file_name}.json", "w") as file:
             json.dump(file_content, file)
+            
+    def delete_file(
+        self, 
+        file_name: str,
+    ) -> None:
+        """Deletes the file with the given name.
+        
+        Args:
+            file_name (str): The name of the file to delete.
+        """
+        if os.path.isfile(f"memory/{file_name}.json"):
+            os.remove(f"memory/{file_name}.json")
+        else:
+            raise FileNotFoundError(f"File {file_name} does not exist")
