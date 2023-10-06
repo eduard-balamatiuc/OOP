@@ -1,3 +1,7 @@
+from student import Student
+from study_field import StudyField
+ 
+
 class Faculty:
     """Represents a faculty within a university.
 
@@ -13,7 +17,7 @@ class Faculty:
         self,
         name: str = "undefined",
         abbreviation: str = "undefined",
-        study_field: str = "undefined",
+        study_field: StudyField = None,
     ):
         """Initializes a new Faculty instance.
 
@@ -28,7 +32,9 @@ class Faculty:
         self.students = []
         self.graduate_students = []
 
-    def __str__(self) -> str:
+    def __str__(
+        self,
+    ) -> str:
         """Returns a string representation of the faculty.
         
         Returns:
@@ -40,7 +46,10 @@ class Faculty:
             f"specializing in {self.study_field}"
         )
 
-    def enroll_student(self, student):
+    def enroll_student(
+        self,
+        student: Student,
+    ):
         """Enrolls a student in the faculty.
 
         Args:
@@ -51,7 +60,10 @@ class Faculty:
         else:
             raise ValueError(f"{student} is already enrolled in the faculty")
 
-    def graduate_student(self, student):
+    def graduate_student(
+        self,
+        student: Student,
+    ):
         """Graduates a student from the faculty.
 
         Args:
@@ -64,7 +76,10 @@ class Faculty:
         else:
             raise ValueError(f"{student} is not enrolled in the faculty")
 
-    def has_student(self, student):
+    def has_student(
+        self,
+        student: Student,
+    ):
         """Checks if the faculty has a particular student.
 
         Args:
