@@ -25,7 +25,7 @@ class File_management_system:
             os.mkdir("memory")
         return files
     
-    def get_file(
+    def get_structure_file(
         self,
         file_name: str,
     ) -> dict:
@@ -47,7 +47,7 @@ class File_management_system:
         else:
             raise FileNotFoundError(f"File {file_name} does not exist")
         
-    def save_file(
+    def save_structure_file(
         self,
         file_name: str,
         file_content: dict,
@@ -63,7 +63,7 @@ class File_management_system:
         with open(f"memory/{file_name}.json", "w") as file:
             json.dump(file_content, file)
             
-    def delete_file(
+    def delete_structure_file(
         self, 
         file_name: str,
     ) -> None:
