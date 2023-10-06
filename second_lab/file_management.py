@@ -1,11 +1,16 @@
 import os
+import json
 
 
 class File_management_system:
-    def __init__(self) -> None:
+    def __init__(
+        self,
+    ) -> None:
         pass
 
-    def get_available_files(self):
+    def get_available_files(
+        self,
+    ) -> list:
         # check if athere is a memory folder and get all the namings all the json files without the extension
         files = []
         if os.path.isdir("memory"):
@@ -14,3 +19,25 @@ class File_management_system:
         else:
             os.mkdir("memory")
         return files
+    
+    def get_file(
+        self,
+        file_name: str,
+    ) -> dict:
+        """Gets the file with the given name.
+
+        Args:
+            file_name (str): The name of the file to get.
+
+        Raises:
+            FileNotFoundError: If the file with the given name does not exist.
+
+        Returns:
+            dict: The file with the given name.
+        """
+        # get the file with the given name
+        if os.path.isfile(f"memory/{file_name}.json"):
+            with open(f"memory/{file_name}.json", "r") as file:
+                return json.load(file)
+        else:
+            raise FileNotFoundError(f"File {file_name} does not exist")
