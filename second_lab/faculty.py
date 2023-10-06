@@ -89,3 +89,19 @@ class Faculty:
             bool: True if the student is enrolled in the faculty, False otherwise.
         """
         return student in self.students
+
+    def to_dict(
+        self,
+    ) -> dict:
+        """Returns a dictionary representation of the faculty.
+
+        Returns:
+            dict: A dictionary representation of the faculty.
+        """
+        return {
+            "name": self.name,
+            "abbreviation": self.abbreviation,
+            "study_field": self.study_field,
+            "students": [student.to_dict() for student in self.students],
+            "graduate_students": [student.to_dict() for student in self.graduate_students],
+        }
