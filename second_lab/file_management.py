@@ -46,3 +46,19 @@ class File_management_system:
                 return json.load(file)
         else:
             raise FileNotFoundError(f"File {file_name} does not exist")
+        
+    def save_file(
+        self,
+        file_name: str,
+        file_content: dict,
+    ) -> None:
+        """Saves the given file with the given name.
+
+        Args:
+            file_name (str): The name of the file to save.
+            file_content (dict): The content of the file to save.
+        """
+        if not os.path.isdir("memory"):
+            os.mkdir("memory")
+        with open(f"memory/{file_name}.json", "w") as file:
+            json.dump(file_content, file)
