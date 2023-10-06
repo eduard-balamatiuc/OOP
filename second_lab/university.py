@@ -85,7 +85,7 @@ class University:
 
     def load_university(
         self,
-        location: str,
+        uni_dict_data: dict,
     ) -> None:
         """Loads university data from the given location.
 

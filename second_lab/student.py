@@ -37,7 +37,9 @@ class Student:
         self.graduation_status = graduation_status
         self.birth_date = birth_date
 
-    def __str__(self) -> str:
+    def __str__(
+        self,
+    ) -> str:
         return (
         f"{self.first_name} {self.last_name} ({self.email}) "
         f"born on {self.birth_date} and was "
