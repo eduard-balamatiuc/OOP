@@ -65,3 +65,21 @@ class Student:
             setattr(self, attribute_name, new_value)
         else:
             raise AttributeError(f"'{type(self).__name__}' object has no attribute '{attribute_name}'")
+
+    def to_dict(
+        self,
+    ) -> dict:
+        """Returns the student as a dictionary.
+
+        Returns:
+            dict: The student as a dictionary.
+        """
+        return {
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "email": self.email,
+            "enrollment_date": self.enrollment_date.strftime("%d.%m.%Y"),
+            "graduation_status": self.graduation_status,
+            "birth_date": self.birth_date.strftime("%d.%m.%Y"),
+        }
+        
