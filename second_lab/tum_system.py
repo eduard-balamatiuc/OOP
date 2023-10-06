@@ -13,8 +13,8 @@ class Tum_system:
             Initializing TUM System...
             
             Select and type in the number of the option from below: 
-            0. Use previous system
-            1. Create a new system
+            0. Use previous structure
+            1. Create a new structure
             """
         )
 
