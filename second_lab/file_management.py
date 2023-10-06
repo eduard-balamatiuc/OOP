@@ -76,3 +76,19 @@ class File_management_system:
             os.remove(f"memory/{file_name}.json")
         else:
             raise FileNotFoundError(f"File {file_name} does not exist")
+        
+    def rename_structure_file(
+        self,
+        old_file_name: str,
+        new_file_name: str,
+    ) -> None:
+        """Renames the file with the given name to the new given name.
+
+        Args:
+            old_file_name (str): The name of the file to rename.
+            new_file_name (str): The new name of the file.
+        """
+        if os.path.isfile(f"memory/{old_file_name}.json"):
+            os.rename(f"memory/{old_file_name}.json", f"memory/{new_file_name}.json")
+        else:
+            raise FileNotFoundError(f"File {old_file_name} does not exist")
