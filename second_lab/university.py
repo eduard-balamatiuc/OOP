@@ -74,7 +74,7 @@ class University:
         """
         student = Student(first_name, last_name, email, enrollment_date, graduation_status, birth_date)
         self.students.append(student)
-        self.faculties[faculty_id].students.append(student)
+        self.faculties[int(faculty_id)].students.append(student)
         return student
 
     def load_university(
