@@ -35,8 +35,10 @@ class Tum_system:
                 print(output_text)
                 print("Please type in the number of the system from the list that you would like to continue with")
                 selected_version = input()
-
-                self.current_structure = Tum_structure(selected_file = self.available_memory_files[int(selected_version)])
+                self.current_structure = Tum_structure(
+                    selected_file = self.available_memory_files[int(selected_version)],
+                )
+                self.start_tum_system_interaction()
                 
         elif initialization_option == "1":
             self.current_structure = Tum_structure()
