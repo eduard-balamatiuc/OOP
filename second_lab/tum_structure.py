@@ -150,8 +150,15 @@ class Tum_structure:
         faculty_id: int,
         faculty_field: str,
     ):
-        pass
-    
+        """Update faculty field
+        
+        Args: 
+            faculty_id (int): The ID of the faculty to update.
+            faculty_field (str): The new field of the faculty.
+        """
+        self.university.faculties[faculty_id].study_field = faculty_field
+        print(f"Faculty {faculty_id} updated")
+        
     def update_student_first_name(
         self,
         student_id: int,
