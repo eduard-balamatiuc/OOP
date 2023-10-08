@@ -6,9 +6,6 @@ def main():
     system = Tum_system()
     #Initialize the TUM system
     system.initialize_tum_system_structure()
-    #Start the interaction with the TUM system
-    system.start_tum_system_interaction()
-    
 
 if __name__ == "__main__":
     main()
