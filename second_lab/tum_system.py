@@ -337,3 +337,4 @@ class Tum_system:
                 self.student_actions()
             else:
                 print("Invalid option, please try again and use one of the provided options in the description")
+        self.student_actions()
