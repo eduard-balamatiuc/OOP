@@ -20,6 +20,7 @@ class Tum_system:
         print("Select and type in the number of the option from below: ")
         print("    0. Use previous structure")
         print("    1. Create a new structure")
+        print("    2. Exit")
         initialization_option = input()
 
         if initialization_option == "0":
@@ -39,6 +40,11 @@ class Tum_system:
                 
         elif initialization_option == "1":
             self.current_structure = Tum_structure()
+            self.start_tum_system_interaction()
+            
+        elif initialization_option == "2":
+            self.is_running = False
+            self.stop_tum_system_interaction()
             
         else:
             print("Invalid option, please try again and use one of the provided options in the description")
