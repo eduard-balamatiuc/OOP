@@ -61,7 +61,8 @@ class Tum_system:
             print("    1. Faculty actions")
             print("    2. University actions")
             print("    3. Save current structure")
-            print("    4. Exit")
+            print("    4. Back")
+            print("    5. Exit")
             action_type = input()
             if action_type == "0":
                 self.student_actions()
@@ -72,7 +73,10 @@ class Tum_system:
             elif action_type == "3":
                 self.save_current_structure()
             elif action_type == "4":
+                self.initialize_tum_system_structure()
+            elif action_type == "5":
                 self.is_running = False
+                self.stop_tum_system_interaction()
             else:
                 print("Invalid option, please try again and use one of the provided options in the description")
             
@@ -87,7 +91,7 @@ class Tum_system:
         else:
             print("The current structure will not be saved")
         print("Thank you for using the TUM student management system, process terminated")
-        
+    
     def faculty_actions(self):
         if self.check_system_validations():
             print("Select the type of faculty action you would like to perform:")
