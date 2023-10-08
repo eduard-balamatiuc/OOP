@@ -147,3 +147,13 @@ class Tum_system:
             else:
                 print("Invalid option, please try again and use one of the provided options in the description")  
     
+    def save_current_structure(self):
+        """Saves the current structure."""
+        if self.current_structure:
+            self.file_management_system.save_structure_file(
+                self.current_structure.selected_file,
+                self.current_structure.university.university_structure
+            )
+        else:
+            print("No structure is initialized, please initialize a structure first")
+            self.initialize_tum_system_structure()
