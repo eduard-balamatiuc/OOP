@@ -45,6 +45,14 @@ class Tum_structure:
         self.university.students[student_id].graduation_status = True
         print(f"Student {student_id} graduated")
     
+    def display_enrolled_students(
+        self,
+    ):
+        """Display all enrolled students."""
+        for student in self.university.students:
+            if not student.graduation_status:
+                print(student)
+    
     def display_graduated_students(
         self,
     ):
