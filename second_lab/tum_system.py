@@ -175,3 +175,110 @@ class Tum_system:
         else:
             print("No structure is initialized, please initialize a structure first")
             self.initialize_tum_system_structure()
+
+    def system_add_student(self):
+        """Adds a student to the current structure."""
+        if self.check_system_validations():
+            print("Please type in the student information in the following format:")
+            print("    <student_name>, <student_id>, <student_field>, <student_faculty>")
+            student_information = input()
+            self.current_structure.add_student(student_information)
+            
+    def system_graduate_student(self):
+        """Graduates a student from the current structure."""
+        if self.check_system_validations():
+            print("Please type in the student id of the student you would like to graduate")
+            student_id = input()
+            self.current_structure.graduate_student(student_id)
+            
+    def system_display_enrolled_students(self):
+        """Displays the enrolled students from the current structure."""
+        if self.check_system_validations():
+            print("Below are provided the enrolled students:")
+            self.current_structure.display_enrolled_students()
+    
+    def system_display_graduated_students(self):
+        """Displays the graduated students from the current structure."""
+        if self.check_system_validations():
+            print("Below are provided the graduated students:")
+            self.current_structure.display_graduated_students()
+            
+    def system_check_student_information(self):
+        """Checks the student information from the current structure."""
+        if self.check_system_validations():
+            print("Please type in the student id of the student you would like to check")
+            student_id = input()
+            print(self.current_structure.check_student_information(student_id))
+            
+    def system_display_all_students(self):
+        """Displays all the students from the current structure."""
+        if self.check_system_validations():
+            print("Below are provided all the students:")
+            self.current_structure.display_all_students()
+            
+    def system_add_faculty(self):
+        """Adds a faculty to the current structure."""
+        if self.check_system_validations():
+            print("Please type in the faculty information in the following format:")
+            print("    <faculty_name>, <faculty_field>")
+            faculty_information = input()
+            self.current_structure.add_faculty(faculty_information)
+            
+    def system_display_all_faculties(self):
+        """Displays all the faculties from the current structure."""
+        if self.check_system_validations():
+            print("Below are provided all the faculties:")
+            self.current_structure.display_all_faculties()
+            
+    def system_display_faculties_by_field(self):
+        """Displays the faculties by field from the current structure."""
+        if self.check_system_validations():
+            print("Please type in the field of the faculties you would like to display")
+            field = input()
+            self.current_structure.display_faculties_by_field(field)
+            
+    def system_search_faculty_by_student(self):
+        """Searches a faculty by student from the current structure."""
+        if self.check_system_validations():
+            print("Please type in the student id of the student you would like to search for")
+            student_id = input()
+            self.current_structure.search_faculty_by_student(student_id)
+            
+    def system_update_faculty_information(self):
+        """Updates the faculty information from the current structure."""
+        if self.check_system_validations():
+            print("Please type in the faculty name of the faculty you would like to update")
+            faculty_name = input()
+            print("Please type in the new faculty information in the following format:")
+            print("    <faculty_name>, <faculty_field>")
+            faculty_information = input()
+            self.current_structure.update_faculty_information(faculty_name, faculty_information)
+            
+    def system_update_student_information(self):
+        """Updates the student information from the current structure."""
+        if self.check_system_validations():
+            print("Please type in the student id of the student you would like to update")
+            student_id = input()
+            print(self.current_structure.check_student_information(student_id))
+            print("Select the information you would like to update:")
+            print("    0. Student name")
+            print("    1. Student field")
+            print("    2. Student faculty")
+            print("    3. Back")
+            information_type = input()
+            if information_type == "0":
+                print("Please type in the new student name")
+                student_name = input()
+                self.current_structure.update_student_name(student_id, student_name)
+            elif information_type == "1":
+                print("Please type in the new student field")
+                student_field = input()
+                self.current_structure.update_student_field(student_id, student_field)
+            elif information_type == "2":
+                print("Please type in the new student faculty")
+                student_faculty = input()
+                self.current_structure.update_student_faculty(student_id, student_faculty)
+            elif information_type == "3":
+                self.student_actions()
+            else:
+                print("Invalid option, please try again and use one of the provided options in the description")
