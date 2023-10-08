@@ -50,8 +50,7 @@ class Tum_system:
             
         else:
             print("Invalid option, please try again and use one of the provided options in the description")
-
-            self.initialize_tum_system()
+            self.initialize_tum_system_structure()
             
     def check_system_validations(self):
         """ Checks if the system is valid."""
@@ -87,6 +86,7 @@ class Tum_system:
                 self.stop_tum_system_interaction()
             else:
                 print("Invalid option, please try again and use one of the provided options in the description")
+                self.start_tum_system_interaction()
             
     def stop_tum_system_interaction(self):
         """Stops the interaction with the TUM system."""
@@ -130,6 +130,7 @@ class Tum_system:
                 self.start_tum_system_interaction()
             else:
                 print("Invalid option, please try again and use one of the provided options in the description")
+                self.faculty_actions()
                 
     def university_actions(self):
         if self.check_system_validations():
@@ -155,6 +156,7 @@ class Tum_system:
                 self.start_tum_system_interaction()
             else:
                 print("Invalid option, please try again and use one of the provided options in the description")
+                self.university_actions()
     
     def student_actions(self):
         if self.check_system_validations():
@@ -167,7 +169,8 @@ class Tum_system:
             elif action_type == "1":
                 self.start_tum_system_interaction()
             else:
-                print("Invalid option, please try again and use one of the provided options in the description")  
+                print("Invalid option, please try again and use one of the provided options in the description")
+                self.student_actions()  
     
     def save_current_structure(self):
         """Saves the current structure."""
