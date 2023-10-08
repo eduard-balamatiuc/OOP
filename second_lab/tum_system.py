@@ -220,7 +220,10 @@ class Tum_system:
         """Adds a faculty to the current structure."""
         if self.check_system_validations():
             print("Please type in the faculty information in the following format:")
-            print("    <faculty_name>, <faculty_field>")
+            print("    <faculty_name>, ",
+                  "<faculty_abbreviation>, ",
+                  "<faculty_field>",
+            )
             faculty_information = input()
             self.current_structure.add_faculty(faculty_information)
             
