@@ -30,12 +30,12 @@ class Tum_system:
             output_text, self.available_memory_files = ts.get_available_structure_versions(
                 self.file_management_system.get_available_files()
             )
-            print(
-                output_text,
-                """
-                Please type in the number of the system from the list that you would like to continue with
-                """
-            )
+            if not output_text:
+                print("There are no available files, please create a new structure")
+                self.initialize_tum_system_structure()
+            print("Below are provided the available systems.")
+            print(output_text)
+            print("Please type in the number of the system from the list that you would like to continue with")
             selected_version = input()
 
             self.current_structure = Tum_structure(selected_file = self.available_memory_files[int(selected_version)])
