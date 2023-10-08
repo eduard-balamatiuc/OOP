@@ -200,33 +200,68 @@ class Tum_structure:
         student_id: int,
         student_last_name: str,
     ):
-        pass
+        """Update student last name
+        
+        Args:
+            student_id (int): The ID of the student to update.
+            student_last_name (str): The new last name of the student.
+        """
+        self.university.students[student_id].last_name = student_last_name
+        print(f"Student {student_id} updated")
     
     def update_student_email(
         self,
         student_id: int,
         student_email: str,
     ):
-        pass
+        """Update student email
+        
+        Args:
+            student_id (int): The ID of the student to update.
+            student_email (str): The new email of the student.
+        """
+        self.university.students[student_id].email = student_email
+        print(f"Student {student_id} updated")
     
     def update_student_enrollment_date(
         self,
         student_id: int,
         student_enrollment_date: str,
     ):
-        pass
+        """Update student enrollment date
+        
+        Args:
+            student_id (int): The ID of the student to update.
+            student_enrollment_date (str): The new enrollment date of the student.
+        """
+        self.university.students[student_id].enrollment_date = student_enrollment_date
+        print(f"Student {student_id} updated")
     
     def update_student_graduation_status(
         self,
         student_id: int,
         student_graduation_status: bool,
     ):
-        pass
+        """Update student graduation status
+        
+        Args:
+            student_id (int): The ID of the student to update.
+            student_graduation_status (bool): The new graduation status of the student.
+        """
+        self.university.students[student_id].graduation_status = student_graduation_status
+        print(f"Student {student_id} updated")
     
     def update_student_birth_date(
         self,
         student_id: int,
         student_birth_date: str,
     ):
-        pass
+        """Update student birth date
+        
+        Args:
+            student_id (int): The ID of the student to update.
+            student_birth_date (str): The new birth date of the student.
+        """
+        self.university.students[student_id].birth_date = student_birth_date
+        print(f"Student {student_id} updated")
     
