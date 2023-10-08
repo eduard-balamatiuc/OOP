@@ -69,7 +69,10 @@ class Tum_structure:
     def display_all_students(
         self,
     ):
-        pass
+        """Display information about all students in the university."""
+        for faculty in self.university.faculties:
+            for student in faculty.students:
+                print(student)
     
     def add_faculty(
         self, 
