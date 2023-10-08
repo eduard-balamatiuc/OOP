@@ -47,7 +47,10 @@ class Tum_structure:
     def display_graduated_students(
         self,
     ):
-        pass
+        """Display all graduated students."""
+        for faculty in self.university.faculties:
+            for student in faculty.graduate_students:
+                print(student)
     
     def check_student_information(
         self,
