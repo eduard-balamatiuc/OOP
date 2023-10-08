@@ -180,7 +180,8 @@ class Tum_system:
         """Adds a student to the current structure."""
         if self.check_system_validations():
             print("Please type in the student information in the following format:")
-            print("    <student_first_name>, ",
+            print("    <faculty_id>, ",
+                  "<student_first_name>, ",
                   "<student_last_name>, ",
                   "<student_email>, ",
                   "<student_enrollment_date>, ",
