@@ -65,6 +65,7 @@ class Tum_structure:
                 in the format: "<faculty_name>, <faculty_abbreviation>, <faculty_field>"
         """
         self.university.create_faculty(*faculty_info.split(", "))
+        print("Faculty added")
 
     def display_all_faculties(
         self,
