@@ -4,7 +4,10 @@ from tum_structure import Tum_structure
 import tools as ts
 
 class Tum_system:
+    """A class representing the TUM student management system."""
+
     def __init__(self):
+        """Initializes a new instance of the Tum_system class."""
         self.tum_structures = []
         self.current_structure = None
         self.available_memory_files = []
@@ -20,13 +23,6 @@ class Tum_system:
         initialization_option = input()
 
         if initialization_option == "0":
-            print(
-                """
-                Below are provided the available systems.
-
-                Please pick one that you would like to continue with  
-                """
-            )
             output_text, self.available_memory_files = ts.get_available_structure_versions(
                 self.file_management_system.get_available_files()
             )
@@ -42,11 +38,12 @@ class Tum_system:
             
         elif initialization_option == "1":
             self.current_structure = Tum_structure()
+            
         else:
             print("Invalid option, please try again and use one of the provided options in the description")
 
             self.initialize_tum_system()
-
+            
     def check_system_validations(self):
         """ Checks if the system is valid."""
         if not self.current_structure:
