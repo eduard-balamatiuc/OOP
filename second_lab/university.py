@@ -86,7 +86,8 @@ class University:
         Args:
             location (str): The location to load university data from.
         """
-        pass
+        for faculty in uni_dict_data["faculties"]:
+            self.faculties.append(Faculty(faculty_dict_data=faculty))
     
     def to_dict(
         self,
