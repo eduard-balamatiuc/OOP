@@ -52,6 +52,14 @@ class Tum_system:
 
             self.initialize_tum_system()
 
+    def check_system_validations(self):
+        """ Checks if the system is valid."""
+        if not self.current_structure:
+            print("No structure is initialized, starting initialization process")
+            self.initialize_tum_system_structure()
+        else:
+            return True
+
     def start_tum_system_interaction(self):
         pass
         
