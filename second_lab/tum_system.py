@@ -121,6 +121,8 @@ class Tum_system:
             elif action_type == "3":
                 self.system_display_graduated_students()
             elif action_type == "4":
+                self.system_display_all_students()
+            elif action_type == "5":
                 self.system_check_student_information()
             elif action_type == "5":
                 self.system_display_all_students()
