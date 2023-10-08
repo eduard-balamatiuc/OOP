@@ -94,7 +94,18 @@ class Tum_structure:
         self,
         student_id: int,
     ):
-        pass
+        """Search for a faculty by a student's ID.
+
+        Args:
+            student_id (int): The ID of the student to find within faculties.
+
+        Returns:
+            Faculty: The faculty associated with the student, or None if not found.
+        """
+        for faculty in self.university.faculties:
+            if faculty.has_student(student_id):
+                return faculty
+        return None
     
     def check_faculty_information(
         self,
