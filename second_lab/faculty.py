@@ -51,13 +51,26 @@ class Faculty:
 
     def enroll_student(
         self,
-        student: Student,
+        first_name: str = "undefined",
+        last_name: str = "undefined",
+        email: str = "undefined",
+        enrollment_date: str = "undefined",
+        graduation_status: bool = False,
+        birth_date: str = "undefined",
     ):
         """Enrolls a student in the faculty.
 
         Args:
             student (Student): The student to be enrolled.
         """
+        student = Student(
+            first_name,
+            last_name,
+            email,
+            enrollment_date,
+            graduation_status,
+            birth_date,
+        )
         if student not in self.students:
             self.students.append(student)
         else:
