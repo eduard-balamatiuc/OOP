@@ -70,10 +70,7 @@ class Tum_structure:
         Args:
             student_id (int): The ID of the student to display information about.
         """
-        for faculty in self.university.faculties:
-            for student in faculty.students:
-                if student.id == student_id:
-                    print(student)
+        print(self.university.students[student_id])
     
     def display_all_students(
         self,
