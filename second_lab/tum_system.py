@@ -188,6 +188,7 @@ class Tum_system:
                   "<student_birth_date>")
             student_information = input()
             self.current_structure.add_student(student_information)
+        self.faculty_actions()
             
     def system_graduate_student(self):
         """Graduates a student from the current structure."""
@@ -195,18 +196,21 @@ class Tum_system:
             print("Please type in the student id of the student you would like to graduate")
             student_id = input()
             self.current_structure.graduate_student(student_id)
+        self.faculty_actions()
             
     def system_display_enrolled_students(self):
         """Displays the enrolled students from the current structure."""
         if self.check_system_validations():
             print("Below are provided the enrolled students:")
             self.current_structure.display_enrolled_students()
+        self.faculty_actions()
     
     def system_display_graduated_students(self):
         """Displays the graduated students from the current structure."""
         if self.check_system_validations():
             print("Below are provided the graduated students:")
             self.current_structure.display_graduated_students()
+        self.faculty_actions()
             
     def system_check_student_information(self):
         """Checks the student information from the current structure."""
@@ -214,12 +218,14 @@ class Tum_system:
             print("Please type in the student id of the student you would like to check")
             student_id = input()
             print(self.current_structure.check_student_information(student_id))
+        self.faculty_actions()
             
     def system_display_all_students(self):
         """Displays all the students from the current structure."""
         if self.check_system_validations():
             print("Below are provided all the students:")
             self.current_structure.display_all_students()
+        self.faculty_actions()
             
     def system_add_faculty(self):
         """Adds a faculty to the current structure."""
