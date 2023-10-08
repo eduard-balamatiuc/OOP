@@ -256,11 +256,32 @@ class Tum_system:
         """Updates the faculty information from the current structure."""
         if self.check_system_validations():
             print("Please type in the faculty name of the faculty you would like to update")
-            faculty_name = input()
-            print("Please type in the new faculty information in the following format:")
-            print("    <faculty_name>, <faculty_field>")
-            faculty_information = input()
-            self.current_structure.update_faculty_information(faculty_name, faculty_information)
+            print("Available faculties are:")
+            self.current_structure.display_all_faculties()
+            faculty_id = input()
+            print(self.current_structure.check_faculty_information(faculty_id))
+            print("Select the information you would like to update:")
+            print("    0. Faculty name")
+            print("    1. Faculty abbreviation")
+            print("    2. Faculty field")
+            print("    3. Back")
+            information_type = input()
+            if information_type == "0":
+                print("Please type in the new faculty name")
+                faculty_name = input()
+                self.current_structure.update_faculty_name(faculty_id, faculty_name)
+            elif information_type == "1":
+                print("Please type in the new faculty abbreviation")
+                faculty_abbreviation = input()
+                self.current_structure.update_faculty_abbreviation(faculty_id, faculty_abbreviation)
+            elif information_type == "2":
+                print("Please type in the new faculty field")
+                faculty_field = input()
+                self.current_structure.update_faculty_field(faculty_id, faculty_field)
+            elif information_type == "3":
+                self.university_actions()
+            else:
+                print("Invalid option, please try again and use one of the provided options in the description")
             
     def system_update_student_information(self):
         """Updates the student information from the current structure."""
@@ -269,24 +290,39 @@ class Tum_system:
             student_id = input()
             print(self.current_structure.check_student_information(student_id))
             print("Select the information you would like to update:")
-            print("    0. Student name")
-            print("    1. Student field")
-            print("    2. Student faculty")
-            print("    3. Back")
+            print("    0. Student first name")
+            print("    1. Student last name")
+            print("    2. Student email")
+            print("    3. Student enrollment date")
+            print("    4. Student graduation status")
+            print("    5. Student birth date")
+            print("    6. Back")
             information_type = input()
             if information_type == "0":
-                print("Please type in the new student name")
-                student_name = input()
-                self.current_structure.update_student_name(student_id, student_name)
+                print("Please type in the new student first name")
+                student_first_name = input()
+                self.current_structure.update_student_first_name(student_id, student_first_name)
             elif information_type == "1":
-                print("Please type in the new student field")
-                student_field = input()
-                self.current_structure.update_student_field(student_id, student_field)
+                print("Please type in the new student last name")
+                student_last_name = input()
+                self.current_structure.update_student_last_name(student_id, student_last_name)
             elif information_type == "2":
-                print("Please type in the new student faculty")
-                student_faculty = input()
-                self.current_structure.update_student_faculty(student_id, student_faculty)
+                print("Please type in the new student email")
+                student_email = input()
+                self.current_structure.update_student_email(student_id, student_email)
             elif information_type == "3":
+                print("Please type in the new student enrollment date")
+                student_enrollment_date = input()
+                self.current_structure.update_student_enrollment_date(student_id, student_enrollment_date)
+            elif information_type == "4":
+                print("Please type in the new student graduation status")
+                student_graduation_status = input()
+                self.current_structure.update_student_graduation_status(student_id, student_graduation_status)
+            elif information_type == "5":
+                print("Please type in the new student birth date")
+                student_birth_date = input()
+                self.current_structure.update_student_birth_date(student_id, student_birth_date)
+            elif information_type == "6":
                 self.student_actions()
             else:
                 print("Invalid option, please try again and use one of the provided options in the description")
