@@ -88,14 +88,15 @@ class Tum_system:
             
     def stop_tum_system_interaction(self):
         """Stops the interaction with the TUM system."""
-        print("Do you want to save the current structure?")
-        print("    0. Yes")
-        print("    1. No")
-        save_option = input()
-        if save_option == "0":
-            self.save_current_structure()
-        else:
-            print("The current structure will not be saved")
+        if self.current_structure:
+            print("Do you want to save the current structure?")
+            print("    0. Yes")
+            print("    1. No")
+            save_option = input()
+            if save_option == "0":
+                self.save_current_structure()
+            else:
+                print("The current structure will not be saved")
         print("Thank you for using the TUM student management system, process terminated")
     
     def faculty_actions(self):
