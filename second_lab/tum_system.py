@@ -12,7 +12,6 @@ class Tum_system:
         self.current_structure = None
         self.available_memory_files = []
         self.file_management_system = File_management_system()
-        self.is_running = True
         print("Welcome to the TUM student management system, process initialization started")
 
     def initialize_tum_system_structure(self):
@@ -45,7 +44,6 @@ class Tum_system:
             self.start_tum_system_interaction()
             
         elif initialization_option == "2":
-            self.is_running = False
             self.stop_tum_system_interaction()
             
         else:
@@ -82,7 +80,6 @@ class Tum_system:
             elif action_type == "4":
                 self.initialize_tum_system_structure()
             elif action_type == "5":
-                self.is_running = False
                 self.stop_tum_system_interaction()
             else:
                 print("Invalid option, please try again and use one of the provided options in the description")
@@ -124,8 +121,6 @@ class Tum_system:
                 self.system_display_all_students()
             elif action_type == "5":
                 self.system_check_student_information()
-            elif action_type == "5":
-                self.system_display_all_students()
             elif action_type == "6":
                 self.start_tum_system_interaction()
             else:
