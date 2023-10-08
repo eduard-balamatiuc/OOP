@@ -186,7 +186,14 @@ class Tum_structure:
         student_id: int,
         student_first_name: str,
     ):
-        pass
+        """Update student first name
+        
+        Args:
+            student_id (int): The ID of the student to update.
+            student_first_name (str): The new first name of the student.
+        """
+        self.university.students[student_id].first_name = student_first_name
+        print(f"Student {student_id} updated")
     
     def update_student_last_name(
         self,
