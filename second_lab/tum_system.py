@@ -106,21 +106,24 @@ class Tum_system:
             print("    1. Graduate a student")
             print("    2. Display enrolled students")
             print("    3. Display graduated students")
-            print("    4. Check student belonging")
-            print("    5. Back")
+            print("    4. Display all students")
+            print("    5. Check student belonging")
+            print("    6. Back")
             action_type = input()
             if action_type == "0":
-                self.current_structure.add_student()
+                self.system_add_student()
             elif action_type == "1":
-                self.current_structure.graduate_student()
+                self.system_graduate_student()
             elif action_type == "2":
-                self.current_structure.display_enrolled_students()
+                self.system_display_enrolled_students()
             elif action_type == "3":
-                self.current_structure.display_graduated_students()
+                self.system_display_graduated_students()
             elif action_type == "4":
-                self.current_structure.check_student_information()
+                self.system_check_student_information()
             elif action_type == "5":
-                self.current_structure.start_tum_system_interaction()
+                self.system_display_all_students()
+            elif action_type == "6":
+                self.start_tum_system_interaction()
             else:
                 print("Invalid option, please try again and use one of the provided options in the description")
                 
@@ -135,17 +138,17 @@ class Tum_system:
             print("    5. Back")
             action_type = input()
             if action_type == "0":
-                self.current_structure.add_faculty()
+                self.system_add_faculty()
             elif action_type == "1":
-                self.current_structure.display_all_faculties()
+                self.system_display_all_faculties()
             elif action_type == "2":
-                self.current_structure.display_faculties_by_field()
+                self.system_display_faculties_by_field()
             elif action_type == "3":
-                self.current_structure.search_faculty_by_student()
+                self.system_search_faculty_by_student()
             elif action_type == "4":
-                self.current_structure.update_faculty_information()
+                self.system_update_faculty_information()
             elif action_type == "5":
-                self.current_structure.start_tum_system_interaction()
+                self.start_tum_system_interaction()
             else:
                 print("Invalid option, please try again and use one of the provided options in the description")
     
@@ -156,9 +159,9 @@ class Tum_system:
             print("    1. Back")
             action_type = input()
             if action_type == "0":
-                self.current_structure.update_student_information()
+                self.system_update_student_information()
             elif action_type == "1":
-                self.current_structure.start_tum_system_interaction()
+                self.start_tum_system_interaction()
             else:
                 print("Invalid option, please try again and use one of the provided options in the description")  
     
