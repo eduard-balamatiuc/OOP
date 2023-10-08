@@ -17,6 +17,7 @@ class University:
         Initializes a new instance of the University class.
         """
         self.faculties = []
+        self.students = []
         if uni_dict_data:
             self.load_university(uni_dict_data)
     
@@ -47,6 +48,34 @@ class University:
         faculty = Faculty(name, abbreviation, study_field)
         self.faculties.append(faculty)
         return faculty
+    
+    def create_student(
+        self,
+        faculty_id: int,
+        first_name: str,
+        last_name: str,
+        email: str,
+        enrollment_date: str,
+        graduation_status: bool,
+        birth_date: str,
+    ) -> Student:
+        """Creates a new student with the given first name, last name, email, enrollment date, graduation status and birth date and adds it to the list of students.
+
+        Args:
+            first_name (str): The first name of the student.
+            last_name (str): The last name of the student.
+            email (str): The email address of the student.
+            enrollment_date (str): The date when the student was enrolled.
+            graduation_status (bool): The graduation status of the student.
+            birth_date (str): The date of birth of the student.
+            
+        Returns:
+            Student: The newly created student.
+        """
+        student = Student(first_name, last_name, email, enrollment_date, graduation_status, birth_date)
+        self.students.append(student)
+        self.faculties[faculty_id].students.append(student)
+        return student
 
     def load_university(
         self,
