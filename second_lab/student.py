@@ -17,7 +17,7 @@ class Student:
         last_name: str = "undefined",
         email: str = "undefined",
         enrollment_date: date = date.today(),
-        graduation_status: bool = False,
+        graduation_status: str = "0",
         birth_date: date = None,
         student_dict_data: dict = None,
     ):
@@ -35,7 +35,7 @@ class Student:
         self.last_name = last_name
         self.email = email
         self.enrollment_date = enrollment_date
-        self.graduation_status = graduation_status
+        self.graduation_status = bool(int(graduation_status))
         self.birth_date = birth_date
         if student_dict_data:
             self.load_student(student_dict_data)
