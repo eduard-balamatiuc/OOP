@@ -17,9 +17,9 @@ class Tum_structure:
         
     def add_student(
         self,
-        student_info: str
+        student_info: str,
     ):
-        """_summary_
+        """Add a new student to the university.
 
         Args:
             student_info (str): "    <student_first_name>, ",
