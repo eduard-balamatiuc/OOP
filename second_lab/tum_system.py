@@ -8,7 +8,9 @@ class Tum_system:
         self.tum_structures = []
         self.current_structure = None
         self.available_memory_files = []
-        self.file_management_system = File_management_system
+        self.file_management_system = File_management_system()
+        self.is_running = True
+        print("Welcome to the TUM student management system, process initialization started")
 
     def initialize_tum_system_structure(self):
         """Initializes the TUM system structure."""
