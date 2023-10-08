@@ -48,44 +48,6 @@ class University:
         self.faculties.append(faculty)
         return faculty
 
-    def find_faculty_by_student(
-        self,
-        student: Student,
-    ) -> Faculty:
-        """Finds the faculty that the given student belongs to.
-
-        Args:
-            student (Student): The student to search for.
-            
-        Returns:
-            Faculty: The faculty that the given student belongs to.
-        """
-        for faculty in self.faculties:
-            if faculty.has_student(student):
-                return faculty
-        return None
-
-    def get_faculties_by_field(
-        self,
-        field: str,
-    ) -> list:
-        """Returns a list of faculties that belong to the given study field.
-
-        Args:
-            field (str): The study field to search for.
-
-        Returns:
-            List[Faculty]: A list of faculties that belong to the given study field.
-        """
-        return [faculty for faculty in self.faculties if faculty.study_field == field]
-
-    def display_all_faculties(
-        self,
-    ) -> None:
-        """Displays information about all the faculties in the university."""
-        for faculty in self.faculties:
-            print(f"Faculty: {faculty.name} ({faculty.abbreviation}), Field: {faculty.study_field}")
-
     def load_university(
         self,
         uni_dict_data: dict,
