@@ -81,9 +81,9 @@ class Student:
             "first_name": self.first_name,
             "last_name": self.last_name,
             "email": self.email,
-            "enrollment_date": self.enrollment_date.strftime("%d.%m.%Y"),
+            "enrollment_date": self.enrollment_date, 
             "graduation_status": self.graduation_status,
-            "birth_date": self.birth_date.strftime("%d.%m.%Y"),
+            "birth_date": self.birth_date,
         }
         
     def load_student(
