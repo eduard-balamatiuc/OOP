@@ -91,9 +91,9 @@ class Tum_structure:
         self,
     ):
         """Display information about all faculties in the university."""
-        for faculty in self.university.faculties:
-            print(f"Faculty: {faculty.name} ({faculty.abbreviation}), Field: {faculty.study_field}")
-
+        for index, faculty in enumerate(self.university.faculties):
+            print(f"Index: {index}, Faculty: {faculty.name} ({faculty.abbreviation}), Field: {faculty.study_field}")
+            
     def display_faculties_by_field(
         self,
         field: str,
