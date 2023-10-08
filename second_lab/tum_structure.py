@@ -54,17 +54,16 @@ class Tum_structure:
         pass
     
     def add_faculty(
-        self,
+        self, 
         faculty_info: str,
     ):
-        """_summary_
+        """Add a new faculty to the university.
 
         Args:
-            faculty_info (str): "    <faculty_name>, ",
-                  "<faculty_abbreviation>, ",
-                  "<faculty_field>",
+            faculty_info (str): A comma-separated string containing faculty information
+                in the format: "<faculty_name>, <faculty_abbreviation>, <faculty_field>"
         """
-        pass
+        self.university.create_faculty(*faculty_info.split(", "))
 
     def display_all_faculties(
         self,
