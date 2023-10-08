@@ -29,7 +29,8 @@ class Tum_structure:
                   "<student_graduation_status>, ",
                   "<student_birth_date>"
         """
-        pass
+        self.university.create_student(*student_info.split(", "))
+        print("Student added")
     
     def graduate_student(
         self, 
