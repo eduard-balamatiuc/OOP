@@ -172,7 +172,7 @@ class Tum_system:
         if self.current_structure:
             self.file_management_system.save_structure_file(
                 self.current_structure.selected_file,
-                self.current_structure.university.university_structure
+                self.current_structure.university.to_dict(),
             )
         else:
             print("No structure is initialized, please initialize a structure first")
