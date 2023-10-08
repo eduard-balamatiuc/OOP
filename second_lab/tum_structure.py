@@ -69,8 +69,10 @@ class Tum_structure:
     def display_all_faculties(
         self,
     ):
-        pass
-    
+        """Display information about all faculties in the university."""
+        for faculty in self.university.faculties:
+            print(f"Faculty: {faculty.name} ({faculty.abbreviation}), Field: {faculty.study_field}")
+
     def display_faculties_by_field(
         self,
         field: str,
