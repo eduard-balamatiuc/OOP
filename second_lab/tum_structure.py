@@ -77,8 +77,19 @@ class Tum_structure:
         self,
         field: str,
     ):
-        pass
-    
+        """Display faculties within a specific field of study.
+
+        Args:
+            field (str): The field of study to filter faculties by.
+        """
+        matching_faculties = [faculty for faculty in self.university.faculties if faculty.study_field == field]
+
+        if matching_faculties:
+            for faculty in matching_faculties:
+                print(f"Faculty: {faculty.name} ({faculty.abbreviation}), Field: {faculty.study_field}")
+        else:
+            print(f"No faculties found in the field: {field}")
+
     def search_faculty_by_student(
         self,
         student_id: int,
