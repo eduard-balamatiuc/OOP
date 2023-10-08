@@ -36,7 +36,13 @@ class Tum_structure:
         self, 
         student_id: int,
     ):
-        pass
+        """Graduate a student.
+        
+        Args:
+            student_id (int): The ID of the student to graduate.
+        """
+        self.university.students[student_id].graduation_status = True
+        print(f"Student {student_id} graduated")
     
     def display_graduated_students(
         self,
