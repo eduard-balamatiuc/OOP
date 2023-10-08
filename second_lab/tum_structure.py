@@ -56,7 +56,15 @@ class Tum_structure:
         self,
         student_id: int,
     ):
-        pass
+        """Display information about a student.
+        
+        Args:
+            student_id (int): The ID of the student to display information about.
+        """
+        for faculty in self.university.faculties:
+            for student in faculty.students:
+                if student.id == student_id:
+                    print(student)
     
     def display_all_students(
         self,
