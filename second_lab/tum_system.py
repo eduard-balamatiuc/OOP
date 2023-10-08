@@ -237,19 +237,22 @@ class Tum_system:
             )
             faculty_information = input()
             self.current_structure.add_faculty(faculty_information)
+        self.university_actions()
             
     def system_display_all_faculties(self):
         """Displays all the faculties from the current structure."""
         if self.check_system_validations():
             print("Below are provided all the faculties:")
             self.current_structure.display_all_faculties()
-            
+        self.university_actions()
+        
     def system_display_faculties_by_field(self):
         """Displays the faculties by field from the current structure."""
         if self.check_system_validations():
             print("Please type in the field of the faculties you would like to display")
             field = input()
             self.current_structure.display_faculties_by_field(field)
+        self.university_actions()
             
     def system_search_faculty_by_student(self):
         """Searches a faculty by student from the current structure."""
@@ -257,6 +260,7 @@ class Tum_system:
             print("Please type in the student id of the student you would like to search for")
             student_id = input()
             self.current_structure.search_faculty_by_student(student_id)
+        self.university_actions()
             
     def system_update_faculty_information(self):
         """Updates the faculty information from the current structure."""
@@ -288,6 +292,7 @@ class Tum_system:
                 self.university_actions()
             else:
                 print("Invalid option, please try again and use one of the provided options in the description")
+        self.university_actions()
             
     def system_update_student_information(self):
         """Updates the student information from the current structure."""
