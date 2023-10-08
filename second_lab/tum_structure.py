@@ -110,7 +110,12 @@ class Tum_structure:
         self,
         faculty_id: int,
     ):
-        pass
+        """Display information about a faculty.
+        
+        Args:
+            faculty_id (int): The ID of the faculty to display information about.
+        """
+        print(self.university.faculties[faculty_id])
     
     def update_faculty_name(
         self,
