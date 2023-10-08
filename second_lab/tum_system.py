@@ -10,18 +10,11 @@ class Tum_system:
         self.available_memory_files = []
         self.file_management_system = File_management_system
 
-    def initialize_tum_system(self):
-
-        print(
-            """
-            Initializing TUM System...
-            
-            Select and type in the number of the option from below: 
-            0. Use previous structure
-            1. Create a new structure
-            """
-        )
-
+    def initialize_tum_system_structure(self):
+        """Initializes the TUM system structure."""
+        print("Select and type in the number of the option from below: ")
+        print("    0. Use previous structure")
+        print("    1. Create a new structure")
         initialization_option = input()
 
         if initialization_option == "0":
