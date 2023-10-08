@@ -136,8 +136,15 @@ class Tum_structure:
         faculty_id: int,
         faculty_abbreviation: str,
     ):
-        pass
-    
+        """Update faculty abbreviation
+        
+        Args:
+            faculty_id (int): The ID of the faculty to update.
+            faculty_abbreviation (str): The new abbreviation of the faculty.    
+        """
+        self.university.faculties[faculty_id].abbreviation = faculty_abbreviation
+        print(f"Faculty {faculty_id} updated")
+        
     def update_faculty_field(
         self,
         faculty_id: int,
