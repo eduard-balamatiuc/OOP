@@ -143,7 +143,9 @@ class Faculty:
         self.name = faculty_dict_data["name"]
         self.abbreviation = faculty_dict_data["abbreviation"]
         self.study_field = faculty_dict_data["study_field"]
-        self.students = [Student(student_dict_data) for student_dict_data in faculty_dict_data["students"]]
+        self.students = [
+            Student(student_dict_data=student_dict_data) for student_dict_data in faculty_dict_data["students"]
+        ]
         self.graduate_students = [
-            Student(student_dict_data) for student_dict_data in faculty_dict_data["graduate_students"]
+            Student(student_dict_data=student_dict_data) for student_dict_data in faculty_dict_data["graduate_students"]
         ]
