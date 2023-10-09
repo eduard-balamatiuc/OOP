@@ -15,6 +15,9 @@ class University:
     ):
         """
         Initializes a new instance of the University class.
+        
+        Args:
+            uni_dict_data (dict): The dictionary data of the university.
         """
         self.faculties = []
         self.students = []
@@ -62,6 +65,7 @@ class University:
         """Creates a new student with the given first name, last name, email, enrollment date, graduation status and birth date and adds it to the list of students.
 
         Args:
+            faculty_id (str): The ID of the faculty to add the student to.
             first_name (str): The first name of the student.
             last_name (str): The last name of the student.
             email (str): The email address of the student.
@@ -84,7 +88,7 @@ class University:
         """Loads university data from the given location.
 
         Args:
-            location (str): The location to load university data from.
+            uni_dict_data (dict): The dictionary data of the university.
         """
         for faculty in uni_dict_data["faculties"]:
             self.faculties.append(Faculty(faculty_dict_data=faculty))
