@@ -39,6 +39,78 @@ class Tum_structure:
         self.university.create_student(*student_info.split(", "))
         print("Student added")
 
+    def graduate_from_txt(
+        self,
+        file_txt,
+    ):
+        """Graduate a student.
+
+        Args:
+            file_txt (str): The path to the text file containing the email of the student to graduate.
+        """
+        try:
+            # Open the text file in read mode
+            with open(file_txt, 'r') as file:
+                # Read all lines from the file
+                lines = file.readlines()
+
+                # Get the email of the student to graduate (assuming it's the first line in the file)
+                for student_email in lines:
+
+                    # Search for the student with the given email
+                    student_id = self.find_student_by_email(student_email)
+
+                    if student_id:
+                        # Mark the student as graduated
+                        self.graduate_student(student_id)
+
+                        # Print a message indicating successful graduation
+                        print(f"Student with email {student_email} has been graduated.")
+                    else:
+                        print(f"No student found with email {student_email}.")
+
+        except FileNotFoundError:
+            print(f"File not found: {file_txt}")
+        except Exception as e:
+            print(f"An error occurred: {e}")
+
+    def find_student_by_email(
+        self,
+        email,
+    ):
+        """Find a student by email.
+
+        Args:
+            email (str): The email of the student to find.
+
+        Returns:
+            Tum_student or None: The found student or None if not found.
+        """
+        for student in self.university.students:
+            if student.email == email:
+                student.graduation_status = True
+        return None
+
+    def enroll_from_txt(
+        self, 
+        file_txt, 
+    ):
+        """Enroll a student from a text file.
+        
+        Args:
+            file_txt (str): The path to the text file containing the student information.
+        """
+        try:
+            with open(file_txt, 'r') as file:
+                lines = file.readlines()
+                for line in lines:
+                    self.add_student(line)
+
+        except FileNotFoundError:
+            print(f"File not found: {file_txt}")
+
+                
+
     def graduate_student(
         self,
         student_id: int,
