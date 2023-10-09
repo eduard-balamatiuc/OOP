@@ -13,6 +13,7 @@ class File_management_system:
         delete_structure_file(file_name: str): Deletes the file with the given name.
         rename_structure_file(old_file_name: str, new_file_name: str): Renames the file with the given name to the new given name.
     """
+
     def get_available_files():
         """
         Gets all the available files in the memory folder.
@@ -52,7 +53,7 @@ class File_management_system:
             raise FileNotFoundError(f"File {file_name} does not exist")
 
     def save_structure_file(
-        file_name: str, 
+        file_name: str,
         file_content: dict,
     ):
         """
@@ -82,7 +83,7 @@ class File_management_system:
             raise FileNotFoundError(f"File {file_name} does not exist")
 
     def rename_structure_file(
-        old_file_name: str, 
+        old_file_name: str,
         new_file_name: str,
     ):
         """

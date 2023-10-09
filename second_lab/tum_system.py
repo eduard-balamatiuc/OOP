@@ -3,6 +3,7 @@ from file_management import File_management_system as fms
 from tum_structure import Tum_structure
 import tools as ts
 
+
 class Tum_system:
     """A class representing the TUM student management system."""
 
@@ -22,9 +23,7 @@ class Tum_system:
         initialization_option = input()
 
         if initialization_option == "0":
-            output_text, self.available_memory_files = ts.get_available_structure_versions(
-                fms.get_available_files()
-            )
+            output_text, self.available_memory_files = ts.get_available_structure_versions(fms.get_available_files())
             if not output_text:
                 print("There are no available files, please create a new structure")
                 self.initialize_tum_system_structure()
@@ -34,7 +33,7 @@ class Tum_system:
                 print("Please type in the number of the system from the list that you would like to continue with")
                 selected_version = input()
                 self.current_structure = Tum_structure(
-                    selected_file = self.available_memory_files[int(selected_version)],
+                    selected_file=self.available_memory_files[int(selected_version)],
                 )
                 self.start_tum_system_interaction()
 
@@ -132,7 +131,7 @@ class Tum_system:
             else:
                 print("Invalid option, please try again and use one of the provided options in the description")
                 self.faculty_actions()
-      
+
     def university_actions(self):
         """Handles university-specific actions within the TUM system.
         This function displays a menu of university actions that the user can perform and handles the selected action.
@@ -196,17 +195,19 @@ class Tum_system:
         """Adds a student to the current structure."""
         if self.check_system_validations():
             print("Please type in the student information in the following format:")
-            print("    <faculty_id>, ",
-                  "<student_first_name>, ",
-                  "<student_last_name>, ",
-                  "<student_email>, ",
-                  "<student_enrollment_date>, ",
-                  "<student_graduation_status>, ",
-                  "<student_birth_date>")
+            print(
+                "    <faculty_id>, ",
+                "<student_first_name>, ",
+                "<student_last_name>, ",
+                "<student_email>, ",
+                "<student_enrollment_date>, ",
+                "<student_graduation_status>, ",
+                "<student_birth_date>",
+            )
             student_information = input()
             self.current_structure.add_student(student_information)
         self.faculty_actions()
-            
+
     def system_graduate_student(self):
         """Graduates a student from the current structure."""
         if self.check_system_validations():
@@ -214,21 +215,21 @@ class Tum_system:
             student_id = input()
             self.current_structure.graduate_student(student_id)
         self.faculty_actions()
-            
+
     def system_display_enrolled_students(self):
         """Displays the enrolled students from the current structure."""
         if self.check_system_validations():
             print("Below are provided the enrolled students:")
             self.current_structure.display_enrolled_students()
         self.faculty_actions()
-    
+
     def system_display_graduated_students(self):
         """Displays the graduated students from the current structure."""
         if self.check_system_validations():
             print("Below are provided the graduated students:")
             self.current_structure.display_graduated_students()
         self.faculty_actions()
-            
+
     def system_check_student_information(self):
         """Checks the student information from the current structure."""
         if self.check_system_validations():
@@ -236,33 +237,34 @@ class Tum_system:
             student_id = input()
             print(self.current_structure.check_student_information(student_id))
         self.faculty_actions()
-            
+
     def system_display_all_students(self):
         """Displays all the students from the current structure."""
         if self.check_system_validations():
             print("Below are provided all the students:")
             self.current_structure.display_all_students()
         self.faculty_actions()
-            
+
     def system_add_faculty(self):
         """Adds a faculty to the current structure."""
         if self.check_system_validations():
             print("Please type in the faculty information in the following format:")
-            print("    <faculty_name>, ",
-                  "<faculty_abbreviation>, ",
-                  "<faculty_field>",
+            print(
+                "    <faculty_name>, ",
+                "<faculty_abbreviation>, ",
+                "<faculty_field>",
             )
             faculty_information = input()
             self.current_structure.add_faculty(faculty_information)
         self.university_actions()
-            
+
     def system_display_all_faculties(self):
         """Displays all the faculties from the current structure."""
         if self.check_system_validations():
             print("Below are provided all the faculties:")
             self.current_structure.display_all_faculties()
         self.university_actions()
-        
+
     def system_display_faculties_by_field(self):
         """Displays the faculties by field from the current structure."""
         if self.check_system_validations():
@@ -270,7 +272,7 @@ class Tum_system:
             field = input()
             self.current_structure.display_faculties_by_field(field)
         self.university_actions()
-            
+
     def system_search_faculty_by_student(self):
         """Searches a faculty by student from the current structure."""
         if self.check_system_validations():
@@ -278,7 +280,7 @@ class Tum_system:
             student_id = input()
             self.current_structure.search_faculty_by_student(student_id)
         self.university_actions()
-            
+
     def system_update_faculty_information(self):
         """Updates the faculty information from the current structure."""
         if self.check_system_validations():
@@ -310,7 +312,7 @@ class Tum_system:
             else:
                 print("Invalid option, please try again and use one of the provided options in the description")
         self.university_actions()
-            
+
     def system_update_student_information(self):
         """Updates the student information from the current structure."""
         if self.check_system_validations():

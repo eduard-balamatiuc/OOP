@@ -1,6 +1,6 @@
 from student import Student
 from study_field import StudyField
- 
+
 
 class Faculty:
     """Represents a faculty within a university.
@@ -40,7 +40,7 @@ class Faculty:
         self,
     ) -> str:
         """Returns a string representation of the faculty.
-        
+
         Returns:
             str: A string representation of the faculty.
         """
@@ -68,7 +68,7 @@ class Faculty:
             enrollment_date (str): The date when the student was enrolled.
             graduation_status (bool): The graduation status of the student.
             birth_date (str): The date of birth of the student.
-            
+
         Raises:
             ValueError: If the student is already enrolled in the faculty.
         """
@@ -130,7 +130,7 @@ class Faculty:
             "students": [student.to_dict() for student in self.students],
             "graduate_students": [student.to_dict() for student in self.graduate_students],
         }
-        
+
     def load_faculty(
         self,
         faculty_dict_data: dict,

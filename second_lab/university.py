@@ -15,7 +15,7 @@ class University:
     ):
         """
         Initializes a new instance of the University class.
-        
+
         Args:
             uni_dict_data (dict): The dictionary data of the university.
         """
@@ -23,7 +23,7 @@ class University:
         self.students = []
         if uni_dict_data:
             self.load_university(uni_dict_data)
-    
+
     def __str__(
         self,
     ):
@@ -44,14 +44,14 @@ class University:
             name (str): The name of the faculty.
             abbreviation (str): The abbreviation or short name of the faculty.
             study_field (str): The field of study or specialization of the faculty.
-            
+
         Returns:
             Faculty: The newly created faculty.
         """
         faculty = Faculty(name, abbreviation, study_field)
         self.faculties.append(faculty)
         return faculty
-    
+
     def create_student(
         self,
         faculty_id: str,
@@ -72,7 +72,7 @@ class University:
             enrollment_date (str): The date when the student was enrolled.
             graduation_status (bool): The graduation status of the student.
             birth_date (str): The date of birth of the student.
-            
+
         Returns:
             Student: The newly created student.
         """
@@ -92,7 +92,7 @@ class University:
         """
         for faculty in uni_dict_data["faculties"]:
             self.faculties.append(Faculty(faculty_dict_data=faculty))
-    
+
     def to_dict(
         self,
     ) -> dict:
@@ -104,4 +104,3 @@ class University:
         return {
             "faculties": [faculty.to_dict() for faculty in self.faculties],
         }
-        

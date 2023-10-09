@@ -1,5 +1,6 @@
 from file_management import File_management_system
 
+
 def get_available_structure_versions(
     list_of_available_files: list,
 ) -> tuple:

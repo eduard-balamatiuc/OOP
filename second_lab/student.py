@@ -1,5 +1,6 @@
 from datetime import date, datetime
 
+
 class Student:
     """A class representing a student.
 
@@ -45,12 +46,12 @@ class Student:
         self,
     ) -> str:
         return (
-        f"{self.first_name} {self.last_name} ({self.email}) "
-        f"born on {self.birth_date} and was "
-        f"enrolled on {self.enrollment_date} and he/she did "
-        f"{'graduate' if self.graduation_status else 'not graduate'}"
-    )
-        
+            f"{self.first_name} {self.last_name} ({self.email}) "
+            f"born on {self.birth_date} and was "
+            f"enrolled on {self.enrollment_date} and he/she did "
+            f"{'graduate' if self.graduation_status else 'not graduate'}"
+        )
+
     def change_attribute(
         self,
         attribute_name,
@@ -82,11 +83,11 @@ class Student:
             "first_name": self.first_name,
             "last_name": self.last_name,
             "email": self.email,
-            "enrollment_date": self.enrollment_date, 
+            "enrollment_date": self.enrollment_date,
             "graduation_status": self.graduation_status,
             "birth_date": self.birth_date,
         }
-        
+
     def load_student(
         self,
         student_dict_data: dict,
