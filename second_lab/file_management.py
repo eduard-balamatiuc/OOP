@@ -3,8 +3,7 @@ import json
 
 
 class File_management_system:
-    """
-    A class representing the file management system for TUM student structures.
+    """A class representing the file management system for TUM student structures.
 
     Methods:
         get_available_files(): Gets all the available files in the memory folder.
@@ -16,8 +15,7 @@ class File_management_system:
     """
 
     def get_available_files():
-        """
-        Gets all the available files in the memory folder.
+        """Gets all the available files in the memory folder.
 
         Returns:
             list: A list of all the available files in the memory folder.
@@ -34,8 +32,7 @@ class File_management_system:
     def get_structure_file(
         file_name: str,
     ):
-        """
-        Gets the file with the given name.
+        """Gets the file with the given name.
 
         Args:
             file_name (str): The name of the file to get.
@@ -57,8 +54,7 @@ class File_management_system:
         file_name: str,
         file_content: dict,
     ):
-        """
-        Saves the given file with the given name.
+        """Saves the given file with the given name.
 
         Args:
             file_name (str): The name of the file to save.
@@ -72,8 +68,7 @@ class File_management_system:
     def delete_structure_file(
         file_name: str,
     ):
-        """
-        Deletes the file with the given name.
+        """Deletes the file with the given name.
 
         Args:
             file_name (str): The name of the file to delete.
@@ -87,8 +82,7 @@ class File_management_system:
         old_file_name: str,
         new_file_name: str,
     ):
-        """
-        Renames the file with the given name to the new given name.
+        """Renames the file with the given name to the new given name.
 
         Args:
             old_file_name (str): The name of the file to rename.

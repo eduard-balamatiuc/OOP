@@ -13,8 +13,7 @@ class University:
         self,
         uni_dict_data: dict = None,
     ):
-        """
-        Initializes a new instance of the University class.
+        """Initializes a new instance of the University class.
 
         Args:
             uni_dict_data (dict): The dictionary data of the university.
@@ -27,9 +26,7 @@ class University:
     def __str__(
         self,
     ):
-        """
-        Returns a string representation of the University object.
-        """
+        """Returns a string representation of the University object."""
         return f"Technical University of Moldova with {len(self.faculties)} faculties"
 
     def create_faculty(

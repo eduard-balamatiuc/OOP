@@ -45,6 +45,7 @@ class Student:
     def __str__(
         self,
     ) -> str:
+        """Returns a string representation of the student."""
         return (
             f"{self.first_name} {self.last_name} ({self.email}) "
             f"born on {self.birth_date} and was "
