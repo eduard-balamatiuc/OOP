@@ -30,6 +30,7 @@ class Student:
             enrollment_date (date): The date when the student was enrolled.
             graduation_status (bool): The graduation status of the student.
             birth_date (date): The date of birth of the student.
+            student_dict_data (dict): The dictionary data of the student.
         """
         self.first_name = first_name
         self.last_name = last_name
