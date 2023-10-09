@@ -26,6 +26,7 @@ class Faculty:
             name (str): The name of the faculty.
             abbreviation (str): The abbreviation or short name of the faculty.
             study_field (str): The field of study or specialization of the faculty.
+            faculty_dict_data (dict): The dictionary data of the faculty.
         """
         self.name = name
         self.abbreviation = abbreviation
@@ -61,7 +62,15 @@ class Faculty:
         """Enrolls a student in the faculty.
 
         Args:
-            student (Student): The student to be enrolled.
+            first_name (str): The first name of the student.
+            last_name (str): The last name of the student.
+            email (str): The email address of the student.
+            enrollment_date (str): The date when the student was enrolled.
+            graduation_status (bool): The graduation status of the student.
+            birth_date (str): The date of birth of the student.
+            
+        Raises:
+            ValueError: If the student is already enrolled in the faculty.
         """
         student = Student(
             first_name,
