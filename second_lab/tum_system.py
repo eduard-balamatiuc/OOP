@@ -38,20 +38,20 @@ class Tum_system:
                     selected_file = self.available_memory_files[int(selected_version)],
                 )
                 self.start_tum_system_interaction()
-                
+
         elif initialization_option == "1":
             self.current_structure = Tum_structure()
             self.start_tum_system_interaction()
-            
+
         elif initialization_option == "2":
             self.stop_tum_system_interaction()
-            
+
         else:
             print("Invalid option, please try again and use one of the provided options in the description")
             self.initialize_tum_system_structure()
-            
+
     def check_system_validations(self):
-        """ Checks if the system is valid."""
+        """Checks if the system is valid."""
         if not self.current_structure:
             print("No structure is initialized, starting initialization process")
             self.initialize_tum_system_structure()
@@ -59,7 +59,9 @@ class Tum_system:
             return True
 
     def start_tum_system_interaction(self):
-        """Starts the interaction with the TUM system."""
+        """Starts the interaction with the TUM system.
+        This function displays a menu of actions that the user can perform and handles the selected action.
+        """
         if self.check_system_validations():
             print("Select the type of action you would like to perform:")
             print("    0. Student actions")
@@ -84,9 +86,11 @@ class Tum_system:
             else:
                 print("Invalid option, please try again and use one of the provided options in the description")
                 self.start_tum_system_interaction()
-            
+
     def stop_tum_system_interaction(self):
-        """Stops the interaction with the TUM system."""
+        """Stops the interaction with the TUM system.
+        This function asks the user if they want to save the current structure and terminates the process accordingly.
+        """
         if self.current_structure:
             print("Do you want to save the current structure?")
             print("    0. Yes")
@@ -97,8 +101,11 @@ class Tum_system:
             else:
                 print("The current structure will not be saved")
         print("Thank you for using the TUM student management system, process terminated")
-    
+
     def faculty_actions(self):
+        """Handles faculty-specific actions within the TUM system.
+        This function displays a menu of faculty actions that the user can perform and handles the selected action.
+        """
         if self.check_system_validations():
             print("Select the type of faculty action you would like to perform:")
             print("    0. Add a student")
@@ -126,8 +133,11 @@ class Tum_system:
             else:
                 print("Invalid option, please try again and use one of the provided options in the description")
                 self.faculty_actions()
-                
+      
     def university_actions(self):
+        """Handles university-specific actions within the TUM system.
+        This function displays a menu of university actions that the user can perform and handles the selected action.
+        """
         if self.check_system_validations():
             print("Select the type of university action you would like to perform:")
             print("    0. Add a faculty")
@@ -152,8 +162,11 @@ class Tum_system:
             else:
                 print("Invalid option, please try again and use one of the provided options in the description")
                 self.university_actions()
-    
+
     def student_actions(self):
+        """Handles student-specific actions within the TUM system.
+        This function displays a menu of student actions that the user can perform and handles the selected action.
+        """
         if self.check_system_validations():
             print("Select the type of student action you would like to perform:")
             print("    0. Update student information")
@@ -165,10 +178,12 @@ class Tum_system:
                 self.start_tum_system_interaction()
             else:
                 print("Invalid option, please try again and use one of the provided options in the description")
-                self.student_actions()  
-    
+                self.student_actions()
+
     def save_current_structure(self):
-        """Saves the current structure."""
+        """Saves the current structure to a file.
+        If there is no current structure initialized, it prompts the user to initialize a structure first.
+        """
         if self.current_structure:
             self.file_management_system.save_structure_file(
                 self.current_structure.selected_file,
