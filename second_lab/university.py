@@ -88,9 +88,10 @@ class University:
         Args:
             uni_dict_data (dict): The dictionary data of the university.
         """
-        for faculty in uni_dict_data["faculties"]:
+        for index, faculty in enumerate(uni_dict_data["faculties"]):
             self.faculties.append(Faculty(faculty_dict_data=faculty))
-
+            self.students.extend(self.faculties[index].students)
+        
     def to_dict(
         self,
     ) -> dict:
