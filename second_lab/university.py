@@ -62,7 +62,8 @@ class University:
         graduation_status: bool,
         birth_date: str,
     ) -> Student:
-        """Creates a new student with the given first name, last name, email, enrollment date, graduation status and birth date and adds it to the list of students.
+        """Creates a new student with the given first name, last name, email, enrollment date, graduation status and
+        birth date and adds it to the list of students.
 
         Args:
             faculty_id (str): The ID of the faculty to add the student to.

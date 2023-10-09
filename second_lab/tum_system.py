@@ -1,4 +1,3 @@
-from university import University
 from file_management import File_management_system as fms
 from tum_structure import Tum_structure
 import tools as ts

@@ -11,7 +11,8 @@ class File_management_system:
         get_structure_file(file_name: str): Gets the file with the given name.
         save_structure_file(file_name: str, file_content: dict): Saves the given file with the given name.
         delete_structure_file(file_name: str): Deletes the file with the given name.
-        rename_structure_file(old_file_name: str, new_file_name: str): Renames the file with the given name to the new given name.
+        rename_structure_file(old_file_name: str, new_file_name: str): Renames the file with the given name to the new
+        given name.
     """
 
     def get_available_files():
