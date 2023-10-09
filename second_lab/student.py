@@ -101,6 +101,6 @@ class Student:
         self.first_name = student_dict_data["first_name"]
         self.last_name = student_dict_data["last_name"]
         self.email = student_dict_data["email"]
-        self.enrollment_date = datetime.strptime(student_dict_data["enrollment_date"], "%d.%m.%Y").date()
+        self.enrollment_date = datetime.strptime(student_dict_data["enrollment_date"], "%d-%m-%Y")
         self.graduation_status = student_dict_data["graduation_status"]
-        self.birth_date = datetime.strptime(student_dict_data["birth_date"], "%d.%m.%Y").date()
+        self.birth_date = datetime.strptime(student_dict_data["birth_date"], "%d-%m-%Y")
