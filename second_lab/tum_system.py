@@ -1,5 +1,5 @@
 from university import University
-from file_management import File_management_system
+from file_management import File_management_system as fms
 from tum_structure import Tum_structure
 import tools as ts
 
@@ -11,7 +11,6 @@ class Tum_system:
         self.tum_structures = []
         self.current_structure = None
         self.available_memory_files = []
-        self.file_management_system = File_management_system()
         print("Welcome to the TUM student management system, process initialization started")
 
     def initialize_tum_system_structure(self):
@@ -24,7 +23,7 @@ class Tum_system:
 
         if initialization_option == "0":
             output_text, self.available_memory_files = ts.get_available_structure_versions(
-                self.file_management_system.get_available_files()
+                fms.get_available_files()
             )
             if not output_text:
                 print("There are no available files, please create a new structure")
@@ -185,7 +184,7 @@ class Tum_system:
         If there is no current structure initialized, it prompts the user to initialize a structure first.
         """
         if self.current_structure:
-            self.file_management_system.save_structure_file(
+            fms.save_structure_file(
                 self.current_structure.selected_file,
                 self.current_structure.university.to_dict(),
             )
