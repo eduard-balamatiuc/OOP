@@ -4,8 +4,7 @@ import tools as ts
 import logging
 
 # Configure the logging system
-logging.basicConfig(filename='app.log', level=logging.DEBUG, 
-                    format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(filename="app.log", level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
 
 
 class Tum_system:
@@ -32,7 +31,9 @@ class Tum_system:
 
             if initialization_option == "0":
                 logging.info("Option 0. Use previous structure was selected")
-                output_text, self.available_memory_files = ts.get_available_structure_versions(fms.get_available_files())
+                output_text, self.available_memory_files = ts.get_available_structure_versions(
+                    fms.get_available_files()
+                )
                 if not output_text:
                     logging.info("Missing files to select from")
                     print("There are no available files, please create a new structure")
@@ -260,11 +261,13 @@ class Tum_system:
                     print("Invalid option, please try again and use one of the provided options in the description")
 
     def system_graduate_student_txt(self):
+        """Graduates a student from the current structure."""
         print("Provide the file name from which to read the information")
         graduation_file_txt = input()
         self.current_structure.graduate_from_txt(graduation_file_txt)
 
     def system_enroll_student_txt(self):
+        """Enrolls a student to the current structure."""
         print("Provide the file name from which to read the information")
         enrollment_file_txt = input()
         self.current_structure.enroll_from_txt(enrollment_file_txt)
@@ -476,7 +479,7 @@ class Tum_system:
                     logging.info("Option 5. Student birth date was selected")
                     print("Please type in the new student birth date")
                     student_birth_date = input()
-                    logging.info(f"Student birth date provided {student_birth_date}")                    
+                    logging.info(f"Student birth date provided {student_birth_date}")
                     self.current_structure.update_student_birth_date(student_id, student_birth_date)
                 elif information_type == "6":
                     logging.info("Option 6. Back was selected")

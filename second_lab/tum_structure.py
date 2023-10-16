@@ -50,13 +50,12 @@ class Tum_structure:
         """
         try:
             # Open the text file in read mode
-            with open(file_txt, 'r') as file:
+            with open(file_txt, "r") as file:
                 # Read all lines from the file
                 lines = file.readlines()
 
                 # Get the email of the student to graduate (assuming it's the first line in the file)
                 for student_email in lines:
-
                     # Search for the student with the given email
                     student_id = self.find_student_by_email(student_email)
 
@@ -92,24 +91,22 @@ class Tum_structure:
         return None
 
     def enroll_from_txt(
-        self, 
-        file_txt, 
+        self,
+        file_txt,
     ):
         """Enroll a student from a text file.
-        
+
         Args:
             file_txt (str): The path to the text file containing the student information.
         """
         try:
-            with open(file_txt, 'r') as file:
+            with open(file_txt, "r") as file:
                 lines = file.readlines()
                 for line in lines:
                     self.add_student(line)
 
         except FileNotFoundError:
             print(f"File not found: {file_txt}")
-
-                
 
     def graduate_student(
         self,
