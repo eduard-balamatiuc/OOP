@@ -7,10 +7,6 @@ class FitInteraction:
         self.__state = "init"
         self.__request = ""
         self.__request_parameters = []
-        self.__tracked_files = []
-        self.__staged_files = []
-        self.__untracked_files = []
-        self.__modified_files = []
     
     def interaction_initialization(self):
         """This is a method that will start the system and initialize it."""
@@ -82,7 +78,7 @@ class FitInteraction:
             print("The system is not initialized!")
             return
         
-        print(Fit.fit_get_status())
+        Fit.fit_get_status()
         
     def fit_add(self):
         """This is a method that will add a file to the system."""
