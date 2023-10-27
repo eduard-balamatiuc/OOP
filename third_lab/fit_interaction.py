@@ -18,7 +18,31 @@ class FitInteraction:
         print("Type 'fit help' to see the available commands.")
         self.__state = "running"
         self.interaction_running()
-        
+
+    def interaction_running(self):
+        """This is a method that will keep the system running."""
+        while self.__state == "running":
+            self.get_request()
+            
+            if self.__request_parameters[0] == "fit":
+                self.__request_parameters.pop(0)
+            
+            if self.__request_parameters[0] == "help":
+                self.fit_help()
+            elif self.__request_parameters[0] == "init":
+                self.fit_init()
+            elif self.__request_parameters[0] == "status":
+                self.fit_status()
+            elif self.__request_parameters[0] == "add":
+                self.fit_add()
+            elif self.__request_parameters[0] == "commit":
+                self.fit_commit()
+            elif self.__request_parameters[0] == "info":
+                self.fit_info()
+            elif self.__request_parameters[0] == "exit":
+                self.__state = "exit"
+            else:
+                print("The command is not recognized!")   
    
     
     def fit_help(self):
