@@ -1,4 +1,5 @@
 import os
+import json
 
 class Fit:
     """A class structure that will mimic the git functionalities of git"""
@@ -13,6 +14,8 @@ class Fit:
         
         if os.path.exists(folder_path):
             self.__fit_folder_path = folder_path
+            with open(os.path.join(self.__fit_folder_path, "fit_info.json"), "r") as json_file:
+                self.__fit_info = json.load(json_file)
             return True
         else:
             return False
