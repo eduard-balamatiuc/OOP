@@ -58,3 +58,12 @@ class FitInteraction:
         if Fit.fit_commit_changes(self.__request_parameters):
             print("The changes were committed successfully!")
             
+    def fit_info(self):
+        """This is a method that will print the info about the files"""
+        if not Fit.fit_check_hidden_system_folder():
+            print("The system is not initialized!")
+            return
+        
+        if Fit.fit_info_about_files(self.__request_parameters):
+            print("The info was printed successfully!")
+    
