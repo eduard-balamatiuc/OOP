@@ -5,13 +5,21 @@ class FitInteraction:
     """A class that will mimic the git functionalities with the word "fit" as the keyword"""
     def __init__(self):
         self.__state = "init"
+        self.__request = ""
         self.__request_parameters = []
+        self.__tracked_files = []
+        self.__staged_files = []
+        self.__untracked_files = []
+        self.__modified_files = []
     
     def interaction_initialization(self):
         """This is a method that will start the system and initialize it."""
         print("Welcome to the Fit system!")
         print("Type 'fit help' to see the available commands.")
         self.__state = "running"
+        self.interaction_running()
+        
+   
     
     def fit_help(self):
         """This is a method that will print the help menu."""
