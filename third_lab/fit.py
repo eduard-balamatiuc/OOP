@@ -3,32 +3,34 @@ import os
 class Fit:
     """A class structure that will mimic the git functionalities of git"""
     def __init__(self):
-        pass
+        self.__fit_info = {}
+        self.__fit_folder_path = ""
     
-    def fit_check_hidden_system_folder():
+    def fit_check_hidden_system_folder(self):
         """This is a method that will check if the fit system was already initialized in the hidden folder."""
         folder_name = ".fit"
         folder_path = os.path.join(os.getcwd(), folder_name)
         
         if os.path.exists(folder_path):
+            self.__fit_folder_path = folder_path
             return True
         else:
             return False
         
-    def fit_create_hidden_system():
+    def fit_create_hidden_system(self):
         """This is a metho that will create the hidden folder for the fit system."""
         folder_name = ".fit"
-        folder_path = os.path.join(os.getcwd(), folder_name)
+        self.__fit_folder_path = os.path.join(os.getcwd(), folder_name)
         
         try:
-            os.mkdir(folder_path)
+            os.mkdir(self.__fit_folder_path)
         except OSError:
-            print("Creation of the directory %s failed" % folder_path)
+            print("Creation of the directory %s failed" % self.__fit_folder_path)
             return False
         
         # create the commit history json file in the hidden folder
-        file_name = "commit_history.json"
-        file_path = os.path.join(folder_path, file_name)
+        file_name = "fit_info.json"
+        file_path = os.path.join(self.__fit_folder_path, file_name)
         
         try:
             open(file_path, 'w').close()
@@ -39,5 +41,15 @@ class Fit:
         return True
     
     def fit_get_status():
+        """This is a method that will get the status of the system."""
+        
+    
+    def fit_add_file(request_parameters):
+        pass
+    
+    def fit_commit_changes(request_parameters):
+        pass
+    
+    def fit_info_about_files(request_parameters):
         pass
     
