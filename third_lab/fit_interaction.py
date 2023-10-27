@@ -18,7 +18,12 @@ class FitInteraction:
         print("Type 'fit help' to see the available commands.")
         self.__state = "running"
         self.interaction_running()
-
+    
+    def get_request(self):
+        """This is a method that will get the request from the user."""
+        self.__request = input()
+        self.__request_parameters = self.__request.split(" ", 2)
+        
     def interaction_running(self):
         """This is a method that will keep the system running."""
         while self.__state == "running":
