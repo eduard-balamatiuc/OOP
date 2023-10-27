@@ -34,20 +34,27 @@ class FitInteraction:
             
             if self.__request_parameters[0] == "help":
                 self.fit_help()
+                print()
             elif self.__request_parameters[0] == "init":
                 self.fit_init()
+                print()
             elif self.__request_parameters[0] == "status":
                 self.fit_status()
+                print()
             elif self.__request_parameters[0] == "add":
                 self.fit_add()
+                print()
             elif self.__request_parameters[0] == "commit":
                 self.fit_commit()
+                print()
             elif self.__request_parameters[0] == "info":
                 self.fit_info()
+                print()
             elif self.__request_parameters[0] == "exit":
                 self.__state = "exit"
+                print()
             else:
-                print("The command is not recognized!")   
+                print("The command is not recognized!\n")   
    
     
     def fit_help(self):
