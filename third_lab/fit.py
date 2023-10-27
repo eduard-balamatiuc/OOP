@@ -5,7 +5,7 @@ class Fit:
     def __init__(self):
         pass
     
-    def fit_check_hidden_system_folder(self):
+    def fit_check_hidden_system_folder():
         """This is a method that will check if the fit system was already initialized in the hidden folder."""
         folder_name = ".fit"
         folder_path = os.path.join(os.getcwd(), folder_name)
@@ -15,7 +15,7 @@ class Fit:
         else:
             return False
         
-    def fit_create_hidden_system(self):
+    def fit_create_hidden_system():
         """This is a metho that will create the hidden folder for the fit system."""
         folder_name = ".fit"
         folder_path = os.path.join(os.getcwd(), folder_name)
@@ -38,6 +38,6 @@ class Fit:
         
         return True
     
-    def fit_get_status(self):
+    def fit_get_status():
         pass
     
