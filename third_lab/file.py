@@ -3,7 +3,6 @@ class File:
     def __init__(
         self,
         path,
-        type,
         name,
         extension,
         size,
@@ -24,7 +23,6 @@ class File:
             properties (dict): The properties of the file.
         """
         self.__path = path
-        self.__type = type
         self.__name = name
         self.__extension = extension
         self.__size = size
@@ -39,14 +37,6 @@ class File:
             str: The path of the file.
         """
         return self.__path
-    
-    def get_type(self):
-        """This is a getter for the type of the file.
-
-        Returns:
-            str: The type of the file.
-        """
-        return self.__type
     
     def get_name(self):
         """This is a getter for the name of the file.
@@ -103,14 +93,6 @@ class File:
             path (str): The path of the file.
         """
         self.__path = path
-        
-    def set_type(self, type):
-        """This is a setter for the type of the file.
-
-        Args:
-            type (str): The type of the file.
-        """
-        self.__type = type
         
     def set_name(self, name):
         """This is a setter for the name of the file.
