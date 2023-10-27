@@ -37,3 +37,7 @@ class Fit:
             return False
         
         return True
+    
+    def fit_get_status(self):
+        pass
+    
