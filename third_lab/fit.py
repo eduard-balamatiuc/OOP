@@ -49,6 +49,37 @@ class Fit:
         
         return True
     
+    def fit_get_status(self):
+        """This is a method that will get the status of the system."""
+        current_state = self.take_snapshot()
+        staged_state = self.__fit_info.get("staged")
+        last_state = self.__fit_info.get("tracked")
+        
+        status_response = {}
+        
+        status_response["deleted"] = [file_name for file_name in last_state if file_name not in current_state]
+        status_response["added"] = [file_name for file_name in current_state if file_name not in last_state]
+        status_response["modified"] = [file_name for file_name in current_state if file_name in last_state]
+        
+        if status_response["modified"]:
+            print("\nModified files:\n")
+            for file_name in status_response["modified"]:
+                print(file_name)
+                
+        if status_response["added"]:
+            print("\nAdded files:\n")
+            for file_name in status_response["added"]:
+                print(file_name)
+                
+        if status_response["deleted"]:
+            print("\nDeleted files:\n")
+            for file_name in status_response["deleted"]:
+                print(file_name)
+                
+        if staged_state:
+            print("\nStaged files:\n")
+            for file_name in staged_state:
+                print(file_name)
 
     
     def take_snapshot(self):
