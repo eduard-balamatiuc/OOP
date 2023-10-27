@@ -48,3 +48,13 @@ class FitInteraction:
         
         if Fit.fit_add_file(self.__request_parameters):
             print("The files were added successfully!")
+            
+    def fit_commit(self):
+        """This is a method that will commit the changes to the system."""
+        if not Fit.fit_check_hidden_system_folder():
+            print("The system is not initialized!")
+            return
+        
+        if Fit.fit_commit_changes(self.__request_parameters):
+            print("The changes were committed successfully!")
+            
