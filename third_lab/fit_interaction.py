@@ -5,6 +5,7 @@ class FitInteraction:
     """A class that will mimic the git functionalities with the word "fit" as the keyword"""
     def __init__(self):
         self.__state = "init"
+        self.__request_parameters = []
     
     def interaction_initialization(self):
         """This is a method that will start the system and initialize it."""
@@ -30,3 +31,13 @@ class FitInteraction:
             print("The system was initialized successfully!")
         else:
             print("The system could not be initialized!")
+            
+    def fit_status(self):
+        """This is a method that will check the status of the system."""
+        if not Fit.fit_check_hidden_system_folder():
+            print("The system is not initialized!")
+            return
+        
+        print(Fit.fit_get_status())
+
+    
