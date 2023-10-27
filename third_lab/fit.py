@@ -102,3 +102,13 @@ class Fit:
                     properties={},
                 )
         return snapshot
+    
+    def fit_add_file(self, request_parameters):
+        """This is a method that will add all the files from the request parameters to the system."""
+        current_state = self.take_snapshot()
+        for file_name in request_parameters[1:]:
+            if file_name in current_state:
+                self.__fit_info["staged"][file_name] = current_state[file_name].__dict__
+            else:
+                print("The file %s does not exist!" % file_name)
+                return False
