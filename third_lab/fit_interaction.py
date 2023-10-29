@@ -98,6 +98,8 @@ class FitInteraction:
         
         if self.__Fit.fit_commit_changes(self.__request_parameters):
             print("The changes were committed successfully!")
+        else:
+            print("The changes could not be committed!")
             
     def fit_info(self):
         """This is a method that will print the info about the files"""
