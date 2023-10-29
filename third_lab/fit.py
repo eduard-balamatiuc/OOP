@@ -144,3 +144,8 @@ class Fit:
         status_response["modified"] = modified
         return status_response
 
+    def update_fit_info(self):
+        """This is a method that will update the fit info json file."""
+        file_path = os.path.join(self.__fit_folder_path, "fit_info.json")
+        with open(file_path, "w") as json_file:
+            json.dump(self.__fit_info, json_file)
