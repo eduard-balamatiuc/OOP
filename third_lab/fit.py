@@ -7,6 +7,7 @@ class Fit:
     def __init__(self):
         self.__fit_info = {}
         self.__fit_folder_path = ""
+        self.__status_response = {}
     
     def fit_check_hidden_system_folder(self):
         """This is a method that will check if the fit system was already initialized in the hidden folder."""
@@ -52,21 +53,20 @@ class Fit:
     def fit_get_status(self):
         """This is a method that will get the status of the system."""
         staged_state = self.__fit_info.get("staged")
-        status_response = self.get_status_response()
         
-        if status_response["modified"]:
+        if self.__status_response["modified"]:
             print("\nModified files:\n")
-            for file_name in status_response["modified"]:
+            for file_name in self.__status_response["modified"]:
                 print(file_name)
                 
-        if status_response["added"]:
+        if self.__status_response["added"]:
             print("\nAdded files:\n")
-            for file_name in status_response["added"]:
+            for file_name in self.__status_response["added"]:
                 print(file_name)
                 
-        if status_response["deleted"]:
+        if self.__status_response["deleted"]:
             print("\nDeleted files:\n")
-            for file_name in status_response["deleted"]:
+            for file_name in self.__status_response["deleted"]:
                 print(file_name)
                 
         if staged_state:
@@ -98,27 +98,26 @@ class Fit:
     
     def fit_add_file(self, request_parameters):
         """This is a method that will add all the changed, including deleted files to the staged area."""
-        status_response = self.get_status_response()
         if request_parameters[0] == ".":
-            for file_name in status_response["modified"]:
+            for file_name in self.__status_response["modified"]:
                 self.__fit_info["staged"][file_name] = self.__fit_info["tracked"][file_name]
                 print("The file %s was added to the staged area!" % file_name)
-            for file_name in status_response["added"]:
+            for file_name in self.__status_response["added"]:
                 self.__fit_info["staged"][file_name] = self.__fit_info["tracked"][file_name]
                 print("The file %s was added to the staged area!" % file_name)
-            for file_name in status_response["deleted"]:
+            for file_name in self.__status_response["deleted"]:
                 self.__fit_info["staged"][file_name] = self.__fit_info["tracked"][file_name]
                 print("The file %s was added to the staged area!" % file_name)
         else:
             for file_name in request_parameters[1:]:
-                if file_name in status_response["modified"]:
-                    self.__fit_info["staged"][file_name] = status_response["modified"][file_name]
+                if file_name in self.__status_response["modified"]:
+                    self.__fit_info["staged"][file_name] = self.__status_response["modified"][file_name]
                     print("The file %s was added to the staged area!" % file_name)
-                elif file_name in status_response["added"]:
-                    self.__fit_info["staged"][file_name] = status_response["added"][file_name]
+                elif file_name in self.__status_response["added"]:
+                    self.__fit_info["staged"][file_name] = self.__status_response["added"][file_name]
                     print("The file %s was added to the staged area!" % file_name)
-                elif file_name in status_response["deleted"]:
-                    self.__fit_info["staged"][file_name] = status_response["deleted"][file_name]
+                elif file_name in self.__status_response["deleted"]:
+                    self.__fit_info["staged"][file_name] = self.__status_response["deleted"][file_name]
                     print("The file %s was added to the staged area!" % file_name)
                 else:
                     print("The file %s is not in the system!" % file_name)
@@ -132,17 +131,14 @@ class Fit:
         staged_state = self.__fit_info.get("staged")
         last_state = self.__fit_info.get("tracked")
         
-        status_response = {}
-        
         # Create dictionaries with file names as keys and values as values
         deleted = {file_name: last_state.get(file_name).get_dict_data() for file_name in last_state if file_name not in current_state and file_name not in staged_state}
         added = {file_name: current_state.get(file_name).get_dict_data() for file_name in current_state if file_name not in last_state or file_name in staged_state}
         modified = {file_name: last_state.get(file_name).get_dict_data() for file_name in current_state if file_name in last_state or file_name in staged_state}
         
-        status_response["deleted"] = deleted
-        status_response["added"] = added
-        status_response["modified"] = modified
-        return status_response
+        self.__status_response["deleted"] = deleted
+        self.__status_response["added"] = added
+        self.__status_response["modified"] = modified
 
     def update_fit_info(self):
         """This is a method that will update the fit info json file."""
