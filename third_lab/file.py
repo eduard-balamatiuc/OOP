@@ -30,6 +30,19 @@ class File:
         self.__updated_at = updated_at
         self.__properties = properties
         
+    # create a function that will return a dict with the file data when calling the object  
+    def get_dict_data(self):
+        """This is a method that will return a dict with the file data when calling the object."""
+        return {
+            "path": self.__path,
+            "name": self.__name,
+            "extension": self.__extension,
+            "size": self.__size,
+            "created_at": self.__created_at,
+            "updated_at": self.__updated_at,
+            "properties": self.__properties,
+        }
+    
     def get_path(self):
         """This is a getter for the path of the file.
 
@@ -142,22 +155,5 @@ class File:
         """
         self.__properties = properties
         
-    def __str__(self):
-        """This is a method that returns a string representation of the file.
-
-        Returns:
-            str: A string representation of the file.
-        """
-        return (
-            f"File("
-            f"path={self.__path}, "
-            f"type={self.__type}, "
-            f"name={self.__name}, "
-            f"extension={self.__extension}, "
-            f"size={self.__size}, "
-            f"created_at={self.__created_at}, "
-            f"updated_at={self.__updated_at}, "
-            f"properties={self.__properties})"
-        )
         
-    
+ 
