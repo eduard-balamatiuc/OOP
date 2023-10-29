@@ -1,6 +1,9 @@
 import os
 import json
 from file import File
+import time
+import secrets
+import hashlib
 
 class Fit:
     """A class structure that will mimic the git functionalities of git"""
@@ -53,18 +56,19 @@ class Fit:
     def fit_get_status(self):
         """This is a method that will get the status of the system."""
         staged_state = self.__fit_info.get("staged")
+        self.get_status_response()
         
-        if self.__status_response["modified"]:
+        if self.__status_response.get("modified"):
             print("\nModified files:\n")
             for file_name in self.__status_response["modified"]:
                 print(file_name)
                 
-        if self.__status_response["added"]:
+        if self.__status_response.get("added"):
             print("\nAdded files:\n")
             for file_name in self.__status_response["added"]:
                 print(file_name)
                 
-        if self.__status_response["deleted"]:
+        if self.__status_response.get("deleted"):
             print("\nDeleted files:\n")
             for file_name in self.__status_response["deleted"]:
                 print(file_name)
@@ -98,15 +102,18 @@ class Fit:
     
     def fit_add_file(self, request_parameters):
         """This is a method that will add all the changed, including deleted files to the staged area."""
+        self.get_status_response()
         if request_parameters[0] == ".":
-            for file_name in self.__status_response["modified"]:
-                self.__fit_info["staged"][file_name] = self.__fit_info["tracked"][file_name]
+            for file_name in self.__status_response.get("modified"):
+                self.__fit_info.get("staged")[file_name] = self.__fit_info["tracked"][file_name]
                 print("The file %s was added to the staged area!" % file_name)
-            for file_name in self.__status_response["added"]:
-                self.__fit_info["staged"][file_name] = self.__fit_info["tracked"][file_name]
+                
+            for file_name in self.__status_response.get("added"):
+                self.__fit_info.get("staged")[file_name] = self.__fit_info["tracked"][file_name]
                 print("The file %s was added to the staged area!" % file_name)
-            for file_name in self.__status_response["deleted"]:
-                self.__fit_info["staged"][file_name] = self.__fit_info["tracked"][file_name]
+                
+            for file_name in self.__status_response.get("deleted"):
+                self.__fit_info.get("staged")[file_name] = self.__fit_info["tracked"][file_name]
                 print("The file %s was added to the staged area!" % file_name)
         else:
             for file_name in request_parameters[1:]:
@@ -137,12 +144,12 @@ class Fit:
                 if file_name not in current_state and file_name not in staged_state}
 
         added = {file_name: current_state[file_name].get_dict_data() 
-                for file_name in current_state 
-                if file_name not in last_state or file_name in staged_state}
+                for file_name in current_state
+                if file_name not in last_state and file_name not in staged_state}
 
         modified = {file_name: last_state[file_name].get_dict_data() 
-                    for file_name in current_state 
-                    if file_name in last_state or file_name in staged_state}
+                    for file_name in current_state
+                    if file_name in last_state and file_name not in staged_state}
    
         self.__status_response["deleted"] = deleted
         self.__status_response["added"] = added
@@ -153,3 +160,27 @@ class Fit:
         file_path = os.path.join(self.__fit_folder_path, "fit_info.json")
         with open(file_path, "w") as json_file:
             json.dump(self.__fit_info, json_file)
+            
+    def fit_commit_changes(self, request_parameters):
+        """This is a method that will commit the changes to the system."""
+        if len(request_parameters) == 1:
+            print("Please provide a commit message!")
+            return False
+        
+        commit_hash = secrets.token_hex(16)
+        commit_message = " ".join(request_parameters[1:])
+        commit_time = time.time()
+        commit_files = self.__fit_info.get("staged")
+        
+        commit = {
+            "hash": commit_hash,
+            "message": commit_message,
+            "time": commit_time,
+            "files": commit_files,
+        }
+        
+        self.__fit_info["commits"][commit_hash] = commit
+        self.__fit_info["tracked"] = self.take_snapshot()
+        self.__fit_info["staged"] = {}
+        self.update_fit_info()
+        return True
