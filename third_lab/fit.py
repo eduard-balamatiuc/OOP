@@ -20,10 +20,22 @@ class Fit:
         if os.path.exists(folder_path):
             self.__fit_folder_path = folder_path
             with open(os.path.join(self.__fit_folder_path, "fit_info.json"), "r") as json_file:
-                self.__fit_info = json.load(json_file)
+                self.load_fit_info(json_file)
             return True
         else:
             return False
+    
+    def load_fit_info(self, json_file_path):
+        """This is a metho that will load the fit info from the json file."""
+        self.__fit_info = json.load(json_file_path)
+        self.__fit_info["tracked"] = {
+            file_name: File(**file_data) 
+            for file_name, file_data in self.__fit_info["tracked"].items()
+        }
+        self.__fit_info["staged"] = {
+            file_name: File(**file_data) 
+            for file_name, file_data in self.__fit_info["staged"].items()
+        }
         
     def fit_create_hidden_system(self):
         """This is a metho that will create the hidden folder for the fit system."""
@@ -103,28 +115,28 @@ class Fit:
     def fit_add_file(self, request_parameters):
         """This is a method that will add all the changed, including deleted files to the staged area."""
         self.get_status_response()
-        if request_parameters[0] == ".":
+        if request_parameters[1] == ".":
             for file_name in self.__status_response.get("modified"):
-                self.__fit_info.get("staged")[file_name] = self.__fit_info["tracked"][file_name]
+                self.__fit_info.get("staged")[file_name] = self.__status_response.get("modified")[file_name]
                 print("The file %s was added to the staged area!" % file_name)
                 
             for file_name in self.__status_response.get("added"):
-                self.__fit_info.get("staged")[file_name] = self.__fit_info["tracked"][file_name]
+                self.__fit_info.get("staged")[file_name] = self.__status_response.get("added")[file_name]
                 print("The file %s was added to the staged area!" % file_name)
                 
             for file_name in self.__status_response.get("deleted"):
-                self.__fit_info.get("staged")[file_name] = self.__fit_info["tracked"][file_name]
+                self.__fit_info.get("staged")[file_name] = self.__status_response.get("deleted")[file_name]
                 print("The file %s was added to the staged area!" % file_name)
         else:
             for file_name in request_parameters[1:]:
                 if file_name in self.__status_response["modified"]:
-                    self.__fit_info["staged"][file_name] = self.__status_response["modified"][file_name]
+                    self.__fit_info.get("staged")[file_name] = self.__status_response.get("modified")[file_name]
                     print("The file %s was added to the staged area!" % file_name)
                 elif file_name in self.__status_response["added"]:
-                    self.__fit_info["staged"][file_name] = self.__status_response["added"][file_name]
+                    self.__fit_info.get("staged")[file_name] = self.__status_response.get("added")[file_name]
                     print("The file %s was added to the staged area!" % file_name)
                 elif file_name in self.__status_response["deleted"]:
-                    self.__fit_info["staged"][file_name] = self.__status_response["deleted"][file_name]
+                    self.__fit_info.get("staged")[file_name] = self.__status_response.get("deleted")[file_name]
                     print("The file %s was added to the staged area!" % file_name)
                 else:
                     print("The file %s is not in the system!" % file_name)
@@ -139,17 +151,18 @@ class Fit:
         last_state = self.__fit_info.get("tracked")
         
         # Create dictionaries with file names as keys and values as values
-        deleted = {file_name: last_state[file_name].get_dict_data() 
+        deleted = {file_name: last_state[file_name] 
                 for file_name in last_state 
                 if file_name not in current_state and file_name not in staged_state}
 
-        added = {file_name: current_state[file_name].get_dict_data() 
+        added = {file_name: current_state[file_name] 
                 for file_name in current_state
                 if file_name not in last_state and file_name not in staged_state}
 
-        modified = {file_name: last_state[file_name].get_dict_data() 
+        modified = {file_name: last_state[file_name]
                     for file_name in current_state
-                    if file_name in last_state and file_name not in staged_state}
+                    if (file_name in last_state and file_name not in staged_state) 
+                    and (last_state[file_name].get_updated_at() != current_state[file_name].get_updated_at())}
    
         self.__status_response["deleted"] = deleted
         self.__status_response["added"] = added
@@ -157,7 +170,21 @@ class Fit:
 
     def update_fit_info(self):
         """This is a method that will update the fit info json file."""
+        
         file_path = os.path.join(self.__fit_folder_path, "fit_info.json")
+        # convert self.__fit_info["tracked"] and self.__fit_info["staged"] to dicts
+        self.__fit_info["tracked"] = {
+            file_name: file_data.get_dict_data()
+            for file_name, file_data in self.__fit_info["tracked"].items()
+        }
+        self.__fit_info["staged"] = {
+            file_name: file_data.get_dict_data()
+            for file_name, file_data in self.__fit_info["staged"].items()
+        }
+        self.__fit_info["commits"] = {
+            commit_hash: commit_data
+            for commit_hash, commit_data in self.__fit_info["commits"].items()
+        }
         with open(file_path, "w") as json_file:
             json.dump(self.__fit_info, json_file)
             
@@ -170,7 +197,10 @@ class Fit:
         commit_hash = secrets.token_hex(16)
         commit_message = " ".join(request_parameters[1:])
         commit_time = time.time()
-        commit_files = self.__fit_info.get("staged")
+        commit_files = {
+            file_name: file_data.get_dict_data()
+            for file_name, file_data in self.__fit_info["staged"].items()
+        }
         
         commit = {
             "hash": commit_hash,
@@ -180,7 +210,7 @@ class Fit:
         }
         
         self.__fit_info["commits"][commit_hash] = commit
-        self.__fit_info["tracked"] = self.take_snapshot()
+        self.__fit_info["tracked"] = {**self.__fit_info["tracked"], **self.__fit_info["staged"]}
         self.__fit_info["staged"] = {}
         self.update_fit_info()
         return True
