@@ -1,7 +1,7 @@
 import os
 import json
 from file import File
-import time
+from datetime import datetime
 import secrets
 import hashlib
 
@@ -214,3 +214,36 @@ class Fit:
         self.__fit_info["staged"] = {}
         self.update_fit_info()
         return True
+    
+    def fit_info_about_files(self, request_paramters):
+        """This is a method that will print the info about the files."""
+        if len(request_paramters) == 1:
+            # print info about all files
+            for file_name, file_data in self.take_snapshot().items():
+                created_at = file_data.get_dict_data().get('created_at')
+                updated_at = file_data.get_dict_data().get('updated_at')
+                
+                # Convert timestamps to a more human-readable format
+                created_at_formatted = datetime.fromtimestamp(created_at).strftime('%Y-%m-%d %H:%M:%S')
+                updated_at_formatted = datetime.fromtimestamp(updated_at).strftime('%Y-%m-%d %H:%M:%S')
+                
+                print(file_name)
+                print(f"Created at: {created_at_formatted}")
+                print(f"Updated at: {updated_at_formatted}")
+                print()
+        else:
+            # print info about the specified files
+            for file_name in request_paramters[1:]:
+                if file_name in self.take_snapshot():
+                    file_data = self.take_snapshot()[file_name]
+                    created_at = file_data.get_dict_data().get('created_at')
+                    updated_at = file_data.get_dict_data().get('updated_at')
+                    
+                    # Convert timestamps to a more human-readable format
+                    created_at_formatted = datetime.fromtimestamp(created_at).strftime('%Y-%m-%d %H:%M:%S')
+                    updated_at_formatted = datetime.fromtimestamp(updated_at).strftime('%Y-%m-%d %H:%M:%S')
+                    
+                    print(file_name)
+                    print(f"Created at: {created_at_formatted}")
+                    print(f"Updated at: {updated_at_formatted}")
+                    print()

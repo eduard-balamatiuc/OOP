@@ -62,6 +62,7 @@ class FitInteraction:
         print("fit status - to see the status of the system")
         print("fit add - to add a file to the system")
         print("fit commit - to commit the changes to the system")
+        print("fit info - to print the info about the files")
     
         
     def fit_init(self):
