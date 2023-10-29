@@ -132,10 +132,18 @@ class Fit:
         last_state = self.__fit_info.get("tracked")
         
         # Create dictionaries with file names as keys and values as values
-        deleted = {file_name: last_state.get(file_name).get_dict_data() for file_name in last_state if file_name not in current_state and file_name not in staged_state}
-        added = {file_name: current_state.get(file_name).get_dict_data() for file_name in current_state if file_name not in last_state or file_name in staged_state}
-        modified = {file_name: last_state.get(file_name).get_dict_data() for file_name in current_state if file_name in last_state or file_name in staged_state}
-        
+        deleted = {file_name: last_state[file_name].get_dict_data() 
+                for file_name in last_state 
+                if file_name not in current_state and file_name not in staged_state}
+
+        added = {file_name: current_state[file_name].get_dict_data() 
+                for file_name in current_state 
+                if file_name not in last_state or file_name in staged_state}
+
+        modified = {file_name: last_state[file_name].get_dict_data() 
+                    for file_name in current_state 
+                    if file_name in last_state or file_name in staged_state}
+   
         self.__status_response["deleted"] = deleted
         self.__status_response["added"] = added
         self.__status_response["modified"] = modified
