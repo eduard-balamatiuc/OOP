@@ -125,3 +125,22 @@ class Fit:
                     return False
         self.update_fit_info()
 
+        
+    def get_status_response(self):
+        """This is a method that will provide the status response dictionary divided into 3 categories"""
+        current_state = self.take_snapshot()
+        staged_state = self.__fit_info.get("staged")
+        last_state = self.__fit_info.get("tracked")
+        
+        status_response = {}
+        
+        # Create dictionaries with file names as keys and values as values
+        deleted = {file_name: last_state.get(file_name).get_dict_data() for file_name in last_state if file_name not in current_state and file_name not in staged_state}
+        added = {file_name: current_state.get(file_name).get_dict_data() for file_name in current_state if file_name not in last_state or file_name in staged_state}
+        modified = {file_name: last_state.get(file_name).get_dict_data() for file_name in current_state if file_name in last_state or file_name in staged_state}
+        
+        status_response["deleted"] = deleted
+        status_response["added"] = added
+        status_response["modified"] = modified
+        return status_response
+
