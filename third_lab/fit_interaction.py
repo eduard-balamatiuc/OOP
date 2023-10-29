@@ -18,7 +18,7 @@ class FitInteraction:
     
     def get_request(self):
         """This is a method that will get the request from the user."""
-        self.__request = input()
+        self.__request = input(">>>")
         self.__request_parameters = self.__request.split(" ", 2)
         
     def interaction_running(self):
