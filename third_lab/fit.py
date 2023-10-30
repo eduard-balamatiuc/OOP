@@ -6,11 +6,12 @@ import secrets
 import hashlib
 
 class Fit:
-    """A class structure that will mimic the git functionalities of git"""
+    """A structure that will mimic the git functionalities of git"""
     def __init__(self):
         self.__fit_info = {}
         self.__fit_folder_path = ""
         self.__status_response = {}
+        self.__old_status_response = {}
     
     def fit_check_hidden_system_folder(self):
         """This is a method that will check if the fit system was already initialized in the hidden folder."""
@@ -36,6 +37,14 @@ class Fit:
             file_name: File(**file_data) 
             for file_name, file_data in self.__fit_info["staged"].items()
         }
+        
+    def get_status_response_dict(self):
+        """This is a method that will return the status response dictionary if something changed from the last version."""
+        if self.__status_response != self.__old_status_response:
+            return self.__status_response
+        else:
+            return {}
+        
         
     def fit_create_hidden_system(self):
         """This is a metho that will create the hidden folder for the fit system."""
@@ -146,6 +155,7 @@ class Fit:
         
     def get_status_response(self):
         """This is a method that will provide the status response dictionary divided into 3 categories"""
+        self.__old_status_response = self.__status_response
         current_state = self.take_snapshot()
         staged_state = self.__fit_info.get("staged")
         last_state = self.__fit_info.get("tracked")
@@ -157,7 +167,8 @@ class Fit:
 
         added = {file_name: current_state[file_name] 
                 for file_name in current_state
-                if file_name not in last_state and file_name not in staged_state}
+                if file_name not in last_state and file_name not in staged_state
+                or (current_state[file_name].get_updated_at() != current_state[file_name].get_created_at())}
 
         modified = {file_name: last_state[file_name]
                     for file_name in current_state
@@ -196,7 +207,7 @@ class Fit:
         
         commit_hash = secrets.token_hex(16)
         commit_message = " ".join(request_parameters[1:])
-        commit_time = time.time()
+        commit_time = datetime.now().timestamp()
         commit_files = {
             file_name: file_data.get_dict_data()
             for file_name, file_data in self.__fit_info["staged"].items()
@@ -228,7 +239,7 @@ class Fit:
                 updated_at_formatted = datetime.fromtimestamp(updated_at).strftime('%Y-%m-%d %H:%M:%S')
                 
                 print(file_name)
-                print(f"Created at: {created_at_formatted}")
+                print(f"Created  at: {created_at_formatted}")
                 print(f"Updated at: {updated_at_formatted}")
                 print()
         else:
@@ -246,4 +257,7 @@ class Fit:
                     print(file_name)
                     print(f"Created at: {created_at_formatted}")
                     print(f"Updated at: {updated_at_formatted}")
+                    print(f"Size: {file_data.get_dict_data().get('size')} bytes")
+                    for property_name, property_value in file_data.get_dict_data().get('properties').items():
+                        print(f"{property_name}: {property_value}")
                     print()
