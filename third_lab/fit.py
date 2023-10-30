@@ -114,8 +114,7 @@ class Fit:
                 file_size = os.path.getsize(file_path)
                 file_created_at = os.path.getctime(file_path)
                 file_updated_at = os.path.getmtime(file_path)
-                file_properties = {}
-                if file_extension in ["png", "jpg", "jpeg", "gif"]:
+                if file_extension in [".png", ".jpg", ".jpeg", ".gif"]:
                     snapshot[file_name] = ImageFile(
                         path=file_path,
                         name=file_name,
@@ -124,8 +123,7 @@ class Fit:
                         created_at=file_created_at,
                         updated_at=file_updated_at,
                     )
-                    snapshot[file_name].extract_properties()
-                elif file_extension in ["txt"]:
+                elif file_extension in [".txt"]:
                     snapshot[file_name] = TextFile(
                         path=file_path,
                         name=file_name,
@@ -134,8 +132,7 @@ class Fit:
                         created_at=file_created_at,
                         updated_at=file_updated_at,
                     )
-                    snapshot[file_name].extract_properties()
-                elif file_extension in ["py", "java"]:
+                elif file_extension in [".py", ".java"]:
                     snapshot[file_name] = CodeFile(
                         path=file_path,
                         name=file_name,
@@ -144,7 +141,6 @@ class Fit:
                         created_at=file_created_at,
                         updated_at=file_updated_at,
                     )
-                    snapshot[file_name].extract_properties()
                 else:
                     snapshot[file_name] = File(
                         path=file_path,
@@ -281,8 +277,10 @@ class Fit:
         else:
             # print info about the specified files
             for file_name in request_paramters[1:]:
-                if file_name in self.take_snapshot():
-                    file_data = self.take_snapshot()[file_name]
+                snapshot = self.take_snapshot()
+                if file_name in snapshot:
+                    file_data = snapshot.get(file_name)
+                    print(f"This is the file data: {file_data.get_dict_data()}")
                     created_at = file_data.get_dict_data().get('created_at')
                     updated_at = file_data.get_dict_data().get('updated_at')
                     
@@ -290,7 +288,6 @@ class Fit:
                     created_at_formatted = datetime.fromtimestamp(created_at).strftime('%Y-%m-%d %H:%M:%S')
                     updated_at_formatted = datetime.fromtimestamp(updated_at).strftime('%Y-%m-%d %H:%M:%S')
                     
-                    print(file_name)
                     print(f"Created at: {created_at_formatted}")
                     print(f"Updated at: {updated_at_formatted}")
                     print(f"Size: {file_data.get_dict_data().get('size')} bytes")

@@ -1,6 +1,7 @@
 import struct
 import imghdr
 
+
 class File:
     """This is a class that will represent a file in a file system."""
     def __init__(
@@ -11,8 +12,8 @@ class File:
         size,
         created_at,
         updated_at,
-        properties = {},
-        ):
+        properties={},
+    ):
         """This is a constructor for the File class.
 
         Args:
@@ -31,12 +32,8 @@ class File:
         self.__size = size
         self.__created_at = created_at
         self.__updated_at = updated_at
-        if not properties:
-            self.extract_properties()
-        else:
-            self.__properties = properties
-        
-    # create a function that will return a dict with the file data when calling the object  
+        self.__properties = properties
+
     def get_dict_data(self):
         """This is a method that will return a dict with the file data when calling the object."""
         return {
@@ -48,11 +45,7 @@ class File:
             "updated_at": self.__updated_at,
             "properties": self.__properties,
         }
-    
-    def extract_properties(self):
-        """This is a method that will extract the properties of the file."""
-        pass
-    
+
     def get_path(self):
         """This is a getter for the path of the file.
 
@@ -60,7 +53,7 @@ class File:
             str: The path of the file.
         """
         return self.__path
-    
+
     def get_name(self):
         """This is a getter for the name of the file.
 
@@ -68,7 +61,7 @@ class File:
             str: The name of the file.
         """
         return self.__name
-    
+
     def get_extension(self):
         """This is a getter for the extension of the file.
 
@@ -76,7 +69,7 @@ class File:
             str: The extension of the file.
         """
         return self.__extension
-    
+
     def get_size(self):
         """This is a getter for the size of the file.
 
@@ -84,7 +77,7 @@ class File:
             int: The size of the file.
         """
         return self.__size
-    
+
     def get_created_at(self):
         """This is a getter for the date the file was created at.
 
@@ -92,7 +85,7 @@ class File:
             str: The date the file was created at.
         """
         return self.__created_at
-    
+
     def get_updated_at(self):
         """This is a getter for the date the file was updated at.
 
@@ -100,7 +93,7 @@ class File:
             str: The date the file was updated at.
         """
         return self.__updated_at
-    
+
     def get_properties(self):
         """This is a getter for the properties of the file.
 
@@ -108,7 +101,7 @@ class File:
             dict: The properties of the file.
         """
         return self.__properties
-    
+
     def set_path(self, path):
         """This is a setter for the path of the file.
 
@@ -116,7 +109,7 @@ class File:
             path (str): The path of the file.
         """
         self.__path = path
-        
+
     def set_name(self, name):
         """This is a setter for the name of the file.
 
@@ -124,7 +117,7 @@ class File:
             name (str): The name of the file.
         """
         self.__name = name
-        
+
     def set_extension(self, extension):
         """This is a setter for the extension of the file.
 
@@ -132,7 +125,7 @@ class File:
             extension (str): The extension of the file.
         """
         self.__extension = extension
-        
+
     def set_size(self, size):
         """This is a setter for the size of the file.
 
@@ -140,7 +133,7 @@ class File:
             size (int): The size of the file.
         """
         self.__size = size
-        
+
     def set_created_at(self, created_at):
         """This is a setter for the date the file was created at.
 
@@ -148,7 +141,7 @@ class File:
             created_at (str): The date the file was created at.
         """
         self.__created_at = created_at
-        
+
     def set_updated_at(self, updated_at):
         """This is a setter for the date the file was updated at.
 
@@ -156,7 +149,7 @@ class File:
             updated_at (str): The date the file was updated at.
         """
         self.__updated_at = updated_at
-        
+
     def set_properties(self, properties):
         """This is a setter for the properties of the file.
 
@@ -165,9 +158,11 @@ class File:
         """
         self.__properties = properties
 
+
 class ImageFile(File):
     def __init__(self, path, name, extension, size, created_at, updated_at):
         super().__init__(path, name, extension, size, created_at, updated_at)
+        self.extract_properties()
 
     def extract_properties(self):
         with open(self.get_path(), "rb") as image:
@@ -201,9 +196,11 @@ class ImageFile(File):
                 "height": height,
             })
 
+
 class CodeFile(File):
     def __init__(self, path, name, extension, size, created_at, updated_at):
         super().__init__(path, name, extension, size, created_at, updated_at)
+        self.extract_properties()
 
     def extract_properties(self):
         with open(self.get_path(), "r") as code:
@@ -217,10 +214,11 @@ class CodeFile(File):
                 "method_count": method_count,
             })
 
+
 class TextFile(File):
     def __init__(self, path, name, extension, size, created_at, updated_at):
         super().__init__(path, name, extension, size, created_at, updated_at)
-
+        self.extract_properties()
 
     def extract_properties(self):
         with open(self.get_path(), "r") as file:
@@ -233,4 +231,3 @@ class TextFile(File):
                 "word_count": word_count,
                 "character_count": character_count,
             })
-            
