@@ -1,3 +1,6 @@
+import struct
+import imghdr
+
 class File:
     """This is a class that will represent a file in a file system."""
     def __init__(
@@ -8,7 +11,7 @@ class File:
         size,
         created_at,
         updated_at,
-        properties,
+        properties = None,
         ):
         """This is a constructor for the File class.
 
@@ -28,7 +31,10 @@ class File:
         self.__size = size
         self.__created_at = created_at
         self.__updated_at = updated_at
-        self.__properties = properties
+        if not properties:
+            self.extract_properties()
+        else:
+            self.__properties = properties
         
     # create a function that will return a dict with the file data when calling the object  
     def get_dict_data(self):
@@ -42,6 +48,93 @@ class File:
             "updated_at": self.__updated_at,
             "properties": self.__properties,
         }
+    
+    def extract_properties(self):
+        """This is a method that will extract the properties of the file."""
+        if self.__extension == "txt":
+            self.__properties = self.extract_properties_txt()
+        elif self.__extension in ["jpg", "png", "jpeg"]:
+            self.__properties = self.extract_properties_img()
+        elif self.__extension in ["py", "java"]:
+            self.__properties = self.extract_properties_code()
+            
+    def extract_properties_txt(self):
+        """This is a method that will extract the properties of a txt file."""
+        with open(self.__path, "r") as file:
+            # read the file
+            file_content = file.read()
+            # count the lines
+            line_count = len(file_content.split("\n"))
+            # count the words
+            word_count = sum([len(line.split(" ")) for line in file_content.split("\n")])
+            # count the characters
+            character_count = sum([len(line) for line in file_content.split("\n")])
+            # return the dict
+            return {
+                "line_count": line_count,
+                "word_count": word_count,
+                "character_count": character_count,
+            }
+            
+    def extract_properties_img(self):
+        """This is a method that will extract the properties of an image file."""
+        with open(self.__path, "rb") as image:
+            # read the image
+            head = image.read(24)
+            # check if the image is valid
+            if len(head) != 24:
+                return
+            # check the image type
+            if imghdr.what(self.__path) == "png":
+                # get the width and height
+                width, height = struct.unpack(">ii", head[16:24])
+            elif imghdr.what(self.__path) == "gif":
+                # get the width and height
+                width, height = struct.unpack("<HH", head[6:10])
+            elif imghdr.what(self.__path) == "jpeg":
+                try:
+                    # get the width and height
+                    image.seek(0) # Read 0xff next
+                    size = 2
+                    ftype = 0
+                    while not 0xc0 <= ftype <= 0xcf:
+                        image.seek(size, 1)
+                        byte = image.read(1)
+                        while ord(byte) == 0xff:
+                            byte = image.read(1)
+                        ftype = ord(byte)
+                        size = struct.unpack(">H", image.read(2))[0] - 2
+                    # We are at a SOFn block
+                    image.seek(1, 1)  # Skip `precision' byte.
+                    height, width = struct.unpack(">HH", image.read(4))
+                except Exception:
+                    return
+            else:
+                return
+            # return the dict
+            return {
+                "width": width,
+                "height": height,
+            }
+    
+    def extract_properties_code(self):
+        """This is a method that will extract the properties of a code file."""
+        # return a dict with the line count, class count, method count in python and java
+        with open(self.__path, "r") as code:
+            # read the code
+            code_content = code.read()
+            # count the lines
+            line_count = len(code_content.split("\n"))
+            # count the classes
+            class_count = len(code_content.split("class")) - 1
+            # count the methods
+            method_count = len(code_content.split("def")) - 1
+            # return the dict
+            return {
+                "line_count": line_count,
+                "class_count": class_count,
+                "method_count": method_count,
+            } 
     
     def get_path(self):
         """This is a getter for the path of the file.
@@ -154,6 +247,6 @@ class File:
             properties (dict): The properties of the file.
         """
         self.__properties = properties
-        
+    
         
  
