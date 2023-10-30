@@ -1,4 +1,6 @@
 import os
+import threading
+import time
 from fit import Fit
 
 class FitInteraction:
@@ -14,7 +16,7 @@ class FitInteraction:
         print("Welcome to the Fit system!")
         print("Type 'fit help' to see the available commands.")
         self.__state = "running"
-        self.interaction_running()
+        self.run()
     
     def get_request(self):
         """This is a method that will get the request from the user."""
@@ -24,6 +26,7 @@ class FitInteraction:
     def interaction_running(self):
         """This is a method that will keep the system running."""
         while self.__state == "running":
+            # First thread does the simple system interaction
             self.get_request()
             
             if self.__request_parameters[0] == "fit":
@@ -51,9 +54,35 @@ class FitInteraction:
                 self.__state = "exit"
                 print()
             else:
-                print("The command is not recognized!\n")   
-   
-    
+                print("The command is not recognized!\n")
+            
+    def file_change_checker(self):
+        while self.__state == "running":
+            # Second thread checks every 5 seconds if any file changed and notifies the user about it
+            stat_dict = self.__Fit.get_status_response_dict()
+            
+            if not stat_dict:
+                continue
+            else:
+                for file in stat_dict.get("modified"):
+                    print(f"The file {file} was modified!")
+                for file in stat_dict.get("deleted"):
+                    print(f"The file {file} was deleted!")
+                for file in stat_dict.get("created"):
+                    print(f"The file {file} was created!")
+                print()
+            time.sleep(5)
+
+    def run(self):
+        """This is method that will run in 2 threads the file change checker and interaction running"""
+        f1 = threading.Thread(target=self.file_change_checker)
+        f2 = threading.Thread(target=self.interaction_running)
+        f1.start()
+        f2.start()
+        f1.join()
+        f2.join()
+        print("The system was closed!")
+        
     def fit_help(self):
         """This is a method that will print the help menu."""
         print("The available commands are:")
