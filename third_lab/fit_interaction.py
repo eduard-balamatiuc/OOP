@@ -1,7 +1,7 @@
-import os
 import threading
 import time
 from fit import Fit
+
 
 class FitInteraction:
     """A class that will mimic the git functionalities with the word "fit" as the keyword"""
@@ -10,28 +10,28 @@ class FitInteraction:
         self.__request = ""
         self.__request_parameters = []
         self.__Fit = Fit()
-    
+
     def interaction_initialization(self):
         """This is a method that will start the system and initialize it."""
         print("Welcome to the Fit system!")
         print("Type 'fit help' to see the available commands.")
         self.__state = "running"
         self.run()
-    
+
     def get_request(self):
         """This is a method that will get the request from the user."""
         self.__request = input(">>>")
         self.__request_parameters = self.__request.split(" ", 2)
-        
+
     def interaction_running(self):
         """This is a method that will keep the system running."""
         while self.__state == "running":
             # First thread does the simple system interaction
             self.get_request()
-            
+
             if self.__request_parameters[0] == "fit":
                 self.__request_parameters.pop(0)
-            
+
             if self.__request_parameters[0] == "help":
                 self.fit_help()
                 print()
@@ -55,23 +55,23 @@ class FitInteraction:
                 print()
             else:
                 print("The command is not recognized!\n")
-            
+
     def file_change_checker(self):
         while self.__state == "running":
-            # Second thread checks every 5 seconds if any file changed and notifies the user about it
-            stat_dict = self.__Fit.get_status_response_dict()
-            
-            if not stat_dict:
+            # Second thread checks every 5 seconds if any file changed from 5 seconds ago, do that by creating an old status and comparing it to the new one
+            if not self.__Fit.fit_check_hidden_system_folder():
+                time.sleep(5)
                 continue
-            else:
-                for file in stat_dict.get("modified"):
-                    print(f"The file {file} was modified!")
-                for file in stat_dict.get("deleted"):
-                    print(f"The file {file} was deleted!")
-                for file in stat_dict.get("created"):
-                    print(f"The file {file} was created!")
-                print()
-            time.sleep(5)
+            self.__Fit.get_status_response()
+            old_status = self.__Fit.get_status_response_dict()
+            time.sleep(10)
+            self.__Fit.get_status_response()
+            new_status = self.__Fit.get_status_response_dict()
+            if old_status != new_status:
+                print("The following files changed:")
+                for file in new_status:
+                    if file not in old_status:
+                        print(file)
 
     def run(self):
         """This is method that will run in 2 threads the file change checker and interaction running"""

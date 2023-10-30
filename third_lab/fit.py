@@ -11,7 +11,6 @@ class Fit:
         self.__fit_info = {}
         self.__fit_folder_path = ""
         self.__status_response = {}
-        self.__old_status_response = {}
     
     def fit_check_hidden_system_folder(self):
         """This is a method that will check if the fit system was already initialized in the hidden folder."""
@@ -40,11 +39,11 @@ class Fit:
         
     def get_status_response_dict(self):
         """This is a method that will return the status response dictionary if something changed from the last version."""
-        if self.__status_response != self.__old_status_response:
+        # return the status response only if something changed
+        if self.__status_response:
             return self.__status_response
         else:
-            return {}
-        
+            return False
         
     def fit_create_hidden_system(self):
         """This is a metho that will create the hidden folder for the fit system."""
@@ -184,17 +183,16 @@ class Fit:
                     return False
         self.update_fit_info()
 
-        
+
     def get_status_response(self):
         """This is a method that will provide the status response dictionary divided into 3 categories"""
-        self.__old_status_response = self.__status_response
         current_state = self.take_snapshot()
         staged_state = self.__fit_info.get("staged")
         last_state = self.__fit_info.get("tracked")
-        
+
         # Create dictionaries with file names as keys and values as values
-        deleted = {file_name: last_state[file_name] 
-                for file_name in last_state 
+        deleted = {file_name: last_state[file_name]
+                for file_name in last_state
                 if file_name not in current_state and file_name not in staged_state}
 
         added = {file_name: current_state[file_name] 
@@ -206,14 +204,14 @@ class Fit:
                     for file_name in current_state
                     if (file_name in last_state and file_name not in staged_state) 
                     and (last_state[file_name].get_updated_at() != current_state[file_name].get_updated_at())}
-   
+
         self.__status_response["deleted"] = deleted
         self.__status_response["added"] = added
         self.__status_response["modified"] = modified
 
     def update_fit_info(self):
         """This is a method that will update the fit info json file."""
-        
+
         file_path = os.path.join(self.__fit_folder_path, "fit_info.json")
         # convert self.__fit_info["tracked"] and self.__fit_info["staged"] to dicts
         self.__fit_info["tracked"] = {
@@ -230,13 +228,13 @@ class Fit:
         }
         with open(file_path, "w") as json_file:
             json.dump(self.__fit_info, json_file)
-            
+    
     def fit_commit_changes(self, request_parameters):
         """This is a method that will commit the changes to the system."""
         if len(request_parameters) == 1:
             print("Please provide a commit message!")
             return False
-        
+
         commit_hash = secrets.token_hex(16)
         commit_message = " ".join(request_parameters[1:])
         commit_time = datetime.now().timestamp()
@@ -244,20 +242,20 @@ class Fit:
             file_name: file_data.get_dict_data()
             for file_name, file_data in self.__fit_info["staged"].items()
         }
-        
+
         commit = {
             "hash": commit_hash,
             "message": commit_message,
             "time": commit_time,
             "files": commit_files,
         }
-        
+
         self.__fit_info["commits"][commit_hash] = commit
         self.__fit_info["tracked"] = {**self.__fit_info["tracked"], **self.__fit_info["staged"]}
         self.__fit_info["staged"] = {}
         self.update_fit_info()
         return True
-    
+
     def fit_info_about_files(self, request_paramters):
         """This is a method that will print the info about the files."""
         if len(request_paramters) == 1:
@@ -265,11 +263,11 @@ class Fit:
             for file_name, file_data in self.take_snapshot().items():
                 created_at = file_data.get_dict_data().get('created_at')
                 updated_at = file_data.get_dict_data().get('updated_at')
-                
+
                 # Convert timestamps to a more human-readable format
                 created_at_formatted = datetime.fromtimestamp(created_at).strftime('%Y-%m-%d %H:%M:%S')
                 updated_at_formatted = datetime.fromtimestamp(updated_at).strftime('%Y-%m-%d %H:%M:%S')
-                
+
                 print(file_name)
                 print(f"Created  at: {created_at_formatted}")
                 print(f"Updated at: {updated_at_formatted}")
@@ -283,15 +281,14 @@ class Fit:
                     print(f"This is the file data: {file_data.get_dict_data()}")
                     created_at = file_data.get_dict_data().get('created_at')
                     updated_at = file_data.get_dict_data().get('updated_at')
-                    
+
                     # Convert timestamps to a more human-readable format
                     created_at_formatted = datetime.fromtimestamp(created_at).strftime('%Y-%m-%d %H:%M:%S')
                     updated_at_formatted = datetime.fromtimestamp(updated_at).strftime('%Y-%m-%d %H:%M:%S')
-                    
+
                     print(f"Created at: {created_at_formatted}")
                     print(f"Updated at: {updated_at_formatted}")
                     print(f"Size: {file_data.get_dict_data().get('size')} bytes")
-                    print(f"Properties: {file_data.get_dict_data().get('properties')}")
                     for property_name, property_value in file_data.get_dict_data().get('properties').items():
                         print(f"{property_name}: {property_value}")
                     print()
