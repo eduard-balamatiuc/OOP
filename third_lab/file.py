@@ -11,7 +11,7 @@ class File:
         size,
         created_at,
         updated_at,
-        properties = None,
+        properties = {},
         ):
         """This is a constructor for the File class.
 
@@ -51,90 +51,7 @@ class File:
     
     def extract_properties(self):
         """This is a method that will extract the properties of the file."""
-        if self.__extension == "txt":
-            self.__properties = self.extract_properties_txt()
-        elif self.__extension in ["jpg", "png", "jpeg"]:
-            self.__properties = self.extract_properties_img()
-        elif self.__extension in ["py", "java"]:
-            self.__properties = self.extract_properties_code()
-            
-    def extract_properties_txt(self):
-        """This is a method that will extract the properties of a txt file."""
-        with open(self.__path, "r") as file:
-            # read the file
-            file_content = file.read()
-            # count the lines
-            line_count = len(file_content.split("\n"))
-            # count the words
-            word_count = sum([len(line.split(" ")) for line in file_content.split("\n")])
-            # count the characters
-            character_count = sum([len(line) for line in file_content.split("\n")])
-            # return the dict
-            return {
-                "line_count": line_count,
-                "word_count": word_count,
-                "character_count": character_count,
-            }
-            
-    def extract_properties_img(self):
-        """This is a method that will extract the properties of an image file."""
-        with open(self.__path, "rb") as image:
-            # read the image
-            head = image.read(24)
-            # check if the image is valid
-            if len(head) != 24:
-                return
-            # check the image type
-            if imghdr.what(self.__path) == "png":
-                # get the width and height
-                width, height = struct.unpack(">ii", head[16:24])
-            elif imghdr.what(self.__path) == "gif":
-                # get the width and height
-                width, height = struct.unpack("<HH", head[6:10])
-            elif imghdr.what(self.__path) == "jpeg":
-                try:
-                    # get the width and height
-                    image.seek(0) # Read 0xff next
-                    size = 2
-                    ftype = 0
-                    while not 0xc0 <= ftype <= 0xcf:
-                        image.seek(size, 1)
-                        byte = image.read(1)
-                        while ord(byte) == 0xff:
-                            byte = image.read(1)
-                        ftype = ord(byte)
-                        size = struct.unpack(">H", image.read(2))[0] - 2
-                    # We are at a SOFn block
-                    image.seek(1, 1)  # Skip `precision' byte.
-                    height, width = struct.unpack(">HH", image.read(4))
-                except Exception:
-                    return
-            else:
-                return
-            # return the dict
-            return {
-                "width": width,
-                "height": height,
-            }
-    
-    def extract_properties_code(self):
-        """This is a method that will extract the properties of a code file."""
-        # return a dict with the line count, class count, method count in python and java
-        with open(self.__path, "r") as code:
-            # read the code
-            code_content = code.read()
-            # count the lines
-            line_count = len(code_content.split("\n"))
-            # count the classes
-            class_count = len(code_content.split("class")) - 1
-            # count the methods
-            method_count = len(code_content.split("def")) - 1
-            # return the dict
-            return {
-                "line_count": line_count,
-                "class_count": class_count,
-                "method_count": method_count,
-            } 
+        pass
     
     def get_path(self):
         """This is a getter for the path of the file.
@@ -247,6 +164,73 @@ class File:
             properties (dict): The properties of the file.
         """
         self.__properties = properties
-    
-        
- 
+
+class ImageFile(File):
+    def __init__(self, path, name, extension, size, created_at, updated_at):
+        super().__init__(path, name, extension, size, created_at, updated_at)
+
+    def extract_properties(self):
+        with open(self.get_path(), "rb") as image:
+            head = image.read(24)
+            if len(head) != 24:
+                return
+            if imghdr.what(self.get_path()) == "png":
+                width, height = struct.unpack(">ii", head[16:24])
+            elif imghdr.what(self.get_path()) == "gif":
+                width, height = struct.unpack("<HH", head[6:10])
+            elif imghdr.what(self.get_path()) == "jpeg":
+                try:
+                    image.seek(0)
+                    size = 2
+                    ftype = 0
+                    while not 0xc0 <= ftype <= 0xcf:
+                        image.seek(size, 1)
+                        byte = image.read(1)
+                        while ord(byte) == 0xff:
+                            byte = image.read(1)
+                        ftype = ord(byte)
+                        size = struct.unpack(">H", image.read(2))[0] - 2
+                    image.seek(1, 1)
+                    height, width = struct.unpack(">HH", image.read(4))
+                except Exception:
+                    return
+            else:
+                return
+            self.set_properties({
+                "width": width,
+                "height": height,
+            })
+
+class CodeFile(File):
+    def __init__(self, path, name, extension, size, created_at, updated_at):
+        super().__init__(path, name, extension, size, created_at, updated_at)
+
+    def extract_properties(self):
+        with open(self.get_path(), "r") as code:
+            code_content = code.read()
+            line_count = len(code_content.split("\n"))
+            class_count = len(code_content.split("class")) - 1
+            method_count = len(code_content.split("def")) - 1
+            self.set_properties({
+                "line_count": line_count,
+                "class_count": class_count,
+                "method_count": method_count,
+            })
+
+class TextFile(File):
+    def __init__(self, path, name, extension, size, created_at, updated_at):
+        super().__init__(path, name, extension, size, created_at, updated_at)
+
+
+    def extract_properties(self):
+        with open(self.get_path(), "r") as file:
+            file_content = file.read()
+            line_count = len(file_content.split("\n"))
+            word_count = sum([len(line.split(" ")) for line in file_content.split("\n")])
+            character_count = sum([len(line) for line in file_content.split("\n")])
+            self.set_properties({
+                "line_count": line_count,
+                "word_count": word_count,
+                "character_count": character_count,
+            })
+            

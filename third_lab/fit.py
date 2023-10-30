@@ -1,6 +1,6 @@
 import os
 import json
-from file import File
+from file import File, ImageFile, TextFile, CodeFile
 from datetime import datetime
 import secrets
 import hashlib
@@ -110,15 +110,51 @@ class Fit:
                 continue
             for file_name in files:
                 file_path = os.path.join(root, file_name)
-                snapshot[file_name] = File(
-                    path=file_path,
-                    name=file_name.split(".")[0],
-                    extension=file_name.split(".")[-1],
-                    size=os.path.getsize(file_path),
-                    created_at=os.path.getctime(file_path),
-                    updated_at=os.path.getmtime(file_path),
-                    properties={},
-                )
+                file_extension = os.path.splitext(file_name)[1]
+                file_size = os.path.getsize(file_path)
+                file_created_at = os.path.getctime(file_path)
+                file_updated_at = os.path.getmtime(file_path)
+                file_properties = {}
+                if file_extension in ["png", "jpg", "jpeg", "gif"]:
+                    snapshot[file_name] = ImageFile(
+                        path=file_path,
+                        name=file_name,
+                        extension=file_extension,
+                        size=file_size,
+                        created_at=file_created_at,
+                        updated_at=file_updated_at,
+                    )
+                    snapshot[file_name].extract_properties()
+                elif file_extension in ["txt"]:
+                    snapshot[file_name] = TextFile(
+                        path=file_path,
+                        name=file_name,
+                        extension=file_extension,
+                        size=file_size,
+                        created_at=file_created_at,
+                        updated_at=file_updated_at,
+                    )
+                    snapshot[file_name].extract_properties()
+                elif file_extension in ["py", "java"]:
+                    snapshot[file_name] = CodeFile(
+                        path=file_path,
+                        name=file_name,
+                        extension=file_extension,
+                        size=file_size,
+                        created_at=file_created_at,
+                        updated_at=file_updated_at,
+                    )
+                    snapshot[file_name].extract_properties()
+                else:
+                    snapshot[file_name] = File(
+                        path=file_path,
+                        name=file_name,
+                        extension=file_extension,
+                        size=file_size,
+                        created_at=file_created_at,
+                        updated_at=file_updated_at,
+                    )
+                    
         return snapshot
     
     def fit_add_file(self, request_parameters):
@@ -258,6 +294,7 @@ class Fit:
                     print(f"Created at: {created_at_formatted}")
                     print(f"Updated at: {updated_at_formatted}")
                     print(f"Size: {file_data.get_dict_data().get('size')} bytes")
+                    print(f"Properties: {file_data.get_dict_data().get('properties')}")
                     for property_name, property_value in file_data.get_dict_data().get('properties').items():
                         print(f"{property_name}: {property_value}")
                     print()
