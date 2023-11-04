@@ -37,6 +37,19 @@ class Fit:
             for file_name, file_data in self.__fit_info["staged"].items()
         }
         
+    def get_status_response_all_dict(self):
+        """This is a method that will return the status response dictionary, 
+        inluding the File objects in form of  a dictionary.
+        """
+        all_dict = {}
+        for type in self.__status_response:
+            for file_name in self.__status_response[type]:
+                all_dict[type] = {
+                    file_name: self.__status_response[type][file_name].get_dict_data()
+                }
+                
+        return all_dict
+    
     def get_status_response_dict(self):
         """This is a method that will return the status response dictionary if something changed from the last version."""
         # return the status response only if something changed

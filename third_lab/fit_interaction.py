@@ -1,6 +1,7 @@
 import threading
 import time
 from fit import Fit
+import copy
 
 
 class FitInteraction:
@@ -58,20 +59,24 @@ class FitInteraction:
 
     def file_change_checker(self):
         while self.__state == "running":
-            # Second thread checks every 5 seconds if any file changed from 5 seconds ago, do that by creating an old status and comparing it to the new one
+            # Second thread checks every 15 seconds if any file changed from 15 seconds ago
             if not self.__Fit.fit_check_hidden_system_folder():
                 time.sleep(5)
                 continue
             self.__Fit.get_status_response()
-            old_status = self.__Fit.get_status_response_dict()
-            time.sleep(10)
+            old_status = copy.deepcopy(self.__Fit.get_status_response_all_dict())
+            time.sleep(5)
             self.__Fit.get_status_response()
-            new_status = self.__Fit.get_status_response_dict()
+            new_status = self.__Fit.get_status_response_all_dict()
             if old_status != new_status:
-                print("The following files changed:")
-                for file in new_status:
-                    if file not in old_status:
-                        print(file)
+                print("The following files were touched:")
+                
+                for file_type, files in new_status.items():
+                    for file, details in files.items():
+                        if (file_type not in old_status or
+                            file not in old_status[file_type] or
+                            details != old_status[file_type].get(file, None)):
+                            print(f"{file}")
 
     def run(self):
         """This is method that will run in 2 threads the file change checker and interaction running"""
