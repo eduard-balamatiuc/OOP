@@ -39,17 +39,20 @@ class Fit:
         
     def get_status_response_all_dict(self):
         """This is a method that will return the status response dictionary, 
-        inluding the File objects in form of  a dictionary.
+        including the File objects in the form of a dictionary.
         """
         all_dict = {}
         for type in self.__status_response:
+            # Initialize the dictionary for the type if not already present
+            if type not in all_dict:
+                all_dict[type] = {}
+
             for file_name in self.__status_response[type]:
-                all_dict[type] = {
-                    file_name: self.__status_response[type][file_name].get_dict_data()
-                }
-                
+                # Add or update the file_name entry under the specific type
+                all_dict[type][file_name] = self.__status_response[type][file_name].get_dict_data()
+                    
         return all_dict
-    
+        
     def get_status_response_dict(self):
         """This is a method that will return the status response dictionary if something changed from the last version."""
         # return the status response only if something changed

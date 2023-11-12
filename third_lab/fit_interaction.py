@@ -68,6 +68,8 @@ class FitInteraction:
             time.sleep(5)
             self.__Fit.get_status_response()
             new_status = self.__Fit.get_status_response_all_dict()
+            # print(f"Old status: {old_status}")
+            # print(f"New status: {new_status}")
             if old_status != new_status:
                 print("The following files were touched:")
                 
