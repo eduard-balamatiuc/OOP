@@ -5,3 +5,5 @@ test.py
 .vscode
 
 .fit
+
+.tox
