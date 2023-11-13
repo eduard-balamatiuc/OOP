@@ -82,3 +82,11 @@ class LinkedQueue:
         """
         return self.size == 0
 
+    def size(self):
+        """
+        Returns the number of elements in the queue.
+
+        Returns:
+            The number of elements in the queue.
+        """
+        return self.size
