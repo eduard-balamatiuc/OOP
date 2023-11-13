@@ -73,3 +73,12 @@ class LinkedQueue:
             raise EmptyQueueException("Queue is empty")
         return self.front.data
 
+    def is_empty(self):
+        """
+        Checks if the queue is empty.
+
+        Returns:
+            True if the queue is empty, False otherwise.
+        """
+        return self.size == 0
+
