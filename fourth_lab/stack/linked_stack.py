@@ -23,3 +23,14 @@ class LinkedStack:
         self.head = None
         self.size = 0
 
+    def push(self, element):
+        """
+        Adds an element to the top of the stack.
+
+        Args:
+            element: The element to be added to the stack.
+        """
+        new_node = self.Node(element)
+        new_node.next = self.head
+        self.head = new_node
+        self.size += 1
