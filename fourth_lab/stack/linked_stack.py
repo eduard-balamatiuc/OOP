@@ -34,3 +34,21 @@ class LinkedStack:
         new_node.next = self.head
         self.head = new_node
         self.size += 1
+
+    def pop(self):
+        """
+        Removes and returns the top element of the stack.
+
+        Returns:
+            The element at the top of the stack.
+
+        Raises:
+            EmptyStackException: If the stack is empty.
+        """
+        if self.is_empty():
+            raise EmptyStackException("Stack is empty")
+        popped = self.head.data
+        self.head = self.head.next
+        self.size -= 1
+        return popped
+
