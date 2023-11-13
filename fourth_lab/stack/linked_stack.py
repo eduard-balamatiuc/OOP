@@ -71,3 +71,12 @@ class LinkedStack:
         self.head = None
         self.size = 0
 
+    def size(self):
+        """
+        Returns the number of elements in the stack.
+
+        Returns:
+            The number of elements in the stack.
+        """
+        return self.size
+
