@@ -32,4 +32,6 @@ class ArrayStack:
             self.array[i] = None
         self.size = 0
 
+    def size(self):
+        return self.size
 
