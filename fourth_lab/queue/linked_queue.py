@@ -59,3 +59,17 @@ class LinkedQueue:
             self.rear = None
         return removed_data
 
+    def peek(self):
+        """
+        Returns the front element of the queue without removing it.
+
+        Returns:
+            The element at the front of the queue.
+
+        Raises:
+            EmptyQueueException: If the queue is empty.
+        """
+        if self.is_empty():
+            raise EmptyQueueException("Queue is empty")
+        return self.front.data
+
