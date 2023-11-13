@@ -107,3 +107,13 @@ class DoubleStack:
             raise Exception("Stack 2 is empty.")
         else:
             return self.array[self.top2]
+
+    def size_stack1(self):
+        """
+        Returns the size of stack 1.
+
+        Returns:
+            The number of elements in stack 1.
+        """
+        return self.top1 + 1
+
