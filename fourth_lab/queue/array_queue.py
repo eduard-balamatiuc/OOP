@@ -48,4 +48,17 @@ class ArrayQueue:
         self.size -= 1
         return removed_element
 
+    def peek(self):
+        """
+        Returns the front element of the queue without removing it.
+
+        Returns:
+            The element at the front of the queue.
+
+        Raises:
+            EmptyQueueException: If the queue is empty.
+        """
+        if self.is_empty():
+            raise EmptyQueueException("Queue is empty")
+        return self.array[self.front]
 
