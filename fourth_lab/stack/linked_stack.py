@@ -52,3 +52,17 @@ class LinkedStack:
         self.size -= 1
         return popped
 
+    def peek(self):
+        """
+        Returns the top element of the stack without removing it.
+
+        Returns:
+            The element at the top of the stack.
+
+        Raises:
+            EmptyStackException: If the stack is empty.
+        """
+        if self.is_empty():
+            raise EmptyStackException("Stack is empty")
+        return self.head.data
+
