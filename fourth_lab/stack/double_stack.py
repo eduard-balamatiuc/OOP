@@ -27,3 +27,19 @@ class DoubleStack:
             self.array[self.top1] = element
         else:
             raise Exception("Stack 1 is full.")
+
+    def push_stack2(self, element):
+        """
+        Pushes an element onto stack 2.
+
+        Args:
+            element: The element to be pushed onto stack 2.
+
+        Raises:
+            IllegalStateException: If stack 2 is full.
+        """
+        if self.top2 > self.top1 + 1:
+            self.top2 -= 1
+            self.array[self.top2] = element
+        else:
+            raise Exception("Stack 2 is full.")
