@@ -14,3 +14,10 @@ class ArrayStack:
         self.array[self.size] = element
         self.size += 1
 
+    def pop(self):
+        if self.is_empty():
+            raise EmptyStackException("Stack is empty")
+        self.size -= 1
+        element = self.array[self.size]
+        self.array[self.size] = None
+        return element
