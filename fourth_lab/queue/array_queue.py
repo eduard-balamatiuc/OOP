@@ -87,3 +87,13 @@ class ArrayQueue:
         self.size = 0
         self.array = [None] * self.capacity
 
+    def _resize_array(self):
+        """Resizes the internal array to double its current capacity."""
+        new_capacity = 2 * self.capacity
+        new_array = [None] * new_capacity
+        for i in range(self.size):
+            new_array[i] = self.array[(self.front + i) % self.capacity]
+        self.front = 0
+        self.rear = self.size - 1
+        self.array = new_array
+        self.capacity = new_capacity
