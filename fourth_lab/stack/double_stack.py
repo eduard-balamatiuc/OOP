@@ -60,3 +60,20 @@ class DoubleStack:
             element = self.array[self.top1]
             self.top1 -= 1
             return element
+
+    def pop_stack2(self):
+        """
+        Pops an element from stack 2.
+
+        Returns:
+            The popped element from stack 2.
+
+        Raises:
+            IllegalStateException: If stack 2 is empty.
+        """
+        if self.is_empty_stack2():
+            raise Exception("Stack 2 is empty.")
+        else:
+            element = self.array[self.top2]
+            self.top2 += 1
+            return element
