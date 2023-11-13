@@ -73,3 +73,13 @@ class PriorityQueue:
         """Removes all elements from the priority queue."""
         self.heap.clear()
 
+    def _heapify_up(self, index):
+        """Ensures the heap property is maintained while adding a new element."""
+        while index > 0:
+            parent_index = (index - 1) // 2
+            if self.heap[index] < self.heap[parent_index]:
+                self.heap[index], self.heap[parent_index] = self.heap[parent_index], self.heap[index]
+                index = parent_index
+            else:
+                break
+
