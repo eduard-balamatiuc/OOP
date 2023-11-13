@@ -27,3 +27,9 @@ class ArrayStack:
             raise EmptyStackException("Stack is empty")
         return self.array[self.size - 1]
 
+    def clear(self):
+        for i in range(self.size):
+            self.array[i] = None
+        self.size = 0
+
+
