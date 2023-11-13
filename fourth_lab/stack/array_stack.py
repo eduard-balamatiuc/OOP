@@ -37,3 +37,10 @@ class ArrayStack:
 
     def is_empty(self):
         return self.size == 0
+
+    def _resize_array(self, new_capacity):
+        new_array = [None] * new_capacity
+        for i in range(self.size):
+            new_array[i] = self.array[i]
+        self.array = new_array
+
