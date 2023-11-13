@@ -31,3 +31,21 @@ class ArrayQueue:
         self.array[self.rear] = element
         self.size += 1
 
+    def dequeue(self):
+        """
+        Removes and returns the front element of the queue.
+
+        Returns:
+            The element at the front of the queue.
+
+        Raises:
+            EmptyQueueException: If the queue is empty.
+        """
+        if self.is_empty():
+            raise EmptyQueueException("Queue is empty")
+        removed_element = self.array[self.front]
+        self.front = (self.front + 1) % self.capacity
+        self.size -= 1
+        return removed_element
+
+
