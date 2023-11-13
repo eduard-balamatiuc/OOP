@@ -40,3 +40,22 @@ class LinkedQueue:
             self.rear = new_node
         self.size += 1
 
+    def dequeue(self):
+        """
+        Removes and returns the front element of the queue.
+
+        Returns:
+            The element at the front of the queue.
+
+        Raises:
+            EmptyQueueException: If the queue is empty.
+        """
+        if self.is_empty():
+            raise EmptyQueueException("Queue is empty")
+        removed_data = self.front.data
+        self.front = self.front.next
+        self.size -= 1
+        if self.is_empty():
+            self.rear = None
+        return removed_data
+
