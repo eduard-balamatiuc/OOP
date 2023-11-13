@@ -70,3 +70,13 @@ class ArrayQueue:
             The number of elements in the queue.
         """
         return self.size
+
+    def is_empty(self):
+        """
+        Checks if the queue is empty.
+
+        Returns:
+            True if the queue is empty, False otherwise.
+        """
+        return self.size == 0
+
