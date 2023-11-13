@@ -51,3 +51,12 @@ class PriorityQueue:
             raise EmptyPriorityQueueException("PriorityQueue is empty")
         return self.heap[0]
 
+    def is_empty(self):
+        """
+        Checks if the priority queue is empty.
+
+        Returns:
+            True if the priority queue is empty, False otherwise.
+        """
+        return len(self.heap) == 0
+
