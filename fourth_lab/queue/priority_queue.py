@@ -36,3 +36,18 @@ class PriorityQueue:
         self.heap.pop()
         self._heapify_down(0)
         return highest_priority
+
+    def peek(self):
+        """
+        Returns the element with the highest priority without removing it.
+
+        Returns:
+            The element with the highest priority.
+
+        Raises:
+            EmptyPriorityQueueException: If the priority queue is empty.
+        """
+        if self.is_empty():
+            raise EmptyPriorityQueueException("PriorityQueue is empty")
+        return self.heap[0]
+
