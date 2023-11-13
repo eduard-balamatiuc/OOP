@@ -18,3 +18,21 @@ class PriorityQueue:
         """
         self.heap.append(element)
         self._heapify_up(len(self.heap) - 1)
+
+    def dequeue(self):
+        """
+        Removes and returns the element with the highest priority.
+
+        Returns:
+            The element with the highest priority.
+
+        Raises:
+            EmptyPriorityQueueException: If the priority queue is empty.
+        """
+        if self.is_empty():
+            raise EmptyPriorityQueueException("PriorityQueue is empty")
+        highest_priority = self.heap[0]
+        self.heap[0] = self.heap[-1]
+        self.heap.pop()
+        self._heapify_down(0)
+        return highest_priority
