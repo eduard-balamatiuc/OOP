@@ -21,3 +21,9 @@ class ArrayStack:
         element = self.array[self.size]
         self.array[self.size] = None
         return element
+
+    def peek(self):
+        if self.is_empty():
+            raise EmptyStackException("Stack is empty")
+        return self.array[self.size - 1]
+
