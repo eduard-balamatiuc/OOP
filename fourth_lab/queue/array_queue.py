@@ -80,3 +80,10 @@ class ArrayQueue:
         """
         return self.size == 0
 
+    def clear(self):
+        """Removes all elements from the queue."""
+        self.front = 0
+        self.rear = -1
+        self.size = 0
+        self.array = [None] * self.capacity
+
