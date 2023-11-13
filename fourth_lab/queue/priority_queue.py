@@ -68,3 +68,8 @@ class PriorityQueue:
             The number of elements in the priority queue.
         """
         return len(self.heap)
+
+    def clear(self):
+        """Removes all elements from the priority queue."""
+        self.heap.clear()
+
