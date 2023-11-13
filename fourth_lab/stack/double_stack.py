@@ -117,3 +117,12 @@ class DoubleStack:
         """
         return self.top1 + 1
 
+    def size_stack2(self):
+        """
+        Returns the size of stack 2.
+
+        Returns:
+            The number of elements in stack 2.
+        """
+        return len(self.array) - self.top2
+
