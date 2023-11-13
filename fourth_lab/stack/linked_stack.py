@@ -80,3 +80,11 @@ class LinkedStack:
         """
         return self.size
 
+    def is_empty(self):
+        """
+        Checks if the stack is empty.
+
+        Returns:
+            True if the stack is empty, False otherwise.
+        """
+        return self.head is None
