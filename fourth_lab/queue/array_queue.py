@@ -62,3 +62,11 @@ class ArrayQueue:
             raise EmptyQueueException("Queue is empty")
         return self.array[self.front]
 
+    def size(self):
+        """
+        Returns the number of elements in the queue.
+
+        Returns:
+            The number of elements in the queue.
+        """
+        return self.size
