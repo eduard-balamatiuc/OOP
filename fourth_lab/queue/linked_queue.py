@@ -90,3 +90,9 @@ class LinkedQueue:
             The number of elements in the queue.
         """
         return self.size
+
+    def clear(self):
+        """Removes all elements from the queue."""
+        self.front = None
+        self.rear = None
+        self.size = 0
