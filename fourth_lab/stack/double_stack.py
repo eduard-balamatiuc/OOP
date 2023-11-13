@@ -126,3 +126,12 @@ class DoubleStack:
         """
         return len(self.array) - self.top2
 
+    def is_empty_stack1(self):
+        """
+        Checks if stack 1 is empty.
+
+        Returns:
+            True if stack 1 is empty, False otherwise.
+        """
+        return self.top1 == -1
+
