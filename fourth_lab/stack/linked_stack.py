@@ -66,3 +66,8 @@ class LinkedStack:
             raise EmptyStackException("Stack is empty")
         return self.head.data
 
+    def clear(self):
+        """Removes all elements from the stack."""
+        self.head = None
+        self.size = 0
+
