@@ -93,3 +93,17 @@ class DoubleStack:
         else:
             return self.array[self.top1]
 
+    def peek_stack2(self):
+        """
+        Peeks at the top element of stack 2.
+
+        Returns:
+            The top element of stack 2.
+
+        Raises:
+            IllegalStateException: If stack 2 is empty.
+        """
+        if self.is_empty_stack2():
+            raise Exception("Stack 2 is empty.")
+        else:
+            return self.array[self.top2]
