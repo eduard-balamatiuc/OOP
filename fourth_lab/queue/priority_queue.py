@@ -60,3 +60,11 @@ class PriorityQueue:
         """
         return len(self.heap) == 0
 
+    def size(self):
+        """
+        Returns the number of elements in the priority queue.
+
+        Returns:
+            The number of elements in the priority queue.
+        """
+        return len(self.heap)
