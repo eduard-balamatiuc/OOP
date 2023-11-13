@@ -83,3 +83,21 @@ class PriorityQueue:
             else:
                 break
 
+    def _heapify_down(self, index):
+        """Ensures the heap property is maintained while removing an element."""
+        while True:
+            left_child_index = 2 * index + 1
+            right_child_index = 2 * index + 2
+            smallest = index
+
+            if left_child_index < len(self.heap) and self.heap[left_child_index] < self.heap[smallest]:
+                smallest = left_child_index
+
+            if right_child_index < len(self.heap) and self.heap[right_child_index] < self.heap[smallest]:
+                smallest = right_child_index
+
+            if smallest != index:
+                self.heap[index], self.heap[smallest] = self.heap[smallest], self.heap[index]
+                index = smallest
+            else:
+                break
