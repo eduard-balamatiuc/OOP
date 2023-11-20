@@ -161,8 +161,8 @@ class File:
 
 
 class ImageFile(File):
-    def __init__(self, path, name, extension, size, created_at, updated_at):
-        super().__init__(path, name, extension, size, created_at, updated_at)
+    def __init__(self, path, name, extension, size, created_at, updated_at, properties={}):
+        super().__init__(path, name, extension, size, created_at, updated_at, properties)
         self.extract_properties()
         self.__unique_identifier = self.calculate_hash()
 
@@ -221,8 +221,8 @@ class ImageFile(File):
 
 
 class CodeFile(File):
-    def __init__(self, path, name, extension, size, created_at, updated_at):
-        super().__init__(path, name, extension, size, created_at, updated_at)
+    def __init__(self, path, name, extension, size, created_at, updated_at, properties={}):
+        super().__init__(path, name, extension, size, created_at, updated_at, properties)
         self.extract_properties()
 
     def extract_properties(self):
@@ -245,8 +245,8 @@ class CodeFile(File):
 
 
 class TextFile(File):
-    def __init__(self, path, name, extension, size, created_at, updated_at):
-        super().__init__(path, name, extension, size, created_at, updated_at)
+    def __init__(self, path, name, extension, size, created_at, updated_at, properties={}):
+        super().__init__(path, name, extension, size, created_at, updated_at, properties)
         self.extract_properties()
 
     def extract_properties(self):
