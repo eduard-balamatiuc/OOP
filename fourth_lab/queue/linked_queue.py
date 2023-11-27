@@ -20,9 +20,9 @@ class LinkedQueue:
 
     def __init__(self):
         """Initializes an empty queue."""
-        self.front = None
-        self.rear = None
-        self.size = 0
+        self.__front = None
+        self.__rear = None
+        self.__annotations__size = 0
 
     def enqueue(self, element):
         """
@@ -33,12 +33,12 @@ class LinkedQueue:
         """
         new_node = self.Node(element)
         if self.is_empty():
-            self.front = new_node
-            self.rear = new_node
+            self.__front = new_node
+            self.__rear = new_node
         else:
-            self.rear.next = new_node
-            self.rear = new_node
-        self.size += 1
+            self.__rear.next = new_node
+            self.__rear = new_node
+        self.__annotations__size += 1
 
     def dequeue(self):
         """
@@ -52,11 +52,11 @@ class LinkedQueue:
         """
         if self.is_empty():
             raise EmptyQueueException("Queue is empty")
-        removed_data = self.front.data
-        self.front = self.front.next
-        self.size -= 1
+        removed_data = self.__front.data
+        self.__front = self.__front.next
+        self.__annotations__size -= 1
         if self.is_empty():
-            self.rear = None
+            self.__rear = None
         return removed_data
 
     def peek(self):
@@ -71,7 +71,7 @@ class LinkedQueue:
         """
         if self.is_empty():
             raise EmptyQueueException("Queue is empty")
-        return self.front.data
+        return self.__front.data
 
     def is_empty(self):
         """
@@ -80,19 +80,19 @@ class LinkedQueue:
         Returns:
             True if the queue is empty, False otherwise.
         """
-        return self.size == 0
+        return self.__annotations__size == 0
 
-    def size(self):
+    def get_size(self):
         """
         Returns the number of elements in the queue.
 
         Returns:
             The number of elements in the queue.
         """
-        return self.size
+        return self.__annotations__size
 
     def clear(self):
         """Removes all elements from the queue."""
-        self.front = None
-        self.rear = None
-        self.size = 0
+        self.__front = None
+        self.__rear = None
+        self.__annotations__size = 0
