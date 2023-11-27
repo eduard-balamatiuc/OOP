@@ -12,11 +12,11 @@ class ArrayQueue:
         Args:
             capacity: The initial capacity of the queue.
         """
-        self.capacity = capacity
-        self.array = [None] * capacity
-        self.front = 0
-        self.rear = -1
-        self.size = 0
+        self.__capacity = capacity
+        self.__array = [None] * capacity
+        self.__front = 0
+        self.__rear = -1
+        self.__size = 0
 
     def enqueue(self, element):
         """
@@ -25,11 +25,11 @@ class ArrayQueue:
         Args:
             element: The element to be added to the queue.
         """
-        if self.size == self.capacity:
+        if self.__size == self.__capacity:
             self._resize_array()
-        self.rear = (self.rear + 1) % self.capacity
-        self.array[self.rear] = element
-        self.size += 1
+        self.__rear = (self.__rear + 1) % self.__capacity
+        self.__array[self.__rear] = element
+        self.__size += 1
 
     def dequeue(self):
         """
@@ -43,9 +43,9 @@ class ArrayQueue:
         """
         if self.is_empty():
             raise EmptyQueueException("Queue is empty")
-        removed_element = self.array[self.front]
-        self.front = (self.front + 1) % self.capacity
-        self.size -= 1
+        removed_element = self.__array[self.__front]
+        self.__front = (self.__front + 1) % self.__capacity
+        self.__size -= 1
         return removed_element
 
     def peek(self):
@@ -60,16 +60,16 @@ class ArrayQueue:
         """
         if self.is_empty():
             raise EmptyQueueException("Queue is empty")
-        return self.array[self.front]
+        return self.__array[self.__front]
 
-    def size(self):
+    def get_size(self):
         """
         Returns the number of elements in the queue.
 
         Returns:
             The number of elements in the queue.
         """
-        return self.size
+        return self.__size
 
     def is_empty(self):
         """
@@ -78,22 +78,22 @@ class ArrayQueue:
         Returns:
             True if the queue is empty, False otherwise.
         """
-        return self.size == 0
+        return self.__size == 0
 
     def clear(self):
         """Removes all elements from the queue."""
-        self.front = 0
-        self.rear = -1
-        self.size = 0
-        self.array = [None] * self.capacity
+        self.__front = 0
+        self.__rear = -1
+        self.__size = 0
+        self.__array = [None] * self.__capacity
 
     def _resize_array(self):
         """Resizes the internal array to double its current capacity."""
-        new_capacity = 2 * self.capacity
+        new_capacity = 2 * self.__capacity
         new_array = [None] * new_capacity
-        for i in range(self.size):
-            new_array[i] = self.array[(self.front + i) % self.capacity]
-        self.front = 0
-        self.rear = self.size - 1
-        self.array = new_array
-        self.capacity = new_capacity
+        for i in range(self.__size):
+            new_array[i] = self.__array[(self.__front + i) % self.__capacity]
+        self.__front = 0
+        self.__rear = self.__size - 1
+        self.__array = new_array
+        self.__capacity = new_capacity
