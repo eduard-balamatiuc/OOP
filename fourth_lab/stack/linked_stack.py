@@ -20,8 +20,8 @@ class LinkedStack:
 
     def __init__(self):
         """Initializes an empty LinkedStack."""
-        self.head = None
-        self.size = 0
+        self.__head = None
+        self.__size = 0
 
     def push(self, element):
         """
@@ -31,9 +31,9 @@ class LinkedStack:
             element: The element to be added to the stack.
         """
         new_node = self.Node(element)
-        new_node.next = self.head
-        self.head = new_node
-        self.size += 1
+        new_node.next = self.__head
+        self.__head = new_node
+        self.__size += 1
 
     def pop(self):
         """
@@ -47,9 +47,9 @@ class LinkedStack:
         """
         if self.is_empty():
             raise EmptyStackException("Stack is empty")
-        popped = self.head.data
-        self.head = self.head.next
-        self.size -= 1
+        popped = self.__head.data
+        self.__head = self.__head.next
+        self.__size -= 1
         return popped
 
     def peek(self):
@@ -64,21 +64,21 @@ class LinkedStack:
         """
         if self.is_empty():
             raise EmptyStackException("Stack is empty")
-        return self.head.data
+        return self.__head.data
 
     def clear(self):
         """Removes all elements from the stack."""
-        self.head = None
-        self.size = 0
+        self.__head = None
+        self.__size = 0
 
-    def size(self):
+    def get_size(self):
         """
         Returns the number of elements in the stack.
 
         Returns:
             The number of elements in the stack.
         """
-        return self.size
+        return self.__size
 
     def is_empty(self):
         """
@@ -87,4 +87,4 @@ class LinkedStack:
         Returns:
             True if the stack is empty, False otherwise.
         """
-        return self.head is None
+        return self.__head is None
