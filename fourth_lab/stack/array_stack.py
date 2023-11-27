@@ -9,8 +9,8 @@ class ArrayStack:
 
     def __init__(self):
         """Initializes an empty stack."""
-        self.array = [None] * ArrayStack.INITIAL_SIZE
-        self.size = 0
+        self.__array = [None] * ArrayStack.INITIAL_SIZE
+        self.__size = 0
 
     def push(self, element):
         """
@@ -19,10 +19,10 @@ class ArrayStack:
         Args:
             element: The element to be added to the stack.
         """
-        if self.size == len(self.array):
-            self._resize_array(2 * len(self.array))
-        self.array[self.size] = element
-        self.size += 1
+        if self.__size == len(self.__array):
+            self._resize_array(2 * len(self.__array))
+        self.__array[self.__size] = element
+        self.__size += 1
 
     def pop(self):
         """
@@ -36,9 +36,9 @@ class ArrayStack:
         """
         if self.is_empty():
             raise EmptyStackException("Stack is empty")
-        self.size -= 1
-        element = self.array[self.size]
-        self.array[self.size] = None
+        self.__size -= 1
+        element = self.__array[self.__size]
+        self.__array[self.__size] = None
         return element
 
     def peek(self):
@@ -53,22 +53,22 @@ class ArrayStack:
         """
         if self.is_empty():
             raise EmptyStackException("Stack is empty")
-        return self.array[self.size - 1]
+        return self.__array[self.__size - 1]
 
     def clear(self):
         """Removes all elements from the stack."""
-        for i in range(self.size):
-            self.array[i] = None
-        self.size = 0
+        for i in range(self.__size):
+            self.__array[i] = None
+        self.__size = 0
 
-    def size(self):
+    def get_size(self):
         """
         Returns the number of elements in the stack.
 
         Returns:
             The number of elements in the stack.
         """
-        return self.size
+        return self.__size
 
     def is_empty(self):
         """
@@ -77,7 +77,7 @@ class ArrayStack:
         Returns:
             True if the stack is empty, False otherwise.
         """
-        return self.size == 0
+        return self.__size == 0
 
     def _resize_array(self, new_capacity):
         """
@@ -87,6 +87,6 @@ class ArrayStack:
             new_capacity: The new capacity of the array.
         """
         new_array = [None] * new_capacity
-        for i in range(self.size):
-            new_array[i] = self.array[i]
-        self.array = new_array
+        for i in range(self.__size):
+            new_array[i] = self.__array[i]
+        self.__array = new_array
