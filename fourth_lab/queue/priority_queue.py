@@ -7,7 +7,7 @@ class PriorityQueue:
 
     def __init__(self):
         """Initializes an empty PriorityQueue."""
-        self.heap = []
+        self.__heap = []
 
     def enqueue(self, element):
         """
@@ -16,8 +16,8 @@ class PriorityQueue:
         Args:
             element: The element to be added to the priority queue.
         """
-        self.heap.append(element)
-        self._heapify_up(len(self.heap) - 1)
+        self.__heap.append(element)
+        self._heapify_up(len(self.__heap) - 1)
 
     def dequeue(self):
         """
@@ -31,9 +31,9 @@ class PriorityQueue:
         """
         if self.is_empty():
             raise EmptyPriorityQueueException("PriorityQueue is empty")
-        highest_priority = self.heap[0]
-        self.heap[0] = self.heap[-1]
-        self.heap.pop()
+        highest_priority = self.__heap[0]
+        self.__heap[0] = self.__heap[-1]
+        self.__heap.pop()
         self._heapify_down(0)
         return highest_priority
 
@@ -49,7 +49,7 @@ class PriorityQueue:
         """
         if self.is_empty():
             raise EmptyPriorityQueueException("PriorityQueue is empty")
-        return self.heap[0]
+        return self.__heap[0]
 
     def is_empty(self):
         """
@@ -58,27 +58,27 @@ class PriorityQueue:
         Returns:
             True if the priority queue is empty, False otherwise.
         """
-        return len(self.heap) == 0
+        return len(self.__heap) == 0
 
-    def size(self):
+    def get_size(self):
         """
         Returns the number of elements in the priority queue.
 
         Returns:
             The number of elements in the priority queue.
         """
-        return len(self.heap)
+        return len(self.__heap)
 
     def clear(self):
         """Removes all elements from the priority queue."""
-        self.heap.clear()
+        self.__heap.clear()
 
     def _heapify_up(self, index):
         """Ensures the heap property is maintained while adding a new element."""
         while index > 0:
             parent_index = (index - 1) // 2
-            if self.heap[index] < self.heap[parent_index]:
-                self.heap[index], self.heap[parent_index] = self.heap[parent_index], self.heap[index]
+            if self.__heap[index] < self.__heap[parent_index]:
+                self.__heap[index], self.__heap[parent_index] = self.__heap[parent_index], self.__heap[index]
                 index = parent_index
             else:
                 break
@@ -90,14 +90,14 @@ class PriorityQueue:
             right_child_index = 2 * index + 2
             smallest = index
 
-            if left_child_index < len(self.heap) and self.heap[left_child_index] < self.heap[smallest]:
+            if left_child_index < len(self.__heap) and self.__heap[left_child_index] < self.__heap[smallest]:
                 smallest = left_child_index
 
-            if right_child_index < len(self.heap) and self.heap[right_child_index] < self.heap[smallest]:
+            if right_child_index < len(self.__heap) and self.__heap[right_child_index] < self.__heap[smallest]:
                 smallest = right_child_index
 
             if smallest != index:
-                self.heap[index], self.heap[smallest] = self.heap[smallest], self.heap[index]
+                self.__heap[index], self.__heap[smallest] = self.__heap[smallest], self.__heap[index]
                 index = smallest
             else:
                 break
