@@ -1,48 +1,42 @@
-class EmptyQueueException(Exception):
-    """Exception raised when performing an operation on an empty queue."""
-    pass
+from abstract_queue import AbstractQueue, EmptyQueueException
 
-class LinkedQueue:
-    """Implements a queue data structure using a linked list."""
 
-    class Node:
-        """A node in the linked list used for the queue."""
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
 
-        def __init__(self, data):
-            """
-            Initializes a Node with the given data.
+class LinkedListQueue(AbstractQueue):
+    """A queue implementation using a linked list.
 
-            Args:
-                data: The data to be stored in the node.
-            """
-            self.data = data
-            self.next = None
+    Attributes:
+        head (Node): The head of the linked list.
+        tail (Node): The tail of the linked list.
+        size (int): The number of elements in the queue.
+    """
 
     def __init__(self):
-        """Initializes an empty queue."""
-        self.__front = None
-        self.__rear = None
-        self.__annotations__size = 0
+        self.head = None
+        self.tail = None
+        self.size = 0
 
     def enqueue(self, element):
-        """
-        Adds an element to the rear of the queue.
+        """Adds an element to the end of the queue.
 
         Args:
             element: The element to be added to the queue.
         """
-        new_node = self.Node(element)
+        new_node = Node(element)
         if self.is_empty():
-            self.__front = new_node
-            self.__rear = new_node
+            self.head = new_node
+            self.tail = new_node
         else:
-            self.__rear.next = new_node
-            self.__rear = new_node
-        self.__annotations__size += 1
+            self.tail.next = new_node
+            self.tail = new_node
+        self.size += 1
 
     def dequeue(self):
-        """
-        Removes and returns the front element of the queue.
+        """Removes and returns the element at the front of the queue.
 
         Returns:
             The element at the front of the queue.
@@ -52,16 +46,15 @@ class LinkedQueue:
         """
         if self.is_empty():
             raise EmptyQueueException("Queue is empty")
-        removed_data = self.__front.data
-        self.__front = self.__front.next
-        self.__annotations__size -= 1
+        value = self.head.value
+        self.head = self.head.next
+        self.size -= 1
         if self.is_empty():
-            self.__rear = None
-        return removed_data
+            self.tail = None
+        return value
 
     def peek(self):
-        """
-        Returns the front element of the queue without removing it.
+        """Returns the element at the front of the queue without removing it.
 
         Returns:
             The element at the front of the queue.
@@ -71,28 +64,20 @@ class LinkedQueue:
         """
         if self.is_empty():
             raise EmptyQueueException("Queue is empty")
-        return self.__front.data
+        return self.head.value
 
     def is_empty(self):
-        """
-        Checks if the queue is empty.
+        """Checks if the queue is empty.
 
         Returns:
             True if the queue is empty, False otherwise.
         """
-        return self.__annotations__size == 0
+        return self.size == 0
 
     def get_size(self):
-        """
-        Returns the number of elements in the queue.
+        """Returns the number of elements in the queue.
 
         Returns:
             The number of elements in the queue.
         """
-        return self.__annotations__size
-
-    def clear(self):
-        """Removes all elements from the queue."""
-        self.__front = None
-        self.__rear = None
-        self.__annotations__size = 0
+        return self.size
