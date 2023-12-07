@@ -10,15 +10,15 @@ class LinkedListQueue(AbstractQueue):
     """A queue implementation using a linked list.
 
     Attributes:
-        head (Node): The head of the linked list.
-        tail (Node): The tail of the linked list.
-        size (int): The number of elements in the queue.
+        __head (Node): The head of the linked list.
+        __tail (Node): The tail of the linked list.
+        __size (int): The number of elements in the queue.
     """
 
     def __init__(self):
-        self.head = None
-        self.tail = None
-        self.size = 0
+        self.__head = None
+        self.__tail = None
+        self.__size = 0
 
     def enqueue(self, element):
         """Adds an element to the end of the queue.
@@ -28,12 +28,12 @@ class LinkedListQueue(AbstractQueue):
         """
         new_node = Node(element)
         if self.is_empty():
-            self.head = new_node
-            self.tail = new_node
+            self.__head = new_node
+            self.__tail = new_node
         else:
-            self.tail.next = new_node
-            self.tail = new_node
-        self.size += 1
+            self.__tail.next = new_node
+            self.__tail = new_node
+        self.__size += 1
 
     def dequeue(self):
         """Removes and returns the element at the front of the queue.
@@ -46,11 +46,11 @@ class LinkedListQueue(AbstractQueue):
         """
         if self.is_empty():
             raise EmptyQueueException("Queue is empty")
-        value = self.head.value
-        self.head = self.head.next
-        self.size -= 1
+        value = self.__head.value
+        self.__head = self.__head.next
+        self.__size -= 1
         if self.is_empty():
-            self.tail = None
+            self.__tail = None
         return value
 
     def peek(self):
@@ -64,7 +64,7 @@ class LinkedListQueue(AbstractQueue):
         """
         if self.is_empty():
             raise EmptyQueueException("Queue is empty")
-        return self.head.value
+        return self.__head.value
 
     def is_empty(self):
         """Checks if the queue is empty.
@@ -72,7 +72,7 @@ class LinkedListQueue(AbstractQueue):
         Returns:
             True if the queue is empty, False otherwise.
         """
-        return self.size == 0
+        return self.__size == 0
 
     def get_size(self):
         """Returns the number of elements in the queue.
@@ -80,4 +80,4 @@ class LinkedListQueue(AbstractQueue):
         Returns:
             The number of elements in the queue.
         """
-        return self.size
+        return self.__size
