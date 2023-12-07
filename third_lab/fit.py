@@ -28,28 +28,42 @@ class Fit:
     def load_fit_info(self, json_file_path):
         """This is a metho that will load the fit info from the json file."""
         self.__fit_info = json.load(json_file_path)
-        self.__fit_info["tracked"] = {
-            file_name: File(**file_data) 
-            for file_name, file_data in self.__fit_info["tracked"].items()
-        }
-        self.__fit_info["staged"] = {
-            file_name: File(**file_data) 
-            for file_name, file_data in self.__fit_info["staged"].items()
-        }
+        for file_name, file_data in self.__fit_info["tracked"].items():
+            if file_data["extension"] in [".png", ".jpg", ".jpeg", ".gif"]:
+                self.__fit_info["tracked"][file_name] = ImageFile(**file_data)
+            elif file_data["extension"] in [".txt"]:
+                self.__fit_info["tracked"][file_name] = TextFile(**file_data)
+            elif file_data["extension"] in [".py", ".java"]:
+                self.__fit_info["tracked"][file_name] = CodeFile(**file_data)
+            else:
+                self.__fit_info["tracked"][file_name] = File(**file_data)
+
+        for file_name, file_data in self.__fit_info["staged"].items():
+            if file_data["extension"] in [".png", ".jpg", ".jpeg", ".gif"]:
+                self.__fit_info["staged"][file_name] = ImageFile(**file_data)
+            elif file_data["extension"] in [".txt"]:
+                self.__fit_info["staged"][file_name] = TextFile(**file_data)
+            elif file_data["extension"] in [".py", ".java"]:
+                self.__fit_info["staged"][file_name] = CodeFile(**file_data)
+            else:
+                self.__fit_info["staged"][file_name] = File(**file_data)
         
     def get_status_response_all_dict(self):
         """This is a method that will return the status response dictionary, 
-        inluding the File objects in form of  a dictionary.
+        including the File objects in the form of a dictionary.
         """
         all_dict = {}
         for type in self.__status_response:
+            # Initialize the dictionary for the type if not already present
+            if type not in all_dict:
+                all_dict[type] = {}
+
             for file_name in self.__status_response[type]:
-                all_dict[type] = {
-                    file_name: self.__status_response[type][file_name].get_dict_data()
-                }
-                
+                # Add or update the file_name entry under the specific type
+                all_dict[type][file_name] = self.__status_response[type][file_name].get_dict_data()
+                    
         return all_dict
-    
+        
     def get_status_response_dict(self):
         """This is a method that will return the status response dictionary if something changed from the last version."""
         # return the status response only if something changed
@@ -226,21 +240,23 @@ class Fit:
         """This is a method that will update the fit info json file."""
 
         file_path = os.path.join(self.__fit_folder_path, "fit_info.json")
-        # convert self.__fit_info["tracked"] and self.__fit_info["staged"] to dicts
-        self.__fit_info["tracked"] = {
+
+        fit_info = self.__fit_info.copy()
+        fit_info["tracked"] = {
             file_name: file_data.get_dict_data()
-            for file_name, file_data in self.__fit_info["tracked"].items()
+            for file_name, file_data in fit_info["tracked"].items()
         }
-        self.__fit_info["staged"] = {
+        fit_info["staged"] = {
             file_name: file_data.get_dict_data()
-            for file_name, file_data in self.__fit_info["staged"].items()
+            for file_name, file_data in fit_info["staged"].items()
         }
-        self.__fit_info["commits"] = {
+        fit_info["commits"] = {
             commit_hash: commit_data
-            for commit_hash, commit_data in self.__fit_info["commits"].items()
+            for commit_hash, commit_data in fit_info["commits"].items()
         }
         with open(file_path, "w") as json_file:
-            json.dump(self.__fit_info, json_file)
+            json.dump(fit_info, json_file)
+        
     
     def fit_commit_changes(self, request_parameters):
         """This is a method that will commit the changes to the system."""

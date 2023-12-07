@@ -1,6 +1,7 @@
 import struct
 import imghdr
-
+import hashlib
+import re
 
 class File:
     """This is a class that will represent a file in a file system."""
@@ -160,9 +161,10 @@ class File:
 
 
 class ImageFile(File):
-    def __init__(self, path, name, extension, size, created_at, updated_at):
-        super().__init__(path, name, extension, size, created_at, updated_at)
+    def __init__(self, path, name, extension, size, created_at, updated_at, properties={}):
+        super().__init__(path, name, extension, size, created_at, updated_at, properties)
         self.extract_properties()
+        self.__unique_identifier = self.calculate_hash()
 
     def extract_properties(self):
         with open(self.get_path(), "rb") as image:
@@ -195,19 +197,46 @@ class ImageFile(File):
                 "width": width,
                 "height": height,
             })
+        
+    def calculate_hash(self):
+        """Calcualte and retrun the hash of the image file."""
+        hasher = hashlib.sha256()
+        with open(self.get_path(), "rb") as image:
+            buf = image.read(65536)
+            while len(buf) > 0:
+                hasher.update(buf)
+                buf = image.read(65536)
+        return hasher.hexdigest()
+    
+    def get_unique_identifier(self):
+        """Return the unique identifier of the image file."""
+        return self.__unique_identifier
+    
+    def get_dict_data(self):
+        """Override the method to include the unique identifier in the data."""
+        file_data = super().get_dict_data()
+        file_data['unique_identifier'] = self.get_unique_identifier()
+        return file_data
+
 
 
 class CodeFile(File):
-    def __init__(self, path, name, extension, size, created_at, updated_at):
-        super().__init__(path, name, extension, size, created_at, updated_at)
+    def __init__(self, path, name, extension, size, created_at, updated_at, properties={}):
+        super().__init__(path, name, extension, size, created_at, updated_at, properties)
         self.extract_properties()
 
     def extract_properties(self):
         with open(self.get_path(), "r") as code:
             code_content = code.read()
             line_count = len(code_content.split("\n"))
-            class_count = len(code_content.split("class")) - 1
-            method_count = len(code_content.split("def")) - 1
+
+            # Regular expression patterns
+            class_pattern = r'(?<!\S)class\s+\w+\s*[:\(]'
+            method_pattern = r'(?<!\S)def\s+\w+\s*\('
+
+            class_count = len(re.findall(class_pattern, code_content))
+            method_count = len(re.findall(method_pattern, code_content))
+
             self.set_properties({
                 "line_count": line_count,
                 "class_count": class_count,
@@ -216,8 +245,8 @@ class CodeFile(File):
 
 
 class TextFile(File):
-    def __init__(self, path, name, extension, size, created_at, updated_at):
-        super().__init__(path, name, extension, size, created_at, updated_at)
+    def __init__(self, path, name, extension, size, created_at, updated_at, properties={}):
+        super().__init__(path, name, extension, size, created_at, updated_at, properties)
         self.extract_properties()
 
     def extract_properties(self):
