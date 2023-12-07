@@ -59,7 +59,7 @@ class ArrayQueue(AbstractQueue):
         """
         return self.__size == 0
 
-    def get__size(self):
+    def get_size(self):
         """Return the number of elements in the queue.
 
         Returns:
