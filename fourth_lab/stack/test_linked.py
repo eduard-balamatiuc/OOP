@@ -1,35 +1,53 @@
 from linked_stack import LinkedStack
+from abstract_stack import EmptyStackException
 
-# Initialize a LinkedStack
-stack = LinkedStack()
+import unittest
 
-print("Pushing elements 10, 20, and 30 onto the stack")
-stack.push(10)
-stack.push(20)
-stack.push(30)
+class TestLinkedStack(unittest.TestCase):
 
-# Display the top element of the stack
-print("Top element:", stack.peek())
+    def test_push(self):
+        stack = LinkedStack()
+        stack.push(1)
+        self.assertEqual(stack.peek(), 1)
+        self.assertEqual(stack.get_size(), 1)
 
-# Pop the top element from the stack
-print("Popped element:", stack.pop())
+    def test_pop(self):
+        stack = LinkedStack()
+        stack.push(1)
+        stack.push(2)
+        value = stack.pop()
+        self.assertEqual(value, 2)
+        self.assertEqual(stack.get_size(), 1)
 
-# Display the current top element
-print("Current top element:", stack.peek())
+    def test_peek(self):
+        stack = LinkedStack()
+        stack.push(1)
+        stack.push(2)
+        self.assertEqual(stack.peek(), 2)
+        self.assertEqual(stack.get_size(), 2)
+        stack.pop()
+        self.assertEqual(stack.peek(), 1)
 
-# Push another element onto the stack
-print("Pushing element 40")
-stack.push(40)
+    def test_is_empty(self):
+        stack = LinkedStack()
+        self.assertTrue(stack.is_empty())
+        stack.push(1)
+        self.assertFalse(stack.is_empty())
 
-# Display the size of the stack
-print("Stack size:", stack.get_size())
+    def test_get_size(self):
+        stack = LinkedStack()
+        self.assertEqual(stack.get_size(), 0)
+        for i in range(5):
+            stack.push(i)
+        self.assertEqual(stack.get_size(), 5)
 
-# Check if stack is empty
-print("Is stack empty?:", stack.is_empty())
+    def test_empty_pop(self):
+        stack = LinkedStack()
+        self.assertRaises(EmptyStackException, stack.pop)
 
-# Clear the stack
-print("Clearing the stack")
-stack.clear()
+    def test_empty_peek(self):
+        stack = LinkedStack()
+        self.assertRaises(EmptyStackException, stack.peek)
 
-# Check if stack is empty after clearing
-print("Is stack empty after clearing?:", stack.is_empty())
+if __name__ == '__main__':
+    unittest.main()
