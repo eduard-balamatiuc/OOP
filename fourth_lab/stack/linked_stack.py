@@ -1,90 +1,78 @@
-class EmptyStackException(Exception):
-    """Exception raised when performing an operation on an empty stack."""
-    pass
+from abstract_stack import AbstractStack, EmptyStackException
 
-class LinkedStack:
-    """Implements a stack data structure using a linked list."""
 
-    class Node:
-        """A node in the linked list used for the stack."""
+class Node:
+    """Helper class that represents a node in a linked list."""
+    def __init__(self, value, next_node=None):
+        self.value = value
+        self.next_node = next_node
 
-        def __init__(self, data):
-            """
-            Initializes a Node with the given data.
-
-            Args:
-                data: The data to be stored in the node.
-            """
-            self.data = data
-            self.next = None
+class LinkedStack(AbstractStack):
+    """Implements a stack data structure using a singly linked list."""
 
     def __init__(self):
-        """Initializes an empty LinkedStack."""
-        self.__head = None
-        self.__size = 0
+        """Initializes an empty stack."""
+        self.head = None
+        self.size = 0
 
     def push(self, element):
         """
         Adds an element to the top of the stack.
-
+        
         Args:
             element: The element to be added to the stack.
         """
-        new_node = self.Node(element)
-        new_node.next = self.__head
-        self.__head = new_node
-        self.__size += 1
+        new_node = Node(element, self.head)
+        self.head = new_node
+        self.size += 1
 
     def pop(self):
         """
         Removes and returns the top element of the stack.
-
+        
         Returns:
             The element at the top of the stack.
-
+            
         Raises:
             EmptyStackException: If the stack is empty.
         """
         if self.is_empty():
             raise EmptyStackException("Stack is empty")
-        popped = self.__head.data
-        self.__head = self.__head.next
-        self.__size -= 1
-        return popped
+        
+        value = self.head.value
+        self.head = self.head.next_node
+        self.size -= 1
+        return value
 
     def peek(self):
         """
         Returns the top element of the stack without removing it.
-
+        
         Returns:
             The element at the top of the stack.
-
+            
         Raises:
             EmptyStackException: If the stack is empty.
         """
         if self.is_empty():
             raise EmptyStackException("Stack is empty")
-        return self.__head.data
-
-    def clear(self):
-        """Removes all elements from the stack."""
-        self.__head = None
-        self.__size = 0
-
-    def get_size(self):
-        """
-        Returns the number of elements in the stack.
-
-        Returns:
-            The number of elements in the stack.
-        """
-        return self.__size
+        
+        return self.head.value
 
     def is_empty(self):
         """
         Checks if the stack is empty.
-
+        
         Returns:
             True if the stack is empty, False otherwise.
         """
-        return self.__head is None
+        return self.size == 0
+
+    def get_size(self):
+        """
+        Returns the number of elements in the stack.
+        
+        Returns:
+            The number of elements in the stack.
+        """
+        return self.size
